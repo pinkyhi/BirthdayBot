@@ -7,6 +7,7 @@ using RapidBots;
 using RapidBots.Extensions;
 using BirthdayBot.Extensions;
 using BirthdayBot.BLL;
+using RapidBots.GoogleGeoCode;
 
 namespace BirthdayBot
 {
@@ -28,6 +29,8 @@ namespace BirthdayBot
             AssemblyBLL.LoadAssembly(); // .Net will load BLL project in assemblies only if there is a connection to it. BLL assembly is important for reflection to commands etc
             var rapidBotsOptions = new RapidBotsOptions();
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
+            var googleGeoCodeOptions = new GoogleGeoCodeOptions();
+            this.Configuration.GetSection(nameof(GoogleGeoCodeOptions)).Bind(googleGeoCodeOptions);
 
             string connectionString;
             if (this.Environment.IsDevelopment())
@@ -41,6 +44,7 @@ namespace BirthdayBot
             services.AddDataAccess(connectionString);
             services.AddControllers().AddNewtonsoftJson();
             services.AddRapidBots(rapidBotsOptions);
+            services.AddGoogleGeoCode(googleGeoCodeOptions);
             services.AddLocalizationSettings();
             services.AddAutoMapper(); // Should be the last
         }

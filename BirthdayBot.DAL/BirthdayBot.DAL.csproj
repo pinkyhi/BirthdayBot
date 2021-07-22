@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
+    <Compile Remove="Migrations\20210722085847_init.cs" />
+    <Compile Remove="Migrations\20210722085847_init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\RapidBots\RapidBots\RapidBots.csproj" />
     <ProjectReference Include="..\BirthdayBot.Core\BirthdayBot.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
