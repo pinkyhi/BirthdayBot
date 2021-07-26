@@ -39,8 +39,9 @@ namespace BirthdayBot.Controllers
                 // Get current user
                 var dbUser = await repository.GetAsync<TUser>(true, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
                 // Setting culture info for request
-                CultureInfo.CurrentCulture = new CultureInfo(dbUser?.LanguageCode ?? options.DefaultLanguageCode);
-                CultureInfo.CurrentUICulture = new CultureInfo(dbUser?.LanguageCode ?? options.DefaultLanguageCode);
+                string telegramUserLanguageCode = update.CallbackQuery?.From?.LanguageCode ?? update.Message?.From?.LanguageCode;
+                CultureInfo.CurrentCulture = new CultureInfo(dbUser?.LanguageCode ?? telegramUserLanguageCode ?? options.DefaultLanguageCode);
+                CultureInfo.CurrentUICulture = new CultureInfo(dbUser?.LanguageCode ?? telegramUserLanguageCode ?? options.DefaultLanguageCode);
 
                 // Find right command
                 string commandKey = string.Empty;

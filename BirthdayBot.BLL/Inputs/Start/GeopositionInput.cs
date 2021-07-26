@@ -114,7 +114,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             GeopositionConfirmationMenu menu = new GeopositionConfirmationMenu(resources);
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, geocodeResponse.ToString(), replyMarkup: new ReplyKeyboardRemove() { Selective=false });
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, geocodeResponse.GetFirstAddress(), replyMarkup: new ReplyKeyboardRemove() { Selective=false });
             await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
         }
     }

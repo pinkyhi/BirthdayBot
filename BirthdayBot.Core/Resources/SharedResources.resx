@@ -1,64 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+<?xml version="1.0" encoding="UTF-8"?> 
+<root> 
+  <!--
+  Loco xml export: ResX - .NET resources
+  Project: BirthdayBot
+  Release: Working copy
+  Locale: en, English
+  Exported by: Ivan Vladymyrov
+  Exported at: Mon, 26 Jul 2021 19:21:18 +0300 
+  --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,100 +61,102 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="locoLocaleCode" xml:space="preserve">
+  <metadata name="locoLocaleCode" xml:space="preserve">
     <value>en</value>
-  </data>
-  <data name="locoLocaleName" xml:space="preserve">
+  </metadata>
+  <metadata name="locoLocaleName" xml:space="preserve">
     <value>English</value>
-  </data>
-  <data name="WELCOME_TEXT" xml:space="preserve">
-    <value>Hi, {0}, that's great to see you here again!</value>
-  </data>
-  <data name="BIRTH_YEAR_INPUT" xml:space="preserve">
-    <value>Please send your birth year</value>
-  </data>
-  <data name="BIRTH_MONTH_INPUT" xml:space="preserve">
-    <value>Ok! Next send your birth month :)</value>
-  </data>
-  <data name="BIRTH_DAY_INPUT" xml:space="preserve">
-    <value>Success! Next send your birth day</value>
-  </data>
-  <data name="START_LOCATION_INPUT" xml:space="preserve">
-    <value>The last one. Send your geoposition, or geoposition of your city. That's important to know your timezone. You have {0} attempts.</value>
-  </data>
-  <data name="SUBSRIPTIONS_BUTTON" xml:space="preserve">
-    <value>Subscriptions</value>
-  </data>
-  <data name="PEOPLE_BUTTON" xml:space="preserve">
-    <value>People</value>
-  </data>
-  <data name="USER_SETTINGS_BUTTON" xml:space="preserve">
-    <value>User settings</value>
-  </data>
-  <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve">
-    <value>Sorry, seems that there is format error. Try again, write your birth year, for example **1985**</value>
-  </data>
-  <data name="BIRTH_MONTH_INPUT_ERROR" xml:space="preserve">
-    <value>Sorry I can't recognize this, try again. Use keyboard below.</value>
-  </data>
-  <data name="BIRTH_DAY_INPUT_ERROR" xml:space="preserve">
-    <value>Sorry, that doesn't look like birth day. Try to type month date, for example **22**</value>
-  </data>
-  <data name="JANUARY" xml:space="preserve">
-    <value>January</value>
-  </data>
-  <data name="MARCH" xml:space="preserve">
-    <value>March</value>
-  </data>
-  <data name="APRIL" xml:space="preserve">
-    <value>April</value>
-  </data>
-  <data name="MAY" xml:space="preserve">
-    <value>May</value>
-  </data>
-  <data name="JUNE" xml:space="preserve">
-    <value>June</value>
-  </data>
-  <data name="JULY" xml:space="preserve">
-    <value>July</value>
-  </data>
-  <data name="AUGUST" xml:space="preserve">
-    <value>August</value>
-  </data>
-  <data name="SEPTEMBER" xml:space="preserve">
-    <value>September</value>
-  </data>
-  <data name="OCTOBER" xml:space="preserve">
-    <value>October</value>
-  </data>
-  <data name="NOVEMBER" xml:space="preserve">
-    <value>November</value>
-  </data>
-  <data name="DECEMBER" xml:space="preserve">
-    <value>December</value>
-  </data>
-  <data name="FEBRUARY" xml:space="preserve">
-    <value>February</value>
-  </data>
-  <data name="SHARE_LOCATION_BUTTON" xml:space="preserve">
-    <value>Share location</value>
-  </data>
-  <data name="GEOPOSITION_INPUT_ERROR" xml:space="preserve">
-    <value>Geopoint read crashed. Try again, attempts count – {0}.</value>
-  </data>
-  <data name="GEOPOSITION_CONFIRMATION" xml:space="preserve">
-    <value>Is that right position?
-{0}</value>
-  </data>
-  <data name="CONFIRM_BUTTON" xml:space="preserve">
-    <value>Confirm</value>
-  </data>
-  <data name="REJECT_BUTTON" xml:space="preserve">
-    <value>Reject</value>
-  </data>
+  </metadata> 
+  <data name="WELCOME_TEXT" xml:space="preserve"> 
+    <value>Hi, {0}, that's great to see you here again!</value> 
+  </data> 
+  <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
+    <value>Please send your birth year</value> 
+  </data> 
+  <data name="BIRTH_MONTH_INPUT" xml:space="preserve"> 
+    <value>Ok! Next send your birth month :)</value> 
+  </data> 
+  <data name="BIRTH_DAY_INPUT" xml:space="preserve"> 
+    <value>Success! Next send your birth day</value> 
+  </data> 
+  <data name="START_LOCATION_INPUT" xml:space="preserve"> 
+    <value>The last one. Send your geoposition, or geoposition of your city. That's important to know your timezone. You have {0} attempts.</value> 
+  </data> 
+  <data name="SUBSCRIPTIONS_BUTTON" xml:space="preserve"> 
+    <value>Subscriptions</value> 
+  </data> 
+  <data name="PEOPLE_BUTTON" xml:space="preserve"> 
+    <value>People</value> 
+  </data> 
+  <data name="USER_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>User settings</value> 
+  </data> 
+  <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve"> 
+    <value>Sorry, seems that there is format error. Try again, write your birth year, for example **1985**</value> 
+  </data> 
+  <data name="BIRTH_MONTH_INPUT_ERROR" xml:space="preserve"> 
+    <value>Sorry I can't recognize this, try again. Use keyboard below.</value> 
+  </data> 
+  <data name="BIRTH_DAY_INPUT_ERROR" xml:space="preserve"> 
+    <value>Sorry, that doesn't look like birth day. Try to type month date, for example **22**</value> 
+  </data> 
+  <data name="JANUARY" xml:space="preserve"> 
+    <value>January</value> 
+  </data> 
+  <data name="MARCH" xml:space="preserve"> 
+    <value>March</value> 
+  </data> 
+  <data name="APRIL" xml:space="preserve"> 
+    <value>April</value> 
+  </data> 
+  <data name="MAY" xml:space="preserve"> 
+    <value>May</value> 
+  </data> 
+  <data name="JUNE" xml:space="preserve"> 
+    <value>June</value> 
+  </data> 
+  <data name="JULY" xml:space="preserve"> 
+    <value>July</value> 
+  </data> 
+  <data name="AUGUST" xml:space="preserve"> 
+    <value>August</value> 
+  </data> 
+  <data name="SEPTEMBER" xml:space="preserve"> 
+    <value>September</value> 
+  </data> 
+  <data name="OCTOBER" xml:space="preserve"> 
+    <value>October</value> 
+  </data> 
+  <data name="NOVEMBER" xml:space="preserve"> 
+    <value>November</value> 
+  </data> 
+  <data name="DECEMBER" xml:space="preserve"> 
+    <value>December</value> 
+  </data> 
+  <data name="FEBRUARY" xml:space="preserve"> 
+    <value>February</value> 
+  </data> 
+  <data name="SHARE_LOCATION_BUTTON" xml:space="preserve"> 
+    <value>Share location</value> 
+  </data> 
+  <data name="GEOPOSITION_INPUT_ERROR" xml:space="preserve"> 
+    <value>Geopoint read crashed. Try again, attempts count – {0}.</value> 
+  </data> 
+  <data name="GEOPOSITION_CONFIRMATION" xml:space="preserve"> 
+    <value>Is that right position?</value> 
+  </data> 
+  <data name="CONFIRM_BUTTON" xml:space="preserve"> 
+    <value>Confirm</value> 
+  </data> 
+  <data name="REJECT_BUTTON" xml:space="preserve"> 
+    <value>Reject</value> 
+  </data> 
+  <data name="BIRTH_DATE_CONFIRMATION" xml:space="preserve"> 
+    <value>Ok, your birthday is on {0}. Is that right?</value> 
+  </data> 
 </root>

@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Mon, 26 Jul 2021 01:09:15 +0300 
+  Exported at: Mon, 26 Jul 2021 19:21:18 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -87,7 +87,7 @@
   <data name="START_LOCATION_INPUT" xml:space="preserve"> 
     <value /> 
   </data> 
-  <data name="SUBSRIPTIONS_BUTTON" xml:space="preserve"> 
+  <data name="SUBSCRIPTIONS_BUTTON" xml:space="preserve"> 
     <value /> 
   </data> 
   <data name="PEOPLE_BUTTON" xml:space="preserve"> 
@@ -141,7 +141,7 @@
   <data name="FEBRUARY" xml:space="preserve"> 
     <value /> 
   </data> 
-  <data name="START_LOCATION_BUTTON" xml:space="preserve"> 
+  <data name="SHARE_LOCATION_BUTTON" xml:space="preserve"> 
     <value /> 
   </data> 
   <data name="GEOPOSITION_INPUT_ERROR" xml:space="preserve"> 
@@ -154,6 +154,9 @@
     <value /> 
   </data> 
   <data name="REJECT_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="BIRTH_DATE_CONFIRMATION" xml:space="preserve"> 
     <value /> 
   </data> 
 </root>

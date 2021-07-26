@@ -46,7 +46,15 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             await repository.UpdateAsync(dbUser);
 
             StartMenu menu = new StartMenu(resources);
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));  
+
+            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try
+            {
+                await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+            }
+            catch
+            { }
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
         }
     }
 }
