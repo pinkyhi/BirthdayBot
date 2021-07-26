@@ -10,11 +10,13 @@ namespace BirthdayBot.DAL.Entities
     [AutoMap(typeof(User), ReverseMap = true)]
     public class TUser : TelegramUser
     {
-        public DateTime RegistrationDate { get; set; }
+        public DateTime? RegistrationDate { get; set; }
 
         public DateTime BirthDate { get; set; }
 
         public UserSettings Settings { get; set; }
+
+        public UserLimitations UserLimitations { get; set; }
 
         public List<Address> Addresses { get; set; }
 

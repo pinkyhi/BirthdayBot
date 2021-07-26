@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210722090405_init")]
-    partial class init
+    [Migration("20210726132704_limitationsTypo")]
+    partial class limitationsTypo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,9 +83,7 @@ namespace BirthdayBot.DAL.Migrations
             modelBuilder.Entity("BirthdayBot.DAL.Entities.Chat", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("BigFileUniqueId")
                         .HasColumnType("nvarchar(max)");
@@ -195,7 +193,7 @@ namespace BirthdayBot.DAL.Migrations
                     b.Property<string>("MiddlewareData")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RegistrationDate")
+                    b.Property<DateTime?>("RegistrationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
@@ -271,28 +269,69 @@ namespace BirthdayBot.DAL.Migrations
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.TUser", b =>
                 {
+                    b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "UserLimitations", b1 =>
+                        {
+                            b1.Property<long>("TUserId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("LocationChangeAttempts")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(3);
+
+                            b1.Property<DateTime?>("LocationChangeBlockDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("StartLocationInputAttempts")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(5);
+
+                            b1.Property<DateTime?>("StartLocationInputBlockDate")
+                                .HasColumnType("datetime2");
+
+                            b1.HasKey("TUserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TUserId");
+                        });
+
                     b.OwnsOne("BirthdayBot.DAL.Entities.UserSettings", "Settings", b1 =>
                         {
                             b1.Property<long>("TUserId")
                                 .HasColumnType("bigint");
 
                             b1.Property<int>("BirthDateConfidentiality")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(0);
 
                             b1.Property<int>("BirthYearConfidentiality")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(1);
 
                             b1.Property<int>("DefaultNotificationDelay_0")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(0);
 
                             b1.Property<int>("StrongNotification_0")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(7);
 
                             b1.Property<int>("StrongNotification_1")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(3);
 
                             b1.Property<int>("StrongNotification_2")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasDefaultValue(0);
 
                             b1.HasKey("TUserId");
 

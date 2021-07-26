@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RapidBots.GoogleGeoCode.Types;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace BirthdayBot.DAL.Entities
@@ -10,6 +11,7 @@ namespace BirthdayBot.DAL.Entities
     [AutoMap(typeof(RapidBots.GoogleGeoCode.Types.Address), ReverseMap = true)]
     public class Address
     {
+        [Key]
         public long Id { get; set; }
 
         public long UserId { get; set; }

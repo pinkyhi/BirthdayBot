@@ -4,14 +4,16 @@ using BirthdayBot.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210725220000_limitations")]
+    partial class limitations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,7 +279,7 @@ namespace BirthdayBot.DAL.Migrations
                                 .HasColumnType("int")
                                 .HasDefaultValue(3);
 
-                            b1.Property<DateTime?>("LocationChangeBlockDate")
+                            b1.Property<DateTime?>("LocationChangeDate")
                                 .HasColumnType("datetime2");
 
                             b1.Property<int>("StartLocationInputAttempts")
@@ -285,7 +287,7 @@ namespace BirthdayBot.DAL.Migrations
                                 .HasColumnType("int")
                                 .HasDefaultValue(5);
 
-                            b1.Property<DateTime?>("StartLocationInputBlockDate")
+                            b1.Property<DateTime?>("StartLocationInputBlock")
                                 .HasColumnType("datetime2");
 
                             b1.HasKey("TUserId");

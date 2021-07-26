@@ -1,7 +1,10 @@
-﻿using BirthdayBot.DAL.Entities;
+﻿using BirthdayBot.Core.Enums;
+using BirthdayBot.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Telegram.Bot.Types;
 
@@ -66,9 +69,26 @@ namespace BirthdayBot.DAL
 
             modelBuilder.Entity<TUser>().OwnsOne(c => c.Settings, a => {
                 a.Property(x => x.BirthDateConfidentiality)
-                .HasConversion<int>();
+                .HasConversion<int>()
+                .HasDefaultValue(ConfidentialType.Public);
                 a.Property(x => x.BirthYearConfidentiality)
-                .HasConversion<int>();
+                .HasConversion<int>()
+                .HasDefaultValue(ConfidentialType.MutualSubscription);                
+                a.Property(x => x.DefaultNotificationDelay_0)
+                .HasDefaultValue(0);
+                a.Property(x => x.StrongNotification_0)
+                .HasDefaultValue(7);
+                a.Property(x => x.StrongNotification_1)
+                .HasDefaultValue(3);
+                a.Property(x => x.StrongNotification_2)
+                .HasDefaultValue(0);
+            });
+
+            modelBuilder.Entity<TUser>().OwnsOne(c => c.UserLimitations, a => {
+                a.Property(x => x.StartLocationInputAttempts)
+                .HasDefaultValue(5);
+                a.Property(x => x.LocationChangeAttempts)
+                .HasDefaultValue(3);
             });
 
 
@@ -85,16 +105,25 @@ namespace BirthdayBot.DAL
                 .Property(c => c.Type)
                 .HasConversion<int>();
 
+            var valueComparer = new ValueComparer<string[]>(
+                (c1, c2) => c1.SequenceEqual(c2),
+                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                c => c.ToArray());
+
             modelBuilder.Entity<Address>()
                 .Property(x => x.Types)
                 .HasConversion(
                     x => string.Join(',', x),
-                    x => x.Split(',', StringSplitOptions.RemoveEmptyEntries));
+                    x => x.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                .Metadata
+                .SetValueComparer(valueComparer);
             modelBuilder.Entity<Address_Component>()
                 .Property(x => x.Types)
                 .HasConversion(
                     x => string.Join(',', x),
-                    x => x.Split(',', StringSplitOptions.RemoveEmptyEntries));
+                    x => x.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                .Metadata
+                .SetValueComparer(valueComparer);
         }
     }
 }

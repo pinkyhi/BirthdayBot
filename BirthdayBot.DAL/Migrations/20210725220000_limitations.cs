@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BirthdayBot.DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class limitations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,8 +26,7 @@ namespace BirthdayBot.DAL.Migrations
                 name: "Chat",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
                     BigFileUniqueId = table.Column<string>(nullable: true),
@@ -50,14 +49,18 @@ namespace BirthdayBot.DAL.Migrations
                     LanguageCode = table.Column<string>(nullable: true),
                     CurrentStatus = table.Column<int>(nullable: true),
                     MiddlewareData = table.Column<string>(nullable: true),
-                    RegistrationDate = table.Column<DateTime>(nullable: false),
+                    RegistrationDate = table.Column<DateTime>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    Settings_BirthYearConfidentiality = table.Column<int>(nullable: true),
-                    Settings_BirthDateConfidentiality = table.Column<int>(nullable: true),
-                    Settings_StrongNotification_0 = table.Column<int>(nullable: true),
-                    Settings_StrongNotification_1 = table.Column<int>(nullable: true),
-                    Settings_StrongNotification_2 = table.Column<int>(nullable: true),
-                    Settings_DefaultNotificationDelay_0 = table.Column<int>(nullable: true)
+                    Settings_BirthYearConfidentiality = table.Column<int>(nullable: true, defaultValue: 1),
+                    Settings_BirthDateConfidentiality = table.Column<int>(nullable: true, defaultValue: 0),
+                    Settings_StrongNotification_0 = table.Column<int>(nullable: true, defaultValue: 7),
+                    Settings_StrongNotification_1 = table.Column<int>(nullable: true, defaultValue: 3),
+                    Settings_StrongNotification_2 = table.Column<int>(nullable: true, defaultValue: 0),
+                    Settings_DefaultNotificationDelay_0 = table.Column<int>(nullable: true, defaultValue: 0),
+                    UserLimitations_StartLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 5),
+                    UserLimitations_StartLocationInputBlock = table.Column<DateTime>(nullable: true),
+                    UserLimitations_LocationChangeAttempts = table.Column<int>(nullable: true, defaultValue: 3),
+                    UserLimitations_LocationChangeDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
