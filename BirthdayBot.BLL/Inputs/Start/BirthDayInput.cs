@@ -1,4 +1,5 @@
-﻿using BirthdayBot.Core.Resources;
+﻿using BirthdayBot.BLL.Menus;
+using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,6 @@ namespace BirthdayBot.BLL.Inputs.Start
 
                 // Change status
                 dbUser.BirthDate = dbUser.BirthDate.AddDays(day - dbUser.BirthDate.Day);
-                dbUser.CurrentStatus = actionsManager.FindInputStatusByType<GeopositionInput>();
                 await repository.UpdateAsync(dbUser);
             }
             catch
@@ -54,10 +54,10 @@ namespace BirthdayBot.BLL.Inputs.Start
                 return;
             }
 
-            KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
+            BirthDateConfirmationMenu menu = new BirthDateConfirmationMenu(resources);
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, string.Format(resources["START_LOCATION_INPUT"], dbUser.UserLimitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true});
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, dbUser.BirthDate.ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
         }
     }
 }

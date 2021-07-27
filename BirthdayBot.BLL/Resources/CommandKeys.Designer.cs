@@ -61,6 +61,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to birthDateConfirm.
+        /// </summary>
+        public static string BirthDateConfirm {
+            get {
+                return ResourceManager.GetString("BirthDateConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to birthDateReject.
+        /// </summary>
+        public static string BirthDateReject {
+            get {
+                return ResourceManager.GetString("BirthDateReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to geopositionConfirm.
         /// </summary>
         public static string GeopositionConfirm {
