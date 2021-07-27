@@ -10,8 +10,8 @@ namespace BirthdayBot.DAL.Entities
 
         public DateTime? StartLocationInputBlockDate { get; set; }
 
-        public int LocationChangeAttempts { get; set; }
+        public int ChangeLocationInputAttempts { get; set; }
 
-        public DateTime? LocationChangeBlockDate { get; set; }
+        public DateTime? ChangeLocationInputBlockDate { get; set; }
     }
 }

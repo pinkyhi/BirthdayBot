@@ -8,6 +8,7 @@ using RapidBots.Extensions;
 using BirthdayBot.Extensions;
 using BirthdayBot.BLL;
 using RapidBots.GoogleGeoCode;
+using BirthdayBot.Core.Types;
 
 namespace BirthdayBot
 {
@@ -31,6 +32,10 @@ namespace BirthdayBot
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
             var googleGeoCodeOptions = new GoogleGeoCodeOptions();
             this.Configuration.GetSection(nameof(GoogleGeoCodeOptions)).Bind(googleGeoCodeOptions);
+
+            var clientSettings = new ClientSettings();
+            this.Configuration.GetSection(nameof(ClientSettings)).Bind(clientSettings);
+            services.AddSingleton(clientSettings);
 
             string connectionString;
             if (this.Environment.IsDevelopment())

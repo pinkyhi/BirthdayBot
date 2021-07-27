@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Mon, 26 Jul 2021 19:21:18 +0300 
+  Exported at: Tue, 27 Jul 2021 13:10:30 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -158,5 +158,8 @@
   </data> 
   <data name="BIRTH_DATE_CONFIRMATION" xml:space="preserve"> 
     <value>Ok, your birthday is on {0}. Is that right?</value> 
+  </data> 
+  <data name="INPUT_BLOCK" xml:space="preserve"> 
+    <value>You can't input this value up to {0}</value> 
   </data> 
 </root>

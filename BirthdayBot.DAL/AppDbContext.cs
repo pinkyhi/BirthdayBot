@@ -1,4 +1,5 @@
 ﻿using BirthdayBot.Core.Enums;
+using BirthdayBot.Core.Types;
 using BirthdayBot.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -12,12 +13,14 @@ namespace BirthdayBot.DAL
 {
     public class AppDbContext : DbContext
     {
+        private readonly ClientSettings clientSettings;
+
         public DbSet<TUser> Users { get; set; }
 
-
-        public AppDbContext(DbContextOptions<AppDbContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, ClientSettings clientSettings)
             : base(options)
         {
+            this.clientSettings = clientSettings;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -86,9 +89,9 @@ namespace BirthdayBot.DAL
 
             modelBuilder.Entity<TUser>().OwnsOne(c => c.UserLimitations, a => {
                 a.Property(x => x.StartLocationInputAttempts)
-                .HasDefaultValue(5);
-                a.Property(x => x.LocationChangeAttempts)
-                .HasDefaultValue(3);
+                .HasDefaultValue(this.clientSettings.StartLocationInputAttempts);
+                a.Property(x => x.ChangeLocationInputAttempts)
+                .HasDefaultValue(this.clientSettings.ChangeLocationInputAttempts);
             });
 
 

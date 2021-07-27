@@ -2,6 +2,7 @@
 using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
+using BirthdayBot.Core.Types;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,9 +21,11 @@ namespace BirthdayBot.BLL.Commands.BirthDate
     {
         private readonly IMapper mapper;
         private readonly BotClient botClient;
+        private readonly ClientSettings clientSettings;
 
-        public BirthDateConfirm(IMapper mapper, BotClient botClient)
+        public BirthDateConfirm(IMapper mapper, BotClient botClient, ClientSettings clientSetting)
         {
+            this.clientSettings = clientSetting;
             this.botClient = botClient;
             this.mapper = mapper;
         }
@@ -49,6 +52,15 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
 
             // Output
+            if (dbUser.UserLimitations.StartLocationInputAttempts == 0)
+            {
+                if ((DateTime.Now - dbUser.UserLimitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
+                {
+                    dbUser.UserLimitations.StartLocationInputBlockDate = null;
+                    dbUser.UserLimitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
+                    await repository.UpdateAsync(dbUser);
+                }
+            }
             await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Format(resources["START_LOCATION_INPUT"], dbUser.UserLimitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
         }
     }
