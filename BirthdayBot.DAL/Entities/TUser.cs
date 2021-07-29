@@ -16,7 +16,7 @@ namespace BirthdayBot.DAL.Entities
 
         public UserSettings Settings { get; set; }
 
-        public UserLimitations UserLimitations { get; set; }
+        public UserLimitations Limitations { get; set; }
 
         public List<Address> Addresses { get; set; }
 

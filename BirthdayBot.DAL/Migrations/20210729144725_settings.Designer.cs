@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210726132704_limitationsTypo")]
-    partial class limitationsTypo
+    [Migration("20210729144725_settings")]
+    partial class settings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -269,17 +269,17 @@ namespace BirthdayBot.DAL.Migrations
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.TUser", b =>
                 {
-                    b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "UserLimitations", b1 =>
+                    b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "Limitations", b1 =>
                         {
                             b1.Property<long>("TUserId")
                                 .HasColumnType("bigint");
 
-                            b1.Property<int>("LocationChangeAttempts")
+                            b1.Property<int>("ChangeLocationInputAttempts")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
                                 .HasDefaultValue(3);
 
-                            b1.Property<DateTime?>("LocationChangeBlockDate")
+                            b1.Property<DateTime?>("ChangeLocationInputBlockDate")
                                 .HasColumnType("datetime2");
 
                             b1.Property<int>("StartLocationInputAttempts")
@@ -313,7 +313,7 @@ namespace BirthdayBot.DAL.Migrations
                                 .HasColumnType("int")
                                 .HasDefaultValue(1);
 
-                            b1.Property<int>("DefaultNotificationDelay_0")
+                            b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
                                 .HasDefaultValue(0);

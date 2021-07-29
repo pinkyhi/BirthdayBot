@@ -52,16 +52,16 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
 
             // Output
-            if (dbUser.UserLimitations.StartLocationInputAttempts == 0)
+            if (dbUser.Limitations.StartLocationInputAttempts == 0)
             {
-                if ((DateTime.Now - dbUser.UserLimitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
+                if ((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
                 {
-                    dbUser.UserLimitations.StartLocationInputBlockDate = null;
-                    dbUser.UserLimitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
+                    dbUser.Limitations.StartLocationInputBlockDate = null;
+                    dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
                     await repository.UpdateAsync(dbUser);
                 }
             }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Format(resources["START_LOCATION_INPUT"], dbUser.UserLimitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Format(resources["START_LOCATION_INPUT"], dbUser.Limitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
         }
     }
 }

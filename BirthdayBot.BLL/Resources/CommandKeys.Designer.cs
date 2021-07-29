@@ -79,6 +79,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to commonNotificationsSettings.
+        /// </summary>
+        public static string CommonNotificationsSettings {
+            get {
+                return ResourceManager.GetString("CommonNotificationsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to confidentialitySettings.
+        /// </summary>
+        public static string ConfidentialitySettings {
+            get {
+                return ResourceManager.GetString("ConfidentialitySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to geopositionConfirm.
         /// </summary>
         public static string GeopositionConfirm {
@@ -97,6 +115,42 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to languageSettings.
+        /// </summary>
+        public static string LanguageSettings {
+            get {
+                return ResourceManager.GetString("LanguageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to notificationsSettingsInfo.
+        /// </summary>
+        public static string NotificationSettingsInfo {
+            get {
+                return ResourceManager.GetString("NotificationSettingsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to notificationsSettings.
+        /// </summary>
+        public static string NotificationsSettings {
+            get {
+                return ResourceManager.GetString("NotificationsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to notificationSettingsChange.
+        /// </summary>
+        public static string NotificationsSettingsChange {
+            get {
+                return ResourceManager.GetString("NotificationsSettingsChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to people.
         /// </summary>
         public static string People {
@@ -106,11 +160,29 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to profileSettings.
+        /// </summary>
+        public static string ProfileSettings {
+            get {
+                return ResourceManager.GetString("ProfileSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /start.
         /// </summary>
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to strongNotificationsSettings.
+        /// </summary>
+        public static string StrongNotificationsSettings {
+            get {
+                return ResourceManager.GetString("StrongNotificationsSettings", resourceCulture);
             }
         }
         

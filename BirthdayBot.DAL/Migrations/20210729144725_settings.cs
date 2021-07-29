@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BirthdayBot.DAL.Migrations
 {
-    public partial class limitations : Migration
+    public partial class settings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,11 +56,11 @@ namespace BirthdayBot.DAL.Migrations
                     Settings_StrongNotification_0 = table.Column<int>(nullable: true, defaultValue: 7),
                     Settings_StrongNotification_1 = table.Column<int>(nullable: true, defaultValue: 3),
                     Settings_StrongNotification_2 = table.Column<int>(nullable: true, defaultValue: 0),
-                    Settings_DefaultNotificationDelay_0 = table.Column<int>(nullable: true, defaultValue: 0),
-                    UserLimitations_StartLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 5),
-                    UserLimitations_StartLocationInputBlock = table.Column<DateTime>(nullable: true),
-                    UserLimitations_LocationChangeAttempts = table.Column<int>(nullable: true, defaultValue: 3),
-                    UserLimitations_LocationChangeDate = table.Column<DateTime>(nullable: true)
+                    Settings_CommonNotification_0 = table.Column<int>(nullable: true, defaultValue: 0),
+                    Limitations_StartLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 5),
+                    Limitations_StartLocationInputBlockDate = table.Column<DateTime>(nullable: true),
+                    Limitations_ChangeLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 3),
+                    Limitations_ChangeLocationInputBlockDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

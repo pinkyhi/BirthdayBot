@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 27 Jul 2021 13:10:30 +0300 
+  Exported at: Thu, 29 Jul 2021 17:33:38 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -97,13 +97,13 @@
     <value>User settings</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve"> 
-    <value>Sorry, seems that there is format error. Try again, write your birth year, for example **1985**</value> 
+    <value>Sorry, seems that there is format error. Try again, write your birth year, for example *2001*</value> 
   </data> 
   <data name="BIRTH_MONTH_INPUT_ERROR" xml:space="preserve"> 
     <value>Sorry I can't recognize this, try again. Use keyboard below.</value> 
   </data> 
   <data name="BIRTH_DAY_INPUT_ERROR" xml:space="preserve"> 
-    <value>Sorry, that doesn't look like birth day. Try to type month date, for example **22**</value> 
+    <value>Sorry, that doesn't look like birth day. Try to type month date, for example *22*</value> 
   </data> 
   <data name="JANUARY" xml:space="preserve"> 
     <value>January</value> 
@@ -161,5 +161,92 @@
   </data> 
   <data name="INPUT_BLOCK" xml:space="preserve"> 
     <value>You can't input this value up to {0}</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Notifications</value> 
+  </data> 
+  <data name="LANGUAGE_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Language</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Confidentiality</value> 
+  </data> 
+  <data name="PROFILE_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Profile settings</value> 
+  </data> 
+  <data name="INFO_BUTTON" xml:space="preserve"> 
+    <value>Info</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATIONS_BUTTON" xml:space="preserve"> 
+    <value>Strong notifications</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATIONS_BUTTON" xml:space="preserve"> 
+    <value>Common notifications</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_INFO" xml:space="preserve"> 
+    <value>That's notifications settings info</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Here you can change notifications settings</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_TEXT" xml:space="preserve"> 
+    <value>Buttons below represent notifications delay. Press one of them to change it. 
+0- On this day
+3- 3 days before</value> 
+  </data> 
+  <data name="RUSSIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>Russian 🇷🇺</value> 
+  </data> 
+  <data name="UKRAINIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>Ukrainian 🇺🇦</value> 
+  </data> 
+  <data name="ENGLISH_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>English 🇺🇸</value> 
+  </data> 
+  <data name="LANGUAGE_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Here you can change bot language
+Now language is `{0}`</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_INFO" xml:space="preserve"> 
+    <value>Confidentiality settings info</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Here you can change confidentiality
+Age confidentiality is `{0}`</value> 
+  </data> 
+  <data name="PUBLIC_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Public</value> 
+  </data> 
+  <data name="PRIVATE_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Private</value> 
+  </data> 
+  <data name="MUTUAL_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Mutual</value> 
+  </data> 
+  <data name="AGE_CONFIDENTIALITY_BUTTON" xml:space="preserve"> 
+    <value>Age confidentiality</value> 
+  </data> 
+  <data name="PROFILE_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Here you can change your profile.
+Your bitrhdate is `{0}`
+Your location is `{1}`</value> 
+  </data> 
+  <data name="CHANGE_BIRTH_DATE_BUTTON" xml:space="preserve"> 
+    <value>Change birthdate</value> 
+  </data> 
+  <data name="CHANGE_LOCATION_BUTTON" xml:space="preserve"> 
+    <value>Change location</value> 
+  </data> 
+  <data name="USER_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Main settings</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_BUTTON" xml:space="preserve"> 
+    <value>{0} days before</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_INPUT" xml:space="preserve"> 
+    <value>Send preferable delay in days. Integer value between 0 and 28</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_INPUT_ERROR" xml:space="preserve"> 
+    <value>Cannot parse it. Try integer value like *7*. It should be between 0 and 28.</value> 
   </data> 
 </root>

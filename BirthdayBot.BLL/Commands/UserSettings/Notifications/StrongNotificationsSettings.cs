@@ -1,4 +1,5 @@
 ﻿using BirthdayBot.BLL.Inputs.Start;
+using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
@@ -13,18 +14,18 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace BirthdayBot.BLL.Commands.Geoposition
+namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
 {
-    public class GeopositionReject : ICommand
+    public class StrongNotificationsSettings : ICommand
     {
         private readonly BotClient botClient;
 
-        public GeopositionReject(BotClient botClient)
+        public StrongNotificationsSettings(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.GeopositionReject;
+        public string Key => CommandKeys.StrongNotificationsSettings;
 
         public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -32,22 +33,23 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
-            dbUser.MiddlewareData = null;
-            dbUser.CurrentStatus = actionsManager.FindInputStatusByType<GeopositionInput>();
-            await repository.UpdateAsync(dbUser);
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
 
-            KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
+            var menuDictionary = new Dictionary<int, int>();
+            menuDictionary.Add(((int)NotificationsDelaysKeys.Strong0), dbUser.Settings.StrongNotification_0);
+            menuDictionary.Add(((int)NotificationsDelaysKeys.Strong1), dbUser.Settings.StrongNotification_1);
+            menuDictionary.Add(((int)NotificationsDelaysKeys.Strong2), dbUser.Settings.StrongNotification_2);
 
-            // Output
+
+            var menu = new NotificationsSettingsChangeMenu(resources, menuDictionary);
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
             }
             catch
-            {}
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Format(resources["START_LOCATION_INPUT"], dbUser.Limitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
+            { }
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
         }
     }
 }

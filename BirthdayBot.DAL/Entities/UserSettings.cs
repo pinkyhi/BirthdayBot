@@ -23,7 +23,7 @@ namespace BirthdayBot.DAL.Entities
         public int StrongNotification_2 { get; set; }
 
         [Range(0, 28)]
-        public int DefaultNotificationDelay_0 { get; set; }
+        public int CommonNotification_0 { get; set; }
 
     }
 }

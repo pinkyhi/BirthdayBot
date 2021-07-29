@@ -123,17 +123,41 @@
   <data name="BirthDateReject" xml:space="preserve">
     <value>birthDateReject</value>
   </data>
+  <data name="CommonNotificationsSettings" xml:space="preserve">
+    <value>commonNotificationsSettings</value>
+  </data>
+  <data name="ConfidentialitySettings" xml:space="preserve">
+    <value>confidentialitySettings</value>
+  </data>
   <data name="GeopositionConfirm" xml:space="preserve">
     <value>geopositionConfirm</value>
   </data>
   <data name="GeopositionReject" xml:space="preserve">
     <value>geopositionReject</value>
   </data>
+  <data name="LanguageSettings" xml:space="preserve">
+    <value>languageSettings</value>
+  </data>
+  <data name="NotificationSettingsInfo" xml:space="preserve">
+    <value>notificationsSettingsInfo</value>
+  </data>
+  <data name="NotificationsSettings" xml:space="preserve">
+    <value>notificationsSettings</value>
+  </data>
+  <data name="NotificationsSettingsChange" xml:space="preserve">
+    <value>notificationSettingsChange</value>
+  </data>
   <data name="People" xml:space="preserve">
     <value>people</value>
   </data>
+  <data name="ProfileSettings" xml:space="preserve">
+    <value>profileSettings</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>/start</value>
+  </data>
+  <data name="StrongNotificationsSettings" xml:space="preserve">
+    <value>strongNotificationsSettings</value>
   </data>
   <data name="Subscriptions" xml:space="preserve">
     <value>subscriptions</value>

@@ -77,7 +77,7 @@ namespace BirthdayBot.DAL
                 a.Property(x => x.BirthYearConfidentiality)
                 .HasConversion<int>()
                 .HasDefaultValue(ConfidentialType.MutualSubscription);                
-                a.Property(x => x.DefaultNotificationDelay_0)
+                a.Property(x => x.CommonNotification_0)
                 .HasDefaultValue(0);
                 a.Property(x => x.StrongNotification_0)
                 .HasDefaultValue(7);
@@ -87,7 +87,7 @@ namespace BirthdayBot.DAL
                 .HasDefaultValue(0);
             });
 
-            modelBuilder.Entity<TUser>().OwnsOne(c => c.UserLimitations, a => {
+            modelBuilder.Entity<TUser>().OwnsOne(c => c.Limitations, a => {
                 a.Property(x => x.StartLocationInputAttempts)
                 .HasDefaultValue(this.clientSettings.StartLocationInputAttempts);
                 a.Property(x => x.ChangeLocationInputAttempts)

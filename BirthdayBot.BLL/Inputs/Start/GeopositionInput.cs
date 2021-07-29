@@ -43,11 +43,11 @@ namespace BirthdayBot.BLL.Inputs.Start
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id);
 
-            if(dbUser.UserLimitations.StartLocationInputAttempts == 0)
+            if(dbUser.Limitations.StartLocationInputAttempts == 0)
             {
-                if((DateTime.Now - dbUser.UserLimitations.StartLocationInputBlockDate).Value.TotalDays < clientSettings.StartLocationInputBlockDays)
+                if((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays < clientSettings.StartLocationInputBlockDays)
                 {
-                    var blockEnd = dbUser.UserLimitations.StartLocationInputBlockDate.Value.AddDays(clientSettings.StartLocationInputBlockDays);
+                    var blockEnd = dbUser.Limitations.StartLocationInputBlockDate.Value.AddDays(clientSettings.StartLocationInputBlockDays);
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, string.Format(resources["INPUT_BLOCK"], blockEnd.ToLongDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                     
                     dbUser.CurrentStatus = null;
@@ -56,8 +56,8 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
                 else
                 {
-                    dbUser.UserLimitations.StartLocationInputBlockDate = null;
-                    dbUser.UserLimitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
+                    dbUser.Limitations.StartLocationInputBlockDate = null;
+                    dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
                     await repository.UpdateAsync(dbUser);
                 }
             }
@@ -106,17 +106,17 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                dbUser.UserLimitations.StartLocationInputAttempts--;
-                if (dbUser.UserLimitations.StartLocationInputAttempts == 0)
+                dbUser.Limitations.StartLocationInputAttempts--;
+                if (dbUser.Limitations.StartLocationInputAttempts == 0)
                 {
-                    dbUser.UserLimitations.StartLocationInputBlockDate = DateTime.Now;
+                    dbUser.Limitations.StartLocationInputBlockDate = DateTime.Now;
                 }
                 dbUser.CurrentStatus = null;
                 await repository.UpdateAsync(dbUser);
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, string.Format(resources["GEOPOSITION_INPUT_ERROR"], dbUser.UserLimitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, string.Format(resources["GEOPOSITION_INPUT_ERROR"], dbUser.Limitations.StartLocationInputAttempts), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                 return;
             }
 

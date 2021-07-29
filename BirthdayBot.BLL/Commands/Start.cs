@@ -36,23 +36,40 @@ namespace BirthdayBot.BLL.Commands
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == (update.Message?.From.Id ?? update.CallbackQuery.From.Id));
+
             if (dbUser == null)
             {
-                TUser newUser = mapper.Map<TUser>(update.Message.From);
+                TUser newUser = mapper.Map<TUser>(update.Message?.From ?? update.CallbackQuery?.From);
                 dbUser = await repository.AddAsync(newUser);
+            }
+
+            // Zeroing
+            dbUser.CurrentStatus = null;
+            dbUser.MiddlewareData = null;
+            await repository.UpdateAsync(dbUser);
+
+            if(update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
+            {
+                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+                try
+                {
+                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                }
+                catch
+                { }
             }
 
             if (dbUser.RegistrationDate == null)
             {
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
                 await repository.UpdateAsync(dbUser);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
             }
             else
             {
                 StartMenu menu = new StartMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
             }
         }
     }

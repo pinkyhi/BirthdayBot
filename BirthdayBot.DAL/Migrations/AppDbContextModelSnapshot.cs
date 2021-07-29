@@ -267,7 +267,7 @@ namespace BirthdayBot.DAL.Migrations
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.TUser", b =>
                 {
-                    b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "UserLimitations", b1 =>
+                    b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "Limitations", b1 =>
                         {
                             b1.Property<long>("TUserId")
                                 .HasColumnType("bigint");
@@ -311,7 +311,7 @@ namespace BirthdayBot.DAL.Migrations
                                 .HasColumnType("int")
                                 .HasDefaultValue(1);
 
-                            b1.Property<int>("DefaultNotificationDelay_0")
+                            b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
                                 .HasDefaultValue(0);
