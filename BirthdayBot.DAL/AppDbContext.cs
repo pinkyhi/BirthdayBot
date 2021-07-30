@@ -4,10 +4,7 @@ using BirthdayBot.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Telegram.Bot.Types;
 
 namespace BirthdayBot.DAL
 {

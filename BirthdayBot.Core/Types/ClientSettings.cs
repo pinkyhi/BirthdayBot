@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BirthdayBot.Core.Types
+﻿namespace BirthdayBot.Core.Types
 {
     public class ClientSettings
     {

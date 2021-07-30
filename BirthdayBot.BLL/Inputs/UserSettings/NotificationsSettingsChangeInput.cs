@@ -1,16 +1,13 @@
 ﻿using BirthdayBot.BLL.Commands.UserSettings.Notifications;
-using BirthdayBot.BLL.Menus;
 using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 

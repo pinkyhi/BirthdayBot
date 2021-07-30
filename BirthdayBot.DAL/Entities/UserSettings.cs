@@ -1,9 +1,6 @@
 ﻿using BirthdayBot.Core.Enums;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BirthdayBot.DAL.Entities
 {

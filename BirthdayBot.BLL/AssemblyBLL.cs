@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BirthdayBot.BLL
+﻿namespace BirthdayBot.BLL
 {
     public static class AssemblyBLL
     {

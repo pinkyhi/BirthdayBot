@@ -2,7 +2,6 @@
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Telegram.Bot.Types;
 
 namespace BirthdayBot.DAL.Entities

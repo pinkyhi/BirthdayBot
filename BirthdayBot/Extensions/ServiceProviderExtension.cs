@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RapidBots.Automapper;
 using System;
 using System.Globalization;
-using System.Linq;
 
 namespace BirthdayBot.Extensions
 {

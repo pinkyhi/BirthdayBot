@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.DAL.Entities

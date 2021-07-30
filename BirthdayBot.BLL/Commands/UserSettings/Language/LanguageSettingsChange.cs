@@ -1,6 +1,4 @@
-﻿using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Inputs.UserSettings;
-using BirthdayBot.BLL.Menus.Settings;
+﻿using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
@@ -9,13 +7,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Language
 {
