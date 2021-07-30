@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using RapidBots.Automapper;
+using RapidBots.Localization;
 using System;
 using System.Globalization;
 
@@ -36,8 +38,9 @@ namespace BirthdayBot.Extensions
 
         public static void AddLocalizationSettings(this IServiceCollection services, string resourcesPath = "")
         {
+            services.AddScoped(typeof(IStringLocalizer<>), typeof(RapidLocalizer<>));
             services.AddLocalization(options => options.ResourcesPath = resourcesPath);
-
+            
             string enCulture = "en";
             services.Configure<RequestLocalizationOptions>(options =>
             {
