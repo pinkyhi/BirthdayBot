@@ -21,7 +21,7 @@ namespace BirthdayBot.BLL.Menus
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["WELCOME_TEX", values];
+            return resources["WELCOME_TEXT", values];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
