@@ -14,31 +14,25 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
+namespace BirthdayBot.BLL.Commands.UserSettings
 {
-    public class CommonNotificationsSettings : ICommand
+    public class LanguageSettings : ICommand
     {
         private readonly BotClient botClient;
 
-        public CommonNotificationsSettings(BotClient botClient)
+        public LanguageSettings(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.CommonNotificationsSettings;
+        public string Key => CommandKeys.LanguageSettings;
 
         public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
-            var repository = actionScope.ServiceProvider.GetService<IRepository>();
-            var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            LanguageSettingsMenu menu = new LanguageSettingsMenu(resources);
 
-            var menuDictionary = new Dictionary<int, int>();
-            menuDictionary.Add((int)NotificationsDelaysKeys.Common0, dbUser.Settings.CommonNotification_0);
-
-            var menu = new NotificationsSettingsChangeMenu(resources, menuDictionary);
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
             {

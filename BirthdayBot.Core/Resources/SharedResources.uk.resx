@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Thu, 29 Jul 2021 17:33:38 +0300 
+  Exported at: Fri, 30 Jul 2021 13:19:28 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -88,13 +88,13 @@
     <value /> 
   </data> 
   <data name="SUBSCRIPTIONS_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Підписки</value> 
   </data> 
   <data name="PEOPLE_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Люди</value> 
   </data> 
   <data name="USER_SETTINGS_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Налаштування</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve"> 
     <value /> 
@@ -193,16 +193,16 @@
     <value /> 
   </data> 
   <data name="RUSSIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Російська 🇷🇺</value> 
   </data> 
   <data name="UKRAINIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Українська 🇺🇦</value> 
   </data> 
   <data name="ENGLISH_LANGUAGE_BUTTON" xml:space="preserve"> 
-    <value /> 
+    <value>Англійська 🇺🇸</value> 
   </data> 
   <data name="LANGUAGE_SETTINGS_TEXT" xml:space="preserve"> 
-    <value /> 
+    <value>У цьому меню ви маєте змогу змінити мову боту</value> 
   </data> 
   <data name="CONFIDENTIALITY_SETTINGS_INFO" xml:space="preserve"> 
     <value /> 
@@ -241,6 +241,9 @@
     <value /> 
   </data> 
   <data name="NOTIFICATIONS_SETTINGS_CHANGE_INPUT_ERROR" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="BACK_BUTTON" xml:space="preserve"> 
     <value /> 
   </data> 
 </root>

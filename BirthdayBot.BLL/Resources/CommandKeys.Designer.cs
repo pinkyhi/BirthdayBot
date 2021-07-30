@@ -124,6 +124,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to languageSettingsChange.
+        /// </summary>
+        public static string LanguageSettingsChange {
+            get {
+                return ResourceManager.GetString("LanguageSettingsChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to notificationsSettingsInfo.
         /// </summary>
         public static string NotificationSettingsInfo {

@@ -138,6 +138,9 @@
   <data name="LanguageSettings" xml:space="preserve">
     <value>languageSettings</value>
   </data>
+  <data name="LanguageSettingsChange" xml:space="preserve">
+    <value>languageSettingsChange</value>
+  </data>
   <data name="NotificationSettingsInfo" xml:space="preserve">
     <value>notificationsSettingsInfo</value>
   </data>
