@@ -32,7 +32,7 @@ namespace BirthdayBot.BLL.Menus.Settings
             {
                 List<InlineKeyboardButton> row = new List<InlineKeyboardButton>();
                 var pairCallback = QueryHelpers.AddQueryString(CommandKeys.NotificationsSettingsChange, "property", $"{pair.Key}");
-                row.Add(new InlineKeyboardButton() { CallbackData = pairCallback, Text = string.Format(resources["NOTIFICATIONS_SETTINGS_CHANGE_BUTTON"], pair.Value) });
+                row.Add(new InlineKeyboardButton() { CallbackData = pairCallback, Text = resources["NOTIFICATIONS_SETTINGS_CHANGE_BUTTON", pair.Value] });
                 keyboard.Add(row);
             }
             keyboard.Add(new List<InlineKeyboardButton>() { new InlineKeyboardButton() { CallbackData = CommandKeys.NotificationsSettings, Text = resources["BACK_BUTTON"] } });

@@ -18,7 +18,7 @@ namespace BirthdayBot.BLL.Menus
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return string.Format(resources["BIRTH_DATE_CONFIRMATION"], values);
+            return resources["BIRTH_DATE_CONFIRMATION", values];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
