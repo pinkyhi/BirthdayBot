@@ -73,7 +73,7 @@ namespace BirthdayBot.DAL
                 .HasDefaultValue(ConfidentialType.Public);
                 a.Property(x => x.BirthYearConfidentiality)
                 .HasConversion<int>()
-                .HasDefaultValue(ConfidentialType.MutualSubscription);                
+                .HasDefaultValue(ConfidentialType.Mutual);                
                 a.Property(x => x.CommonNotification_0)
                 .HasDefaultValue(0);
                 a.Property(x => x.StrongNotification_0)

@@ -3,7 +3,7 @@
     public enum ConfidentialType
     {
         Public,
-        MutualSubscription,
+        Mutual,
         Private
     }
 }

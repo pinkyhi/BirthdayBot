@@ -61,6 +61,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ageConfidentialityChange.
+        /// </summary>
+        public static string AgeConfidentialityChange {
+            get {
+                return ResourceManager.GetString("AgeConfidentialityChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to birthDateConfirm.
         /// </summary>
         public static string BirthDateConfirm {
@@ -93,6 +102,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string ConfidentialitySettings {
             get {
                 return ResourceManager.GetString("ConfidentialitySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to confidentialitySettingsInfo.
+        /// </summary>
+        public static string ConfidentialitySettingsInfo {
+            get {
+                return ResourceManager.GetString("ConfidentialitySettingsInfo", resourceCulture);
             }
         }
         

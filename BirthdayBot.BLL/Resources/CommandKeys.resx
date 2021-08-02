@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AgeConfidentialityChange" xml:space="preserve">
+    <value>ageConfidentialityChange</value>
+  </data>
   <data name="BirthDateConfirm" xml:space="preserve">
     <value>birthDateConfirm</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="ConfidentialitySettings" xml:space="preserve">
     <value>confidentialitySettings</value>
+  </data>
+  <data name="ConfidentialitySettingsInfo" xml:space="preserve">
+    <value>confidentialitySettingsInfo</value>
   </data>
   <data name="GeopositionConfirm" xml:space="preserve">
     <value>geopositionConfirm</value>
