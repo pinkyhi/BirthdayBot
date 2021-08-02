@@ -88,6 +88,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to changeBirthDate.
+        /// </summary>
+        public static string ChangeBirthDate {
+            get {
+                return ResourceManager.GetString("ChangeBirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to changeLocation.
+        /// </summary>
+        public static string ChangeLocation {
+            get {
+                return ResourceManager.GetString("ChangeLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to commonNotificationsSettings.
         /// </summary>
         public static string CommonNotificationsSettings {

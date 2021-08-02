@@ -41,7 +41,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id);
 
-            if(dbUser.Limitations.StartLocationInputAttempts == 0)
+            if(dbUser.RegistrationDate == null && dbUser.Limitations.StartLocationInputAttempts == 0)
             {
                 if((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays < clientSettings.StartLocationInputBlockDays)
                 {
@@ -56,6 +56,24 @@ namespace BirthdayBot.BLL.Inputs.Start
                 {
                     dbUser.Limitations.StartLocationInputBlockDate = null;
                     dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
+                    await repository.UpdateAsync(dbUser);
+                }
+            }
+            else if (dbUser.RegistrationDate != null && dbUser.Limitations.ChangeLocationInputAttempts == 0)
+            {
+                if ((DateTime.Now - dbUser.Limitations.ChangeLocationInputBlockDate).Value.TotalDays < clientSettings.ChangeLocationInputBlockDays)
+                {
+                    var blockEnd = dbUser.Limitations.ChangeLocationInputBlockDate.Value.AddDays(clientSettings.ChangeLocationInputBlockDays);
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_BLOCK", blockEnd.ToLongDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+
+                    dbUser.CurrentStatus = null;
+                    await repository.UpdateAsync(dbUser);
+                    return;
+                }
+                else
+                {
+                    dbUser.Limitations.ChangeLocationInputBlockDate = null;
+                    dbUser.Limitations.ChangeLocationInputAttempts = clientSettings.ChangeLocationInputAttempts;
                     await repository.UpdateAsync(dbUser);
                 }
             }
@@ -88,6 +106,26 @@ namespace BirthdayBot.BLL.Inputs.Start
 
                 HttpResponseMessage response = await client.SendAsync(request);
 
+                // Change status
+                if(dbUser.RegistrationDate == null)
+                {
+                    dbUser.Limitations.StartLocationInputAttempts--;
+                    if (dbUser.Limitations.StartLocationInputAttempts == 0)
+                    {
+                        dbUser.Limitations.StartLocationInputBlockDate = DateTime.Now;
+                    }
+                }
+                else
+                {
+                    dbUser.Limitations.ChangeLocationInputAttempts--;
+                    if (dbUser.Limitations.ChangeLocationInputAttempts == 0)
+                    {
+                        dbUser.Limitations.ChangeLocationInputBlockDate = DateTime.Now;
+                    }
+                }
+
+                await repository.UpdateAsync(dbUser);
+
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
@@ -104,11 +142,6 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                dbUser.Limitations.StartLocationInputAttempts--;
-                if (dbUser.Limitations.StartLocationInputAttempts == 0)
-                {
-                    dbUser.Limitations.StartLocationInputBlockDate = DateTime.Now;
-                }
                 dbUser.CurrentStatus = null;
                 await repository.UpdateAsync(dbUser);
             }

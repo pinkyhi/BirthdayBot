@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using BirthdayBot.BLL.Menus;
+using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using RapidBots.GoogleGeoCode.Types;
 using RapidBots.Types.Core;
+using RapidBots.Types.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,11 +43,12 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             GoogleGeoCodeResponse geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(dbUser.MiddlewareData);
             dbUser.Addresses = mapper.Map<IEnumerable<RapidBots.GoogleGeoCode.Types.Address>, IEnumerable<DAL.Entities.Address>>(geocodeResponse.Results).ToList();
             dbUser.MiddlewareData = null;
-            dbUser.RegistrationDate = DateTime.Now;
+            if (dbUser.RegistrationDate == null)
+            {
+                dbUser.RegistrationDate = DateTime.Now;
+            }
 
             await repository.UpdateAsync(dbUser);
-
-            StartMenu menu = new StartMenu(resources);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
@@ -53,7 +57,24 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
+
+            if (dbUser.RegistrationDate == null)
+            {
+                StartMenu menu = new StartMenu(resources);
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
+            }
+            else
+            {
+                if (dbUser?.Addresses == null)
+                {
+                    dbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
+                }
+
+                ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
+
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: menu.GetMarkup(actionScope));
+            }
+
         }
     }
 }
