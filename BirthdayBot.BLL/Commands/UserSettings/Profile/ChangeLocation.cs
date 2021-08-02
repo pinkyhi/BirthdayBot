@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -72,7 +73,21 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
                         await repository.UpdateAsync(dbUser);
                     }
                 }
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["CHANGE_LOCATION_INPUT", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
+
+                KeyboardButton backBut = new KeyboardButton() { Text = resources["BACK_BUTTON"] };
+
+                List<List<KeyboardButton>> keyboard = new List<List<KeyboardButton>>()
+                {
+                    new List<KeyboardButton>()
+                    {
+                        locationButton
+                    },
+                    new List<KeyboardButton>()
+                    {
+                        backBut
+                    }
+                };
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["CHANGE_LOCATION_INPUT", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(keyboard) { ResizeKeyboard = true });
             }
         }
     }

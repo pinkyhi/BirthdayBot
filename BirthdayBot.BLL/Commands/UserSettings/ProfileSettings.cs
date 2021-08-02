@@ -31,11 +31,14 @@ namespace BirthdayBot.BLL.Commands.UserSettings
             TUser dbUser = user as TUser;
             if (dbUser?.Addresses == null)
             {
-                dbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
+                var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
+                dbUser.Addresses = tempDbUser.Addresses;
             }
+            dbUser.CurrentStatus = null;
+            dbUser.MiddlewareData = null;
+            await repository.UpdateAsync(dbUser);
 
             ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
-
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
             {
