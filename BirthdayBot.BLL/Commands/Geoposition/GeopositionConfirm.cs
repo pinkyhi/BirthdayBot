@@ -43,11 +43,6 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             GoogleGeoCodeResponse geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(dbUser.MiddlewareData);
             dbUser.Addresses = mapper.Map<IEnumerable<RapidBots.GoogleGeoCode.Types.Address>, IEnumerable<DAL.Entities.Address>>(geocodeResponse.Results).ToList();
             dbUser.MiddlewareData = null;
-            if (dbUser.RegistrationDate == null)
-            {
-                dbUser.RegistrationDate = DateTime.Now;
-            }
-
             await repository.UpdateAsync(dbUser);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
@@ -60,6 +55,9 @@ namespace BirthdayBot.BLL.Commands.Geoposition
 
             if (dbUser.RegistrationDate == null)
             {
+                dbUser.RegistrationDate = DateTime.Now;
+                await repository.UpdateAsync(dbUser);
+
                 StartMenu menu = new StartMenu(resources);
                 await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
             }

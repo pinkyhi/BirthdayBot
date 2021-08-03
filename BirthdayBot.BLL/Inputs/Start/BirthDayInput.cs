@@ -42,7 +42,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                dbUser.BirthDate = dbUser.BirthDate.AddDays(day - dbUser.BirthDate.Day);
+                dbUser.MiddlewareData = Convert.ToDateTime(dbUser.MiddlewareData).AddDays(day - dbUser.BirthDate.Day).ToString();
                 await repository.UpdateAsync(dbUser);
             }
             catch
@@ -54,7 +54,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             BirthDateConfirmationMenu menu = new BirthDateConfirmationMenu(resources);
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, dbUser.BirthDate.ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, Convert.ToDateTime(dbUser.MiddlewareData).ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
         }
     }
 }

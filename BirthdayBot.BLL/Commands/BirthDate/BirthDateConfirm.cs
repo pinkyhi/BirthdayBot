@@ -37,7 +37,10 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            dbUser.BirthDate = Convert.ToDateTime(dbUser.MiddlewareData);
+            await repository.UpdateAsync(dbUser);
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<GeopositionInput>();
+            dbUser.MiddlewareData = null;
             await repository.UpdateAsync(dbUser);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);

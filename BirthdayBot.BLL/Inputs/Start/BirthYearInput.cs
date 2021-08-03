@@ -40,7 +40,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                dbUser.BirthDate = dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year);
+                dbUser.MiddlewareData = dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString();
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthMonthInput>();
                 await repository.UpdateAsync(dbUser);
             }

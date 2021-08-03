@@ -59,7 +59,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 month++;
 
                 // Change status
-                dbUser.BirthDate = dbUser.BirthDate.AddMonths(month - dbUser.BirthDate.Month);
+                dbUser.MiddlewareData = Convert.ToDateTime(dbUser.MiddlewareData).AddMonths(month - dbUser.BirthDate.Month).ToString();
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthDayInput>();
                 await repository.UpdateAsync(dbUser);
             }
