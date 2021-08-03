@@ -10,10 +10,11 @@ namespace BirthdayBot.BLL.Menus
     public class MonthSelectMenu : IMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
-
-        public MonthSelectMenu(IStringLocalizer<SharedResources> resources)
+        private readonly bool withBackButton;
+        public MonthSelectMenu(IStringLocalizer<SharedResources> resources, bool withBackButton)
         {
             this.resources = resources;
+            this.withBackButton = withBackButton;
         }
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
@@ -47,7 +48,12 @@ namespace BirthdayBot.BLL.Menus
                 new KeyboardButton(resources["DECEMBER"])
 
             };
-            return new ReplyKeyboardMarkup(new List<List<KeyboardButton>>() { monthes0row, monthes1row, monthes2row });
+            var keyboard = new List<List<KeyboardButton>>() { monthes0row, monthes1row, monthes2row };
+            if (withBackButton)
+            {
+                keyboard.Add(new List<KeyboardButton>() { new KeyboardButton() { Text = resources["BACK_BUTTON"] } });
+            }
+            return new ReplyKeyboardMarkup(keyboard);
         }
     }
 }

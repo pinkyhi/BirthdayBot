@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BirthdayBot.BLL.Inputs.Start;
+using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.Core.Types;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
@@ -50,19 +52,33 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             }
             catch
             { }
-            KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
-
-            // Output
-            if (dbUser.Limitations.StartLocationInputAttempts == 0)
+            if(dbUser.RegistrationDate == null)
             {
-                if ((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
+                KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
+
+                // Output
+                if (dbUser.Limitations.StartLocationInputAttempts == 0)
                 {
-                    dbUser.Limitations.StartLocationInputBlockDate = null;
-                    dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
-                    await repository.UpdateAsync(dbUser);
+                    if ((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
+                    {
+                        dbUser.Limitations.StartLocationInputBlockDate = null;
+                        dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
+                        await repository.UpdateAsync(dbUser);
+                    }
                 }
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["START_LOCATION_INPUT", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
             }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["START_LOCATION_INPUT", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
+            else
+            {
+                if (dbUser?.Addresses == null)
+                {
+                    dbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
+                }
+
+                ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
+
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: menu.GetMarkup(actionScope));
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Start;
+﻿using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.Core.Types;
@@ -49,46 +48,31 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
             KeyboardButton locationButton = new KeyboardButton(resources["SHARE_LOCATION_BUTTON"]) { RequestLocation = true };
 
             // Output
-            if (dbUser.RegistrationDate == null) 
-            {
-                if (dbUser.Limitations.StartLocationInputAttempts == 0)
-                {
-                    if ((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays > clientSettings.StartLocationInputBlockDays)
-                    {
-                        dbUser.Limitations.StartLocationInputBlockDate = null;
-                        dbUser.Limitations.StartLocationInputAttempts = clientSettings.StartLocationInputAttempts;
-                        await repository.UpdateAsync(dbUser);
-                    }
-                }
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["START_LOCATION_INPUT", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(locationButton) { ResizeKeyboard = true });
-            }
-            else
-            {
-                if (dbUser.Limitations.ChangeLocationInputAttempts == 0)
-                {
-                    if ((DateTime.Now - dbUser.Limitations.ChangeLocationInputBlockDate).Value.TotalDays > clientSettings.ChangeLocationInputBlockDays)
-                    {
-                        dbUser.Limitations.ChangeLocationInputBlockDate = null;
-                        dbUser.Limitations.ChangeLocationInputAttempts = clientSettings.ChangeLocationInputAttempts;
-                        await repository.UpdateAsync(dbUser);
-                    }
-                }
 
-                KeyboardButton backBut = new KeyboardButton() { Text = resources["BACK_BUTTON"] };
-
-                List<List<KeyboardButton>> keyboard = new List<List<KeyboardButton>>()
+            if (dbUser.Limitations.ChangeLocationInputAttempts == 0)
+            {
+                if ((DateTime.Now - dbUser.Limitations.ChangeLocationInputBlockDate).Value.TotalDays > clientSettings.ChangeLocationInputBlockDays)
                 {
-                    new List<KeyboardButton>()
-                    {
-                        locationButton
-                    },
-                    new List<KeyboardButton>()
-                    {
-                        backBut
-                    }
-                };
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["CHANGE_LOCATION_INPUT", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(keyboard) { ResizeKeyboard = true });
+                    dbUser.Limitations.ChangeLocationInputBlockDate = null;
+                    dbUser.Limitations.ChangeLocationInputAttempts = clientSettings.ChangeLocationInputAttempts;
+                    await repository.UpdateAsync(dbUser);
+                }
             }
+
+            KeyboardButton backBut = new KeyboardButton() { Text = resources["BACK_BUTTON"] };
+
+            List<List<KeyboardButton>> keyboard = new List<List<KeyboardButton>>()
+            {
+                new List<KeyboardButton>()
+                {
+                    locationButton
+                },
+                new List<KeyboardButton>()
+                {
+                    backBut
+                }
+            };
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["CHANGE_LOCATION_INPUT", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(keyboard) { ResizeKeyboard = true });           
         }
     }
 }
