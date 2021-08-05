@@ -169,6 +169,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to notes.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to notificationsSettingsInfo.
         /// </summary>
         public static string NotificationSettingsInfo {
@@ -228,15 +237,6 @@ namespace BirthdayBot.BLL.Resources {
         public static string StrongNotificationsSettings {
             get {
                 return ResourceManager.GetString("StrongNotificationsSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to subscriptions.
-        /// </summary>
-        public static string Subscriptions {
-            get {
-                return ResourceManager.GetString("Subscriptions", resourceCulture);
             }
         }
         

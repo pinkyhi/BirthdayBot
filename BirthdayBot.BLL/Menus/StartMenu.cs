@@ -26,18 +26,18 @@ namespace BirthdayBot.BLL.Menus
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            InlineKeyboardButton subscriptions = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Subscriptions, CallbackParams.Page, $"{0}"), Text = resources["SUBSCRIPTIONS_BUTTON"]};
-            InlineKeyboardButton people = new InlineKeyboardButton() { CallbackData = CommandKeys.People, Text = resources["PEOPLE_BUTTON"] };
+            InlineKeyboardButton people = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{0}"), Text = resources["PEOPLE_BUTTON"] };
+            InlineKeyboardButton notes = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{0}"), Text = resources["NOTES_BUTTON"]};
             InlineKeyboardButton userSettings = new InlineKeyboardButton() { CallbackData = CommandKeys.UserSettings, Text = resources["USER_SETTINGS_BUTTON"] };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
                 {
-                    people
+                    people,
+                    notes,
                 },
                 new[]
                 {
-                    subscriptions,
                     userSettings
                 }
             });
