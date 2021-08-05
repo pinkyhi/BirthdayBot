@@ -34,7 +34,7 @@ namespace BirthdayBot.BLL.Menus
                 new[]
                 {
                     people,
-                    notes,
+                    notes
                 },
                 new[]
                 {
