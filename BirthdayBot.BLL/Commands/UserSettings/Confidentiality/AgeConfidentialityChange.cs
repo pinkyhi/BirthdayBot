@@ -44,7 +44,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Confidentiality
             catch
             { }
 
-            ConfidentialityTypeSelectMenu menu = new ConfidentialityTypeSelectMenu(resources);
+            ConfidentialityTypeSelectMenu menu = new ConfidentialityTypeSelectMenu(resources, dbUser.Settings.BirthYearConfidentiality);
             await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(), replyMarkup: menu.GetMarkup());
         }
     }
