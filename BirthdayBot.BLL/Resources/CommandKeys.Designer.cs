@@ -115,11 +115,11 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to changeNoteNotif.
+        ///   Looks up a localized string similar to changeNoteType.
         /// </summary>
-        public static string ChangeNoteNotification {
+        public static string ChangeNoteType {
             get {
-                return ResourceManager.GetString("ChangeNoteNotification", resourceCulture);
+                return ResourceManager.GetString("ChangeNoteType", resourceCulture);
             }
         }
         

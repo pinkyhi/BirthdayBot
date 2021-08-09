@@ -40,11 +40,11 @@ namespace BirthdayBot.BLL.Menus.Notes
             InlineKeyboardButton changeNoteNotifBut = null;
             if (note.IsStrong)
             {
-                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteNotification, qParams), Text = resources["STRONG_NOTIFICATION_BUTTON"] };
+                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteType, qParams), Text = resources["STRONG_NOTIFICATION_BUTTON"] };
             }
             else
             {
-                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteNotification, qParams), Text = resources["COMMON_NOTIFICATION_BUTTON"] };
+                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteType, qParams), Text = resources["COMMON_NOTIFICATION_BUTTON"] };
             }
 
             InlineKeyboardButton back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{fromPage}"), Text = resources["BACK_BUTTON"] };
