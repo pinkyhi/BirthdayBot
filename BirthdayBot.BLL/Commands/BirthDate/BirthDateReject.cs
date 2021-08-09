@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Notes;
-using BirthdayBot.BLL.Inputs.Start;
+﻿using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
@@ -11,7 +9,6 @@ using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-
 namespace BirthdayBot.BLL.Commands.BirthDate
 {
     public class BirthDateReject : ICommand
@@ -21,9 +18,10 @@ namespace BirthdayBot.BLL.Commands.BirthDate
         public BirthDateReject(BotClient botClient)
         {
             this.botClient = botClient;
+            this.mapper = mapper;
         }
 
-        public string Key => CommandKeys.NoteDateReject;
+        public string Key => CommandKeys.BirthDateReject;
 
         public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -32,7 +30,7 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
-            dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NoteTitleInput>();
+            dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
             await repository.UpdateAsync(dbUser);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
@@ -44,11 +42,7 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             { }
 
             // Output
-            KeyboardButton backBut = new KeyboardButton() { Text = resources["BACK_BUTTON"] };
-
-            dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NoteTitleInput>();
-            await repository.UpdateAsync(dbUser);
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["NOTE_TITLE_INPUT"], replyMarkup: new ReplyKeyboardMarkup(backBut) { ResizeKeyboard = true });
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
         }
     }
 }
