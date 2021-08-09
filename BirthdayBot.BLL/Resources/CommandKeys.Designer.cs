@@ -115,6 +115,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to changeNoteNotif.
+        /// </summary>
+        public static string ChangeNoteNotification {
+            get {
+                return ResourceManager.GetString("ChangeNoteNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to commonNotificationsSettings.
         /// </summary>
         public static string CommonNotificationsSettings {
@@ -232,6 +241,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to openNote.
+        /// </summary>
+        public static string OpenNote {
+            get {
+                return ResourceManager.GetString("OpenNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to people.
         /// </summary>
         public static string People {
@@ -246,6 +264,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string ProfileSettings {
             get {
                 return ResourceManager.GetString("ProfileSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to removeNote.
+        /// </summary>
+        public static string RemoveNote {
+            get {
+                return ResourceManager.GetString("RemoveNote", resourceCulture);
             }
         }
         

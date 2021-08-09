@@ -1,8 +1,10 @@
 ﻿using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using RapidBots.Constants;
 using RapidBots.Types.Menus;
 using System;
 using System.Collections.Generic;
@@ -29,10 +31,17 @@ namespace BirthdayBot.BLL.Menus.Notes
         {
             var addButton = new InlineKeyboardButton() { Text = resources["ADD_BUTTON"], CallbackData = CommandKeys.AddNote };
             var result = new List<List<InlineKeyboardButton>>() { new List<InlineKeyboardButton>() { addButton } };
-            var pageButtos = this.GetPage(page, source, x => string.Concat(x.Title, " ", x.Date.ToShortDateString()));
+            var pageButtons = this.GetPage(page, source, x => 
+            {
+                var qParams = new Dictionary<string, string>();
+                qParams.Add("property", $"{x.Id}");
+                qParams.Add(CallbackParams.Page, page.ToString());
+                return new InlineKeyboardButton() { Text = string.Concat(x.Title, " ", x.Date.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenNote, qParams) };
+            });
+
             var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };
 
-            result.AddRange(pageButtos);
+            result.AddRange(pageButtons);
             result.Add(new List<InlineKeyboardButton>() { backBut });
             return new InlineKeyboardMarkup(result);
             throw new Exception();
