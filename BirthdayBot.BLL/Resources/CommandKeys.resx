@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNote" xml:space="preserve">
+    <value>addNote</value>
+  </data>
   <data name="AgeConfidentialityChange" xml:space="preserve">
     <value>ageConfidentialityChange</value>
   </data>
@@ -152,6 +155,12 @@
   </data>
   <data name="LanguageSettingsChange" xml:space="preserve">
     <value>languageSettingsChange</value>
+  </data>
+  <data name="NoteDateConfirm" xml:space="preserve">
+    <value>noteDateConfirm</value>
+  </data>
+  <data name="NoteDateReject" xml:space="preserve">
+    <value>noteDateReject</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>notes</value>

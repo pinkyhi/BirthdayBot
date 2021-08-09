@@ -57,6 +57,9 @@ namespace BirthdayBot.BLL.Commands
                 { }
             }
 
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+            await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
+
             if (dbUser.RegistrationDate == null)
             {
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();

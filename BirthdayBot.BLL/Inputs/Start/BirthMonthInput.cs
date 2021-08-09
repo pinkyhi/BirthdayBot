@@ -14,7 +14,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
-    class BirthMonthInput : IInput
+    public class BirthMonthInput : IInput
     {
         private readonly BotClient botClient;
 

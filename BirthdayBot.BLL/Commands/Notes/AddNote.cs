@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Notes;
+﻿using BirthdayBot.BLL.Inputs.Notes;
 using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
@@ -7,23 +6,24 @@ using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace BirthdayBot.BLL.Commands.BirthDate
+namespace BirthdayBot.BLL.Commands.Notes
 {
-    public class BirthDateReject : ICommand
+    public class AddNote : ICommand
     {
         private readonly BotClient botClient;
 
-        public BirthDateReject(BotClient botClient)
+        public AddNote(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.NoteDateReject;
+        public string Key => CommandKeys.AddNote;
 
         public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -33,6 +33,7 @@ namespace BirthdayBot.BLL.Commands.BirthDate
 
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NoteTitleInput>();
+            dbUser.MiddlewareData = JsonConvert.SerializeObject(new Note());
             await repository.UpdateAsync(dbUser);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
@@ -44,6 +45,7 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             { }
 
             // Output
+
             KeyboardButton backBut = new KeyboardButton() { Text = resources["BACK_BUTTON"] };
 
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NoteTitleInput>();
