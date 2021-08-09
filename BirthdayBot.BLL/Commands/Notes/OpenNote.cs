@@ -46,7 +46,7 @@ namespace BirthdayBot.BLL.Commands.Notes
             string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
 
             var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            int noteId = Convert.ToInt32(parsedQuery["property"][0]);
+            long noteId = Convert.ToInt32(parsedQuery["property"][0]);
             int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
 
             var note = dbUser.Notes.First(x => x.Id == noteId);

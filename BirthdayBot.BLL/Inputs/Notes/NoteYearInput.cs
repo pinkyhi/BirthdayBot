@@ -90,7 +90,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
             }
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(), replyMarkup: menu.GetMarkup(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTE_MONTH_INPUT"], replyMarkup: menu.GetMarkup(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
         }
     }
 }

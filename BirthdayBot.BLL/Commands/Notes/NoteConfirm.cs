@@ -45,8 +45,8 @@ namespace BirthdayBot.BLL.Commands.Notes
                 var tempUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Notes));
                 dbUser.Notes = tempUser.Notes;
             }
-
-            dbUser.Notes.Add(JsonConvert.DeserializeObject<Note>(dbUser.MiddlewareData));
+            var note = JsonConvert.DeserializeObject<Note>(dbUser.MiddlewareData);
+            dbUser.Notes.Add(note);
             dbUser.MiddlewareData = null;
             dbUser.CurrentStatus = null;
             await repository.UpdateAsync(dbUser);
@@ -58,21 +58,19 @@ namespace BirthdayBot.BLL.Commands.Notes
             }
             catch
             { }
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
-            await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
-            dbUser.CurrentStatus = null;
-            dbUser.MiddlewareData = null;
-            await repository.UpdateAsync(dbUser);
+            int page = 0;
 
-            if (dbUser?.Notes == null)
+            NoteMenu menu = new NoteMenu(resources, page, note);
+
+            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try
             {
-                var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Notes));
-                dbUser.Notes = tempDbUser.Notes;
+                await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
             }
-
-            NotesMenu notesMenu = new NotesMenu(resources);
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, notesMenu.GetDefaultTitle(actionScope), replyMarkup: notesMenu.GetMarkup(0, dbUser.Notes, actionScope));
+            catch
+            { }
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
 
             return;
         }

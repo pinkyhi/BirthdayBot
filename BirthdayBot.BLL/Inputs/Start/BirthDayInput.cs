@@ -56,7 +56,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             {
                 int day = Convert.ToInt32(update.Message.Text.Trim());
 
-                if (day < 0 || day > DateTime.DaysInMonth(dbUser.BirthDate.Year, dbUser.BirthDate.Month))
+                if (day < 1 || day > DateTime.DaysInMonth(dbUser.BirthDate.Year, dbUser.BirthDate.Month))
                 {
                     throw new ArgumentException();
                 }

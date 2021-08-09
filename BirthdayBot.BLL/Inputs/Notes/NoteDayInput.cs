@@ -62,7 +62,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
                     return;
                 }
                 int day = Convert.ToInt32(inputStr);
-                if (day < 0 || day > DateTime.DaysInMonth(note.Date.Year, note.Date.Month))
+                if (day < 1 || day > DateTime.DaysInMonth(note.Date.Year, note.Date.Month))
                 {
                     throw new ArgumentException();
                 }

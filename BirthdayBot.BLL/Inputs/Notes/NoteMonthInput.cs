@@ -99,7 +99,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
 
             // Output
 
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["BIRTH_DAY_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(new KeyboardButton() { Text = resources["BACK_BUTTON"] }) { ResizeKeyboard = true });       
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTE_DAY_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(new KeyboardButton() { Text = resources["BACK_BUTTON"] }) { ResizeKeyboard = true });       
         }
     }
 }
