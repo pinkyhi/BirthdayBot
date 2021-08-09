@@ -18,7 +18,6 @@ namespace BirthdayBot.BLL.Commands.BirthDate
         public BirthDateReject(BotClient botClient)
         {
             this.botClient = botClient;
-            this.mapper = mapper;
         }
 
         public string Key => CommandKeys.BirthDateReject;
