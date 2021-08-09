@@ -205,6 +205,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to noteRemoveConfirm.
+        /// </summary>
+        public static string NoteRemoveConfirm {
+            get {
+                return ResourceManager.GetString("NoteRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to notes.
         /// </summary>
         public static string Notes {

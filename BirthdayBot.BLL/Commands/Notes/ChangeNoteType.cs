@@ -53,6 +53,10 @@ namespace BirthdayBot.BLL.Commands.Notes
                 note.IsStrong = !note.IsStrong;
                 await repository.UpdateAsync(dbUser);
             }
+            else
+            {
+                throw new ArgumentException();
+            }
 
             NoteMenu menu = new NoteMenu(resources, page, note);
 

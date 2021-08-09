@@ -48,13 +48,12 @@ namespace BirthdayBot.BLL.Commands.Notes
             int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
 
             var note = dbUser.Notes.First(x => x.Id == noteId);
-            if(note != null)
+            if(note == null)
             {
-                dbUser.Notes.Remove(note);
-                await repository.UpdateAsync(dbUser);
+                throw new ArgumentException();
             }
 
-            NotesMenu menu = new NotesMenu(resources);
+            NoteRemoveConfirmation menu = new NoteRemoveConfirmation(resources, page, note);
 
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
@@ -63,7 +62,7 @@ namespace BirthdayBot.BLL.Commands.Notes
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, dbUser.Notes, actionScope));
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
         }
     }
 }

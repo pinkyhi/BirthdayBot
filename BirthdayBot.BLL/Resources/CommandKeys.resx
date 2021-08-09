@@ -165,6 +165,9 @@
   <data name="NoteDateReject" xml:space="preserve">
     <value>noteDateReject</value>
   </data>
+  <data name="NoteRemoveConfirm" xml:space="preserve">
+    <value>noteRemoveConfirm</value>
+  </data>
   <data name="Notes" xml:space="preserve">
     <value>notes</value>
   </data>
