@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BirthdayBot.DAL.Repositories
@@ -58,6 +59,16 @@ namespace BirthdayBot.DAL.Repositories
         {
             this.dbContext.Set<T>().Update(exemplar);
             this.dbContext.SaveChanges();
+        }
+
+        public void LoadReference<T, TProperty>(T exemplar, Expression<Func<T, TProperty>> expression) where T : class where TProperty : class
+        {
+            this.dbContext.Entry(exemplar).Reference(expression).Load();
+        }
+
+        public void LoadCollection<T, TProperty>(T exemplar, Expression<Func<T, IEnumerable<TProperty>>> expression) where T : class where TProperty : class
+        {
+            this.dbContext.Entry(exemplar).Collection(expression).Load();
         }
 
         public async Task<T> AddAsync<T>(T exemplar)
@@ -163,6 +174,16 @@ namespace BirthdayBot.DAL.Repositories
 
             List<T> tList = await query.ToListAsync();
             return tList.FirstOrDefault(predicate);
+        }
+
+        public async Task LoadReferenceAsync<T, TProperty>(T exemplar, Expression<Func<T, TProperty>> expression) where T : class where TProperty : class
+        {
+            await this.dbContext.Entry(exemplar).Reference(expression).LoadAsync();
+        }
+
+        public async Task LoadCollectionAsync<T, TProperty>(T exemplar, Expression<Func<T, IEnumerable<TProperty>>> expression) where T : class where TProperty : class
+        {
+            await this.dbContext.Entry(exemplar).Collection(expression).LoadAsync();
         }
 
         public void Dispose()

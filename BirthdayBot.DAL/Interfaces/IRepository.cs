@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BirthdayBot.DAL.Interfaces
@@ -32,6 +33,10 @@ namespace BirthdayBot.DAL.Interfaces
         void UpdateRange<T>(IEnumerable<T> range)
             where T : class;
 
+        public void LoadReference<T, TProperty>(T exemplar, Expression<Func<T, TProperty>> expression) where T : class where TProperty : class;
+
+        public void LoadCollection<T, TProperty>(T exemplar, Expression<Func<T, IEnumerable<TProperty>>> expression) where T : class where TProperty : class;
+
         Task<IEnumerable<T>> GetRangeAsync<T>(bool tracking, Func<T, bool> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
             where T : class;
 
@@ -55,5 +60,10 @@ namespace BirthdayBot.DAL.Interfaces
 
         Task UpdateRangeAsync<T>(IEnumerable<T> exemplars)
             where T : class;
+
+        Task LoadReferenceAsync<T, TProperty>(T exemplar, Expression<Func<T, TProperty>> expression) where T : class where TProperty : class;
+
+        Task LoadCollectionAsync<T, TProperty>(T exemplar, Expression<Func<T, IEnumerable<TProperty>>> expression) where T : class where TProperty : class;
+
     }
 }

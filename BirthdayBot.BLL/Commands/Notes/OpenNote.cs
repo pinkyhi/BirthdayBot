@@ -42,7 +42,6 @@ namespace BirthdayBot.BLL.Commands.Notes
                 dbUser.Notes = tempUser.Notes;
             }
 
-            await repository.UpdateAsync(dbUser);
             string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
 
             var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);

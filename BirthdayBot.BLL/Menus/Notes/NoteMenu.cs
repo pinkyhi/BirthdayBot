@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
 using RapidBots.Types.Menus;
+using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Menus.Notes
@@ -30,15 +31,20 @@ namespace BirthdayBot.BLL.Menus.Notes
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            InlineKeyboardButton removeBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.RemoveNote, "property", note.Id.ToString()), Text = resources["REMOVE_BUTTON"] };
+            var qParams = new Dictionary<string, string>();
+            qParams.Add("property", $"{note.Id}");
+            qParams.Add(CallbackParams.Page, fromPage.ToString());
+
+            InlineKeyboardButton removeBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.RemoveNote, qParams), Text = resources["REMOVE_BUTTON"] };
+
             InlineKeyboardButton changeNoteNotifBut = null;
             if (note.IsStrong)
             {
-                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = CommandKeys.ChangeNoteNotification, Text = resources["STRONG_NOTIFICATION_BUTTON"] };
+                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteNotification, qParams), Text = resources["STRONG_NOTIFICATION_BUTTON"] };
             }
             else
             {
-                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = CommandKeys.ChangeNoteNotification, Text = resources["COMMON_NOTIFICATION_BUTTON"] };
+                changeNoteNotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeNoteNotification, qParams), Text = resources["COMMON_NOTIFICATION_BUTTON"] };
             }
 
             InlineKeyboardButton back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{fromPage}"), Text = resources["BACK_BUTTON"] };
