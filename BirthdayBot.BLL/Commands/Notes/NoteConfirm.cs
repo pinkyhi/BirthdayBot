@@ -42,8 +42,7 @@ namespace BirthdayBot.BLL.Commands.Notes
 
             if (dbUser?.Notes == null)
             {
-                var tempUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Notes));
-                dbUser.Notes = tempUser.Notes;
+                await repository.LoadCollectionAsync(dbUser, x => x.Notes);
             }
             var note = JsonConvert.DeserializeObject<Note>(dbUser.MiddlewareData);
             dbUser.Notes.Add(note);

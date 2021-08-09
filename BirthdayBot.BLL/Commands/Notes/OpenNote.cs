@@ -38,8 +38,7 @@ namespace BirthdayBot.BLL.Commands.Notes
 
             if (dbUser?.Notes == null)
             {
-                var tempUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Notes));
-                dbUser.Notes = tempUser.Notes;
+                await repository.LoadCollectionAsync(dbUser, x => x.Notes);
             }
 
             string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
