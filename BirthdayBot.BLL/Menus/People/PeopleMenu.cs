@@ -23,7 +23,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public override string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["NOTES_TEXT", values];
+            return resources["PEOPLE_TEXT", values];
         }
 
         public IReplyMarkup GetMarkup(int page, List<Subscription> source, IServiceScope actionScope = null)

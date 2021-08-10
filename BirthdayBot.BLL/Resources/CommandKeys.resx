@@ -141,6 +141,9 @@
   <data name="ChangeNoteType" xml:space="preserve">
     <value>changeNoteType</value>
   </data>
+  <data name="Chats" xml:space="preserve">
+    <value>chats</value>
+  </data>
   <data name="CommonNotificationsSettings" xml:space="preserve">
     <value>commonNotificationsSettings</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="People" xml:space="preserve">
     <value>people</value>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>personal</value>
   </data>
   <data name="ProfileSettings" xml:space="preserve">
     <value>profileSettings</value>
