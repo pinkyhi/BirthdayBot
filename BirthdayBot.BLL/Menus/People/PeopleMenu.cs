@@ -8,16 +8,15 @@ using RapidBots.Constants;
 using RapidBots.Types.Menus;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace BirthdayBot.BLL.Menus.Notes
+namespace BirthdayBot.BLL.Menus.People
 {
-    public class NotesMenu : PaginationMenu
+    public class PeopleMenu : PaginationMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
 
-        public NotesMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.Notes)
+        public PeopleMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.Notes)
         {
             this.resources = resources;
         }
@@ -27,16 +26,18 @@ namespace BirthdayBot.BLL.Menus.Notes
             return resources["NOTES_TEXT", values];
         }
 
-        public IReplyMarkup GetMarkup(int page, List<Note> source, IServiceScope actionScope = null)
+        public IReplyMarkup GetMarkup(int page, List<Subscription> source, IServiceScope actionScope = null)
         {
-            var addButton = new InlineKeyboardButton() { Text = resources["ADD_BUTTON"], CallbackData = CommandKeys.AddNote };
+            var addButton = new InlineKeyboardButton() { Text = resources["ADD_BUTTON"], CallbackData = CommandKeys.AddPeople };
             var result = new List<List<InlineKeyboardButton>>() { new List<InlineKeyboardButton>() { addButton } };
-            var pageButtons = this.GetPage(page, source, x => 
+            var now = DateTime.Now;
+            source.Sort((x, y) => (now - y.Target.BirthDate).CompareTo(now - x.Target.BirthDate));
+            var pageButtons = this.GetPage(page, source, x =>
             {
                 var qParams = new Dictionary<string, string>();
-                qParams.Add("property", $"{x.Id}");
+                qParams.Add("targetId", $"{x.TargetId}");
                 qParams.Add(CallbackParams.Page, page.ToString());
-                return new InlineKeyboardButton() { Text = string.Concat(x.Title, " ", x.Date.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenNote, qParams) };
+                return new InlineKeyboardButton() { Text = string.Concat(x.Target.Username, " ", x.Target.BirthDate.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
             });
 
             var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };

@@ -70,6 +70,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to addPeople.
+        /// </summary>
+        public static string AddPeople {
+            get {
+                return ResourceManager.GetString("AddPeople", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ageConfidentialityChange.
         /// </summary>
         public static string AgeConfidentialityChange {
@@ -255,6 +264,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string OpenNote {
             get {
                 return ResourceManager.GetString("OpenNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to openSubscription.
+        /// </summary>
+        public static string OpenSubscription {
+            get {
+                return ResourceManager.GetString("OpenSubscription", resourceCulture);
             }
         }
         

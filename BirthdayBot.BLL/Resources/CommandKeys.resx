@@ -120,6 +120,9 @@
   <data name="AddNote" xml:space="preserve">
     <value>addNote</value>
   </data>
+  <data name="AddPeople" xml:space="preserve">
+    <value>addPeople</value>
+  </data>
   <data name="AgeConfidentialityChange" xml:space="preserve">
     <value>ageConfidentialityChange</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="OpenNote" xml:space="preserve">
     <value>openNote</value>
+  </data>
+  <data name="OpenSubscription" xml:space="preserve">
+    <value>openSubscription</value>
   </data>
   <data name="People" xml:space="preserve">
     <value>people</value>
