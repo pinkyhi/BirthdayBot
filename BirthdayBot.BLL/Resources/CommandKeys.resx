@@ -147,6 +147,9 @@
   <data name="ChangeNoteType" xml:space="preserve">
     <value>changeNoteType</value>
   </data>
+  <data name="ChangeSubscriptionType" xml:space="preserve">
+    <value>changeSubsType</value>
+  </data>
   <data name="CommonNotificationsSettings" xml:space="preserve">
     <value>commonNotificationsSettings</value>
   </data>
@@ -193,7 +196,7 @@
     <value>openNote</value>
   </data>
   <data name="OpenSubscription" xml:space="preserve">
-    <value>openSubscription</value>
+    <value>openSubs</value>
   </data>
   <data name="People" xml:space="preserve">
     <value>people</value>
@@ -204,11 +207,17 @@
   <data name="RemoveNote" xml:space="preserve">
     <value>removeNote</value>
   </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>removeSubs</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>/start</value>
   </data>
   <data name="StrongNotificationsSettings" xml:space="preserve">
     <value>strongNotificationsSettings</value>
+  </data>
+  <data name="SubscriptionRemoveConfirm" xml:space="preserve">
+    <value>subsRemoveConfirm</value>
   </data>
   <data name="UserSettings" xml:space="preserve">
     <value>userSettings</value>

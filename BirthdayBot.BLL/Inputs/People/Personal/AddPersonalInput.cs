@@ -70,7 +70,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     inputStr = inputStr.Substring(1);
                 }
 
-                var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username.Contains(inputStr) && x.Id != dbUser.Id && x.RegistrationDate.Value.Year > 1900);
+                var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username.Contains(inputStr) && x.Id != dbUser.Id && x.RegistrationDate != null);
                 if(targets.Count() < 1)
                 {
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_ERROR"]);
@@ -83,7 +83,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     {
                         if(dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
                         {
-                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"], replyMarkup: new ReplyKeyboardRemove());
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"]);
                             return;
                         }
                         dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });

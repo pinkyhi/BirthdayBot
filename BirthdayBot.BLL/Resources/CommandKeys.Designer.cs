@@ -151,6 +151,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to changeSubsType.
+        /// </summary>
+        public static string ChangeSubscriptionType {
+            get {
+                return ResourceManager.GetString("ChangeSubscriptionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to commonNotificationsSettings.
         /// </summary>
         public static string CommonNotificationsSettings {
@@ -286,7 +295,7 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to openSubscription.
+        ///   Looks up a localized string similar to openSubs.
         /// </summary>
         public static string OpenSubscription {
             get {
@@ -322,6 +331,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to removeSubs.
+        /// </summary>
+        public static string RemoveSubscription {
+            get {
+                return ResourceManager.GetString("RemoveSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /start.
         /// </summary>
         public static string Start {
@@ -336,6 +354,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string StrongNotificationsSettings {
             get {
                 return ResourceManager.GetString("StrongNotificationsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to subsRemoveConfirm.
+        /// </summary>
+        public static string SubscriptionRemoveConfirm {
+            get {
+                return ResourceManager.GetString("SubscriptionRemoveConfirm", resourceCulture);
             }
         }
         

@@ -29,10 +29,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
 
             TUser dbUser = user as TUser;
-            if (dbUser?.Addresses == null)
+            if (dbUser.Addresses == null)
             {
-                var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
-                dbUser.Addresses = tempDbUser.Addresses;
+                await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
             }
             dbUser.CurrentStatus = null;
             dbUser.MiddlewareData = null;
