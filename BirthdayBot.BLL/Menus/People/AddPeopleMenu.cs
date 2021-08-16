@@ -25,8 +25,8 @@ namespace BirthdayBot.BLL.Menus.People
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            InlineKeyboardButton birthDateConfirm = new InlineKeyboardButton() { CallbackData = CommandKeys.Chats, Text = resources["CHATS_BUTTON"] };
-            InlineKeyboardButton birthDateReject = new InlineKeyboardButton() { CallbackData = CommandKeys.Personal, Text = resources["PERSONAL_BUTTON"] };
+            InlineKeyboardButton birthDateConfirm = new InlineKeyboardButton() { CallbackData = CommandKeys.AddByChats, Text = resources["CHATS_BUTTON"] };
+            InlineKeyboardButton birthDateReject = new InlineKeyboardButton() { CallbackData = CommandKeys.AddPersonal, Text = resources["PERSONAL_BUTTON"] };
             InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{0}"), Text = resources["BACK_BUTTON"] };
 
 

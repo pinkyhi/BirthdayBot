@@ -61,6 +61,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to addByChats.
+        /// </summary>
+        public static string AddByChats {
+            get {
+                return ResourceManager.GetString("AddByChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to addNote.
         /// </summary>
         public static string AddNote {
@@ -75,6 +84,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string AddPeople {
             get {
                 return ResourceManager.GetString("AddPeople", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to addPersonal.
+        /// </summary>
+        public static string AddPersonal {
+            get {
+                return ResourceManager.GetString("AddPersonal", resourceCulture);
             }
         }
         
@@ -129,15 +147,6 @@ namespace BirthdayBot.BLL.Resources {
         public static string ChangeNoteType {
             get {
                 return ResourceManager.GetString("ChangeNoteType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to chats.
-        /// </summary>
-        public static string Chats {
-            get {
-                return ResourceManager.GetString("Chats", resourceCulture);
             }
         }
         
@@ -291,15 +300,6 @@ namespace BirthdayBot.BLL.Resources {
         public static string People {
             get {
                 return ResourceManager.GetString("People", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to personal.
-        /// </summary>
-        public static string Personal {
-            get {
-                return ResourceManager.GetString("Personal", resourceCulture);
             }
         }
         

@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddByChats" xml:space="preserve">
+    <value>addByChats</value>
+  </data>
   <data name="AddNote" xml:space="preserve">
     <value>addNote</value>
   </data>
   <data name="AddPeople" xml:space="preserve">
     <value>addPeople</value>
+  </data>
+  <data name="AddPersonal" xml:space="preserve">
+    <value>addPersonal</value>
   </data>
   <data name="AgeConfidentialityChange" xml:space="preserve">
     <value>ageConfidentialityChange</value>
@@ -140,9 +146,6 @@
   </data>
   <data name="ChangeNoteType" xml:space="preserve">
     <value>changeNoteType</value>
-  </data>
-  <data name="Chats" xml:space="preserve">
-    <value>chats</value>
   </data>
   <data name="CommonNotificationsSettings" xml:space="preserve">
     <value>commonNotificationsSettings</value>
@@ -194,9 +197,6 @@
   </data>
   <data name="People" xml:space="preserve">
     <value>people</value>
-  </data>
-  <data name="Personal" xml:space="preserve">
-    <value>personal</value>
   </data>
   <data name="ProfileSettings" xml:space="preserve">
     <value>profileSettings</value>
