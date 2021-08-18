@@ -29,6 +29,7 @@ namespace BirthdayBot.BLL.Menus
             InlineKeyboardButton people = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{0}"), Text = resources["PEOPLE_BUTTON"] };
             InlineKeyboardButton notes = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{0}"), Text = resources["NOTES_BUTTON"]};
             InlineKeyboardButton userSettings = new InlineKeyboardButton() { CallbackData = CommandKeys.UserSettings, Text = resources["USER_SETTINGS_BUTTON"] };
+            InlineKeyboardButton startGroup = new InlineKeyboardButton() { Text = resources["SHARE_TO_GROUP"], Url = "https://t.me/birthdayMaster_bot?startgroup" };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
@@ -39,6 +40,10 @@ namespace BirthdayBot.BLL.Menus
                 new[]
                 {
                     userSettings
+                },
+                new[]
+                {
+                    startGroup
                 }
             });
             return result;
