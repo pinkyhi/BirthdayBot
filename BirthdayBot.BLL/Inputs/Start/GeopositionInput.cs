@@ -23,10 +23,10 @@ namespace BirthdayBot.BLL.Inputs.Start
     class GeopositionInput : IInput
     {
         private readonly BotClient botClient;
-        private readonly GoogleGeoCodeOptions geocodeOptions;
+        private readonly GoogleOptions geocodeOptions;
         private readonly ClientSettings clientSettings;
 
-        public GeopositionInput(BotClient botClient, GoogleGeoCodeOptions geocodeOptions, ClientSettings clientSettings)
+        public GeopositionInput(BotClient botClient, GoogleOptions geocodeOptions, ClientSettings clientSettings)
         {
             this.botClient = botClient;
             this.geocodeOptions = geocodeOptions;
@@ -119,7 +119,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 {
                     string lat = update.Message.Location.Latitude.ToString(CultureInfo.InvariantCulture);
                     string lng = update.Message.Location.Longitude.ToString(CultureInfo.InvariantCulture);
-                    request.RequestUri = GoogleGeoCodeHepler.BuildReverseGeocodeUri(string.Format("{0}, {1}", lat, lng), geocodeOptions);
+                    request.RequestUri = GoogleHepler.BuildReverseGeocodeUri(string.Format("{0}, {1}", lat, lng), geocodeOptions);
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                         throw new ArgumentException();
                     }
 
-                    request.RequestUri = GoogleGeoCodeHepler.BuildGeocodeUri(update.Message.Text, geocodeOptions);
+                    request.RequestUri = GoogleHepler.BuildGeocodeUri(update.Message.Text, geocodeOptions);
                 }
 
                 HttpResponseMessage response = await client.SendAsync(request);

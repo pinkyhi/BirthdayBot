@@ -30,8 +30,8 @@ namespace BirthdayBot
             AssemblyBLL.LoadAssembly(); // .Net will load BLL project in assemblies only if there is a connection to it. BLL assembly is important for reflection to commands etc
             var rapidBotsOptions = new RapidBotsOptions();
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
-            var googleGeoCodeOptions = new GoogleGeoCodeOptions();
-            this.Configuration.GetSection(nameof(GoogleGeoCodeOptions)).Bind(googleGeoCodeOptions);
+            var googleGeoCodeOptions = new GoogleOptions();
+            this.Configuration.GetSection(nameof(GoogleOptions)).Bind(googleGeoCodeOptions);
 
             var clientSettings = new ClientSettings();
             this.Configuration.GetSection(nameof(ClientSettings)).Bind(clientSettings);

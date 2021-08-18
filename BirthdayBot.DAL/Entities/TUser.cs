@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BirthdayBot.DAL.Entities.GoogleTimeZone;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace BirthdayBot.DAL.Entities
         public DateTime BirthDate { get; set; }
 
         public UserSettings Settings { get; set; }
+
+        public UserTimezone Timezone { get; set; }
 
         public UserLimitations Limitations { get; set; }
 

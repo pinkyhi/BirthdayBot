@@ -4,17 +4,20 @@ using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
+using BirthdayBot.DAL.Entities.GoogleTimeZone;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
+using RapidBots.GoogleGeoCode;
 using RapidBots.GoogleGeoCode.Types;
 using RapidBots.Types.Core;
 using RapidBots.Types.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
@@ -24,11 +27,13 @@ namespace BirthdayBot.BLL.Commands.Geoposition
     {
         private readonly IMapper mapper;
         private readonly BotClient botClient;
+        private readonly GoogleOptions geocodeOptions;
 
-        public GeopositionConfirm(IMapper mapper, BotClient botClient)
+        public GeopositionConfirm(IMapper mapper, GoogleOptions geocodeOptions, BotClient botClient)
         {
             this.botClient = botClient;
             this.mapper = mapper;
+            this.geocodeOptions = geocodeOptions;
         }
 
         public string Key => CommandKeys.GeopositionConfirm;
@@ -44,7 +49,31 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             dbUser.Addresses = mapper.Map<IEnumerable<RapidBots.GoogleGeoCode.Types.Address>, IEnumerable<DAL.Entities.Address>>(geocodeResponse.Results).ToList();
             dbUser.MiddlewareData = null;
             await repository.UpdateAsync(dbUser);
+            try
+            {
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                var place = geocodeResponse.Results.FirstOrDefault(x => x.Geometry != null);
+                request.RequestUri = GoogleHepler.BuildTimezoneUri(string.Format("{0}, {1}", place.Geometry.Location.Lat, place.Geometry.Location.Lng), geocodeOptions);
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    var timezoneResponse = JsonConvert.DeserializeObject<TimeZoneResponse>(json);
 
+                    dbUser.Timezone = mapper.Map<UserTimezone>(timezoneResponse);
+                    await repository.UpdateAsync(dbUser);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            catch
+            {
+                throw new Exception("Timezone can't be completed");
+            }
             await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
             try
             {
