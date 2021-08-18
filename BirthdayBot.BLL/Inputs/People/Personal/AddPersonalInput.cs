@@ -73,7 +73,8 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username.Contains(inputStr) && x.Id != dbUser.Id && x.RegistrationDate != null);
                 if(targets.Count() < 1)
                 {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_ERROR"]);
+                    PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, inputStr);
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, nfMenu.GetDefaultTitle(), replyMarkup: nfMenu.GetMarkup(actionScope));
                     return;
                 }
                 else
