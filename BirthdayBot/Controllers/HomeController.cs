@@ -3,6 +3,7 @@ using BirthdayBot.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using RapidBots;
+using RapidBots.Extensions;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace BirthdayBot.Controllers
         public async Task<IActionResult> Post([FromBody] Update update)
         {
             // Restrctions
-            var chatType = actionsManager.GetChatType(update);
+            var chatType = update.GetChatType();
             if(chatType == null || chatType == ChatType.Channel || chatType==ChatType.Sender)
             {
                 return Ok();
