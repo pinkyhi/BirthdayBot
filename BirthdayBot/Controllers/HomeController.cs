@@ -29,6 +29,27 @@ namespace BirthdayBot.Controllers
         [Route("/")]
         public async Task<IActionResult> Post([FromBody] Update update)
         {
+            // Restrctions
+            var chatType = actionsManager.GetChatType(update);
+            if(chatType == null || chatType == ChatType.Channel || chatType==ChatType.Sender)
+            {
+                return Ok();
+            } 
+            if(chatType == ChatType.Group || chatType == ChatType.Supergroup)
+            {
+                if(update.Type == UpdateType.EditedMessage)
+                {
+                    return Ok();
+                }
+                else if (update.Type == UpdateType.Message)
+                {
+                    if(update.Message.Text?.Trim().StartsWith('/') == false)
+                    {
+                        return Ok();
+                    }
+                }
+            }
+
             var requestScope = serviceProvider.CreateScope();
 
             var repository = requestScope.ServiceProvider.GetService<IRepository>();
