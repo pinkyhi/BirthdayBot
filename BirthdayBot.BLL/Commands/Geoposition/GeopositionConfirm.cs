@@ -74,7 +74,7 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             {
                 throw new Exception("Timezone can't be completed");
             }
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

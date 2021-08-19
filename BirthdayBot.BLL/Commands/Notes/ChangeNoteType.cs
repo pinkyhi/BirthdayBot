@@ -60,7 +60,7 @@ namespace BirthdayBot.BLL.Commands.Notes
 
             NoteMenu menu = new NoteMenu(resources, page, note);
 
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope) as InlineKeyboardMarkup);

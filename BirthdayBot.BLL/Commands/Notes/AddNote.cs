@@ -57,7 +57,7 @@ namespace BirthdayBot.BLL.Commands.Notes
             dbUser.MiddlewareData = JsonConvert.SerializeObject(newNote);
             await repository.UpdateAsync(dbUser);
 
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

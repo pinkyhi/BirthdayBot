@@ -38,7 +38,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings
             await repository.UpdateAsync(dbUser);
 
             ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

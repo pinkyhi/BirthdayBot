@@ -52,7 +52,7 @@ namespace BirthdayBot.BLL.Commands.People
 
             SubscriptionMenu menu = new SubscriptionMenu(resources, page, subscription);
 
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

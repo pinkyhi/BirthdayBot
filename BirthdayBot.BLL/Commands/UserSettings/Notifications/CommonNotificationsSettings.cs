@@ -35,7 +35,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
             menuDictionary.Add((int)NotificationsDelaysKeys.Common0, dbUser.Settings.CommonNotification_0);
 
             var menu = new NotificationsSettingsChangeMenu(resources, menuDictionary);
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

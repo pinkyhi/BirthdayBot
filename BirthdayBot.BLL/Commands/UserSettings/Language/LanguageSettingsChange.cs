@@ -44,7 +44,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Language
 
             LanguageSettingsMenu menu = new LanguageSettingsMenu(resources);
 
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

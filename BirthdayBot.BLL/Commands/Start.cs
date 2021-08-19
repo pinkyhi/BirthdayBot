@@ -48,7 +48,7 @@ namespace BirthdayBot.BLL.Commands
 
             if(update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
             {
-                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+                try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
                 try
                 {
                     await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
