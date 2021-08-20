@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BirthdayBot.DAL.Migrations
 {
-    public partial class settings : Migration
+    public partial class Chats : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace BirthdayBot.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Chat",
+                name: "Chats",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false),
@@ -34,7 +34,7 @@ namespace BirthdayBot.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chat", x => x.Id);
+                    table.PrimaryKey("PK_Chats", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +57,10 @@ namespace BirthdayBot.DAL.Migrations
                     Settings_StrongNotification_1 = table.Column<int>(nullable: true, defaultValue: 3),
                     Settings_StrongNotification_2 = table.Column<int>(nullable: true, defaultValue: 0),
                     Settings_CommonNotification_0 = table.Column<int>(nullable: true, defaultValue: 0),
+                    Timezone_DstOffset = table.Column<long>(nullable: true),
+                    Timezone_RawOffset = table.Column<long>(nullable: true),
+                    Timezone_TimeZoneId = table.Column<string>(nullable: true),
+                    Timezone_TimeZoneName = table.Column<string>(nullable: true),
                     Limitations_StartLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 5),
                     Limitations_StartLocationInputBlockDate = table.Column<DateTime>(nullable: true),
                     Limitations_ChangeLocationInputAttempts = table.Column<int>(nullable: true, defaultValue: 3),
@@ -101,9 +105,9 @@ namespace BirthdayBot.DAL.Migrations
                 {
                     table.PrimaryKey("PK_ChatMember", x => new { x.UserId, x.ChatId });
                     table.ForeignKey(
-                        name: "FK_ChatMember_Chat_ChatId",
+                        name: "FK_ChatMember_Chats_ChatId",
                         column: x => x.ChatId,
-                        principalTable: "Chat",
+                        principalTable: "Chats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -232,7 +236,7 @@ namespace BirthdayBot.DAL.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Chat");
+                name: "Chats");
 
             migrationBuilder.DropTable(
                 name: "Users");

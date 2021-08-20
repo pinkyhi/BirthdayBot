@@ -97,7 +97,7 @@ namespace BirthdayBot.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chat");
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.ChatMember", b =>

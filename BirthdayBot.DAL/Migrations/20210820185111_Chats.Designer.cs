@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210729144725_settings")]
-    partial class settings
+    [Migration("20210820185111_Chats")]
+    partial class Chats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,7 +99,7 @@ namespace BirthdayBot.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chat");
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.ChatMember", b =>
@@ -269,6 +269,31 @@ namespace BirthdayBot.DAL.Migrations
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.TUser", b =>
                 {
+                    b.OwnsOne("BirthdayBot.DAL.Entities.GoogleTimeZone.UserTimezone", "Timezone", b1 =>
+                        {
+                            b1.Property<long>("TUserId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("DstOffset")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("RawOffset")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("TimeZoneId")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TimeZoneName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("TUserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TUserId");
+                        });
+
                     b.OwnsOne("BirthdayBot.DAL.Entities.UserLimitations", "Limitations", b1 =>
                         {
                             b1.Property<long>("TUserId")

@@ -43,7 +43,9 @@ namespace BirthdayBot.BLL.Actions
             if(update.Type == UpdateType.MyChatMember && update.MyChatMember.NewChatMember.User.Id == botClient.Me.Id && update.MyChatMember.OldChatMember.User.Id == botClient.Me.Id)
             {
                 if((update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Member || update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Administrator) && (update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Member || update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Administrator))
-                return true;
+                {
+                    return true;
+                }
             }
             return false;
         }
