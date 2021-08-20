@@ -23,7 +23,7 @@ namespace BirthdayBot.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Chats",
+                name: "Chat",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false),
@@ -34,7 +34,7 @@ namespace BirthdayBot.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.PrimaryKey("PK_Chat", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,9 +105,9 @@ namespace BirthdayBot.DAL.Migrations
                 {
                     table.PrimaryKey("PK_ChatMember", x => new { x.UserId, x.ChatId });
                     table.ForeignKey(
-                        name: "FK_ChatMember_Chats_ChatId",
+                        name: "FK_ChatMember_Chat_ChatId",
                         column: x => x.ChatId,
-                        principalTable: "Chats",
+                        principalTable: "Chat",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -236,7 +236,7 @@ namespace BirthdayBot.DAL.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Chats");
+                name: "Chat");
 
             migrationBuilder.DropTable(
                 name: "Users");

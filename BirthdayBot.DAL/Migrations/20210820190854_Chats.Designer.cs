@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210820185111_Chats")]
+    [Migration("20210820190854_Chats")]
     partial class Chats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,7 +99,7 @@ namespace BirthdayBot.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chat");
                 });
 
             modelBuilder.Entity("BirthdayBot.DAL.Entities.ChatMember", b =>

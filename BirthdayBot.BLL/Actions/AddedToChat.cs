@@ -34,6 +34,7 @@ namespace BirthdayBot.BLL.Actions
             catch
             {
                 await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_ERROR"]);
+                return;
             }
             await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"]);
         }
