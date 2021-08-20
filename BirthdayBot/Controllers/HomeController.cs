@@ -80,8 +80,8 @@ namespace BirthdayBot.Controllers
                 }
                 try
                 {
-                    var command =  actionsManager.Commands.FirstOrDefault(p => p.Key.Equals(commandKey) && p.ValidateUpdate(update));
-                    if(command == null)
+                    var command = actionsManager.Commands.FirstOrDefault(p => p.Key.Equals(commandKey) && p.ValidateUpdate(update));
+                    if (command == null)
                     {
                         throw new KeyNotFoundException();
                     }
@@ -92,16 +92,31 @@ namespace BirthdayBot.Controllers
                 }
                 catch (KeyNotFoundException)
                 {
-                    if (dbUser?.CurrentStatus != null)
+                    try
                     {
-                        var input = actionsManager.Inputs[(int)dbUser.CurrentStatus];
-                        if (input.ValidateUpdate(update))
+                        if (dbUser?.CurrentStatus != null)
                         {
-                            await input.Execute(update, dbUser, requestScope);
+                            var input = actionsManager.Inputs[(int)dbUser.CurrentStatus];
+                            if (input.ValidateUpdate(update))
+                            {
+                                await input.Execute(update, dbUser, requestScope);
+                            }
+                            else
+                            {
+                                throw new KeyNotFoundException();
+                            }
+                        }
+                        else
+                        {
+                            throw new KeyNotFoundException();
                         }
                     }
+                    catch (KeyNotFoundException)
+                    {
+                        var action = actionsManager.Actions.First(x => x.ValidateUpdate(update));
+                        await action.Execute(update, dbUser, requestScope);
+                    }
                 }
-
                 return Ok();
             }
             catch (Exception exception)
