@@ -15,12 +15,15 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
-    class GeopositionInput : IInput
+    [ChatType(ChatType.Private)]
+    class GeopositionInput : Input
     {
         private readonly BotClient botClient;
         private readonly GoogleOptions geocodeOptions;
@@ -33,9 +36,9 @@ namespace BirthdayBot.BLL.Inputs.Start
             this.clientSettings = clientSettings;
         }
 
-        public int Status => 3;
+        public override int Status => 3;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             //Initialisation
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

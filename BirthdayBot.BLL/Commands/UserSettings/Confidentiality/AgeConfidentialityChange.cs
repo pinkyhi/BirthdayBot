@@ -11,10 +11,13 @@ using RapidBots.Types.Core;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Confidentiality
 {
-    public class AgeConfidentialityChange : ICommand
+    [ChatType(ChatType.Private)]
+    public class AgeConfidentialityChange : Command
     {
         private readonly BotClient botClient;
 
@@ -23,9 +26,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Confidentiality
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.AgeConfidentialityChange;
+        public override string Key => CommandKeys.AgeConfidentialityChange;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

@@ -20,10 +20,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.Geoposition
 {
-    public class GeopositionConfirm : ICommand
+    [ChatType(ChatType.Private)]
+    public class GeopositionConfirm : Command
     {
         private readonly IMapper mapper;
         private readonly BotClient botClient;
@@ -36,9 +39,9 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             this.geocodeOptions = geocodeOptions;
         }
 
-        public string Key => CommandKeys.GeopositionConfirm;
+        public override string Key => CommandKeys.GeopositionConfirm;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

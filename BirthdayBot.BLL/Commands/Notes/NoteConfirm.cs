@@ -16,10 +16,13 @@ using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {
-    public class NoteConfirm : ICommand
+    [ChatType(ChatType.Private)]
+    public class NoteConfirm : Command
     {
         private readonly BotClient botClient;
         private readonly ClientSettings clientSettings;
@@ -30,9 +33,9 @@ namespace BirthdayBot.BLL.Commands.Notes
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.NoteDateConfirm;
+        public override string Key => CommandKeys.NoteDateConfirm;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

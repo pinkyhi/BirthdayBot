@@ -12,11 +12,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Inputs.Notes
 {
-    public class NoteMonthInput : IInput
+    [ChatType(ChatType.Private)]
+    public class NoteMonthInput : Input
     {
         private readonly BotClient botClient;
 
@@ -25,9 +28,9 @@ namespace BirthdayBot.BLL.Inputs.Notes
             this.botClient = botClient;
         }
 
-        public int Status => 8;
+        public override int Status => 8;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             //Initialisation
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

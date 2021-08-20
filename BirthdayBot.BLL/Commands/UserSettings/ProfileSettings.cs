@@ -6,13 +6,16 @@ using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
 namespace BirthdayBot.BLL.Commands.UserSettings
 {
-    public class ProfileSettings : ICommand
+    [ChatType(ChatType.Private)]
+    public class ProfileSettings : Command
     {
         private readonly BotClient botClient;
 
@@ -21,9 +24,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.ProfileSettings;
+        public override string Key => CommandKeys.ProfileSettings;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

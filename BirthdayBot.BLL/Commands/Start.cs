@@ -7,14 +7,17 @@ using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands
 {
-    class Start : ICommand
+    [ChatType(ChatType.Private)]
+    class Start : Command
     {
         private readonly IMapper mapper;
         private readonly BotClient botClient;
@@ -25,9 +28,9 @@ namespace BirthdayBot.BLL.Commands
             this.mapper = mapper;
         }
 
-        public string Key => CommandKeys.Start;
+        public override string Key => CommandKeys.Start;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

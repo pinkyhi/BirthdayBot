@@ -15,10 +15,13 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using BirthdayBot.BLL.Menus.People;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.Subscriptions
 {
-    public class ChangeSubscriptionType : ICommand
+    [ChatType(ChatType.Private)]
+    public class ChangeSubscriptionType : Command
     {
         private readonly BotClient botClient;
 
@@ -27,9 +30,9 @@ namespace BirthdayBot.BLL.Commands.Subscriptions
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.ChangeSubscriptionType;
+        public override string Key => CommandKeys.ChangeSubscriptionType;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

@@ -9,10 +9,13 @@ using RapidBots.Types.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
 {
-    public class StrongNotificationsSettings : ICommand
+    [ChatType(ChatType.Private)]
+    public class StrongNotificationsSettings : Command
     {
         private readonly BotClient botClient;
 
@@ -21,9 +24,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.StrongNotificationsSettings;
+        public override string Key => CommandKeys.StrongNotificationsSettings;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

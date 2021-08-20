@@ -9,15 +9,18 @@ using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.BirthDate
 {
-    public class BirthDateConfirm : ICommand
+    [ChatType(ChatType.Private)]
+    public class BirthDateConfirm : Command
     {
         private readonly IMapper mapper;
         private readonly BotClient botClient;
@@ -30,9 +33,9 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             this.mapper = mapper;
         }
 
-        public string Key => CommandKeys.BirthDateConfirm;
+        public override string Key => CommandKeys.BirthDateConfirm;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

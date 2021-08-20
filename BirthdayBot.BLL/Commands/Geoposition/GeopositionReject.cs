@@ -10,10 +10,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.Geoposition
 {
-    public class GeopositionReject : ICommand
+    [ChatType(ChatType.Private)]
+    public class GeopositionReject : Command
     {
         private readonly BotClient botClient;
 
@@ -22,9 +25,9 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.GeopositionReject;
+        public override string Key => CommandKeys.GeopositionReject;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

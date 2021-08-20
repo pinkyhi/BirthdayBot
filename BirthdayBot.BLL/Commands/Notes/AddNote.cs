@@ -1,6 +1,8 @@
 ﻿using BirthdayBot.BLL.Inputs.Notes;
 using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
@@ -16,7 +18,8 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {
-    public class AddNote : ICommand
+    [ChatType(ChatType.Private)]
+    public class AddNote : Command
     {
         private readonly BotClient botClient;
 
@@ -25,9 +28,9 @@ namespace BirthdayBot.BLL.Commands.Notes
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.AddNote;
+        public override string Key => CommandKeys.AddNote;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             string title = "";
             try

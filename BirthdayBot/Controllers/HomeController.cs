@@ -8,6 +8,7 @@ using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -35,7 +36,7 @@ namespace BirthdayBot.Controllers
             if(chatType == null || chatType == ChatType.Channel || chatType==ChatType.Sender)
             {
                 return Ok();
-            } 
+            }
             if(chatType == ChatType.Group || chatType == ChatType.Supergroup)
             {
                 if(update.Type == UpdateType.EditedMessage)
@@ -79,13 +80,25 @@ namespace BirthdayBot.Controllers
                 }
                 try
                 {
-                    await actionsManager.Commands[commandKey].Execute(update, user: dbUser, actionScope: requestScope);
+                    var command =  actionsManager.Commands.FirstOrDefault(p => p.Key.Equals(commandKey) && p.ValidateUpdate(update));
+                    if(command == null)
+                    {
+                        throw new KeyNotFoundException();
+                    }
+                    else
+                    {
+                        await command.Execute(update, dbUser, requestScope);
+                    }
                 }
                 catch (KeyNotFoundException)
                 {
                     if (dbUser?.CurrentStatus != null)
                     {
-                        await actionsManager.Inputs[(int)dbUser.CurrentStatus].Execute(update, dbUser, requestScope);
+                        var input = actionsManager.Inputs[(int)dbUser.CurrentStatus];
+                        if (input.ValidateUpdate(update))
+                        {
+                            await input.Execute(update, dbUser, requestScope);
+                        }
                     }
                 }
 

@@ -9,16 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
+using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.People
 {
-    public class RemoveSubscription : ICommand
+    [ChatType(ChatType.Private)]
+    public class RemoveSubscription : Command
     {
         private readonly BotClient botClient;
 
@@ -27,9 +30,9 @@ namespace BirthdayBot.BLL.Commands.People
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.RemoveSubscription;
+        public override string Key => CommandKeys.RemoveSubscription;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

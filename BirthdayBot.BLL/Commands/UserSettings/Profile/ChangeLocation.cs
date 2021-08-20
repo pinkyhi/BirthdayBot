@@ -12,10 +12,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 namespace BirthdayBot.BLL.Commands.UserSettings.Profile
 {
-    public class ChangeLocation : ICommand
+    [ChatType(ChatType.Private)]
+    public class ChangeLocation : Command
     {
         private readonly BotClient botClient;
         private readonly ClientSettings clientSettings;
@@ -26,9 +28,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.ChangeLocation;
+        public override string Key => CommandKeys.ChangeLocation;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

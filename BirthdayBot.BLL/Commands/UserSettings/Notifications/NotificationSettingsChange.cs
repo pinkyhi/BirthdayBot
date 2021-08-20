@@ -1,5 +1,7 @@
 ﻿using BirthdayBot.BLL.Inputs.UserSettings;
 using BirthdayBot.BLL.Resources;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
@@ -13,7 +15,8 @@ using Telegram.Bot.Types;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
 {
-    public class NotificationSettingsChange : ICommand
+    [ChatType(ChatType.Private)]
+    public class NotificationSettingsChange : Command
     {
         private readonly BotClient botClient;
 
@@ -22,9 +25,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.NotificationsSettingsChange;
+        public override string Key => CommandKeys.NotificationsSettingsChange;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

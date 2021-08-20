@@ -8,10 +8,13 @@ using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.BLL.Commands.UserSettings
 {
-    public class ConfidentialitySettings : ICommand
+    [ChatType(ChatType.Private)]
+    public class ConfidentialitySettings : Command
     {
         private readonly BotClient botClient;
 
@@ -20,9 +23,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.ConfidentialitySettings;
+        public override string Key => CommandKeys.ConfidentialitySettings;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();

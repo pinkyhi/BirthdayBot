@@ -6,6 +6,8 @@ using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using RapidBots.Types.Attributes;
+using Telegram.Bot.Types.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
@@ -18,7 +20,8 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {
-    public class OpenNote : ICommand
+    [ChatType(ChatType.Private)]
+    public class OpenNote : Command
     {
         private readonly BotClient botClient;
 
@@ -27,9 +30,9 @@ namespace BirthdayBot.BLL.Commands.Notes
             this.botClient = botClient;
         }
 
-        public string Key => CommandKeys.OpenNote;
+        public override string Key => CommandKeys.OpenNote;
 
-        public async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
+        public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
