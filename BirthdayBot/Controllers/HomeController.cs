@@ -59,7 +59,12 @@ namespace BirthdayBot.Controllers
             try
             {
                 // Get current user
-                var dbUser = await repository.GetAsync<TUser>(true, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                TUser dbUser = null;
+                try
+                {
+                    dbUser = await repository.GetAsync<TUser>(true, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                }
+                catch { }
                 // Setting culture info for request
                 string telegramUserLanguageCode = update.CallbackQuery?.From?.LanguageCode ?? update.Message?.From?.LanguageCode;
                 CultureInfo.CurrentCulture = new CultureInfo(dbUser?.LanguageCode ?? telegramUserLanguageCode ?? options.DefaultLanguageCode);
