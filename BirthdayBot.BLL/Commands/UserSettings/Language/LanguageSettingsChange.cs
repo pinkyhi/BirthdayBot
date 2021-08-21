@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Language
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams("lang")]
     public class LanguageSettingsChange : Command
     {
         private readonly BotClient botClient;
@@ -35,10 +37,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Language
 
             TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var properties = QueryHelpers.ParseNullableQuery(queryString);
-            string lang = properties["lang"][0];
+            string lang = update.GetParams()["lang"];
             dbUser.LanguageCode = lang;
             await repository.UpdateAsync(dbUser);
 

@@ -17,10 +17,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {
     [ChatType(ChatType.Private)]    
+    [ExpectedParams("property", CallbackParams.Page)]
     public class NoteRemoveConfirm : Command
     {
         private readonly BotClient botClient;
@@ -44,11 +46,8 @@ namespace BirthdayBot.BLL.Commands.Notes
                 await repository.LoadCollectionAsync(dbUser, x => x.Notes);
             }
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            long noteId = Convert.ToInt32(parsedQuery["property"][0]);
-            int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
+            long noteId = Convert.ToInt32(update.GetParams()["property"]);
+            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
             var note = dbUser.Notes.First(x => x.Id == noteId);
             if (note != null)

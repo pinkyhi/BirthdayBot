@@ -15,10 +15,12 @@ using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams(CallbackParams.Page)]
     public class People : Command
     {
         private readonly BotClient botClient;
@@ -44,10 +46,8 @@ namespace BirthdayBot.BLL.Commands.People
             dbUser.MiddlewareData = null;
             dbUser.CurrentStatus = null;
             await repository.UpdateAsync(dbUser);
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
 
-            var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
+            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
             var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);

@@ -18,10 +18,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams("property", CallbackParams.Page)]
     public class OpenSubscription : Command
     {
         private readonly BotClient botClient;
@@ -45,11 +47,8 @@ namespace BirthdayBot.BLL.Commands.People
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
             }
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            long targetId = Convert.ToInt32(parsedQuery["targetId"][0]);
-            int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
+            long targetId = Convert.ToInt32(update.GetParams()["targetId"]);
+            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
 

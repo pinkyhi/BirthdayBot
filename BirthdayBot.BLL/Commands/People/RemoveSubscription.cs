@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
+using RapidBots.Extensions;
 using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System;
@@ -21,6 +22,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams("targetId", CallbackParams.Page)]
     public class RemoveSubscription : Command
     {
         private readonly BotClient botClient;
@@ -44,11 +46,8 @@ namespace BirthdayBot.BLL.Commands.People
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
             }
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            long targetId = Convert.ToInt32(parsedQuery["targetId"][0]);
-            int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
+            long targetId = Convert.ToInt32(update.GetParams()["targetId"]);
+            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
             var target = dbUser.Subscriptions.First(x => x.TargetId == targetId);
             if(target == null)

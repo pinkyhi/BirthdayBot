@@ -17,10 +17,12 @@ using Telegram.Bot.Types.ReplyMarkups;
 using BirthdayBot.BLL.Menus.People;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.Subscriptions
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams("property", CallbackParams.Page)]
     public class ChangeSubscriptionType : Command
     {
         private readonly BotClient botClient;
@@ -44,11 +46,8 @@ namespace BirthdayBot.BLL.Commands.Subscriptions
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
             }
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var parsedQuery = QueryHelpers.ParseNullableQuery(queryString);
-            long targetId = Convert.ToInt64(parsedQuery["targetId"][0]);
-            int page = Convert.ToInt32(parsedQuery[CallbackParams.Page][0]);
+            long targetId = Convert.ToInt64(update.GetParams()["targetId"]);
+            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
             if (subscription != null)

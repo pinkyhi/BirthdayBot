@@ -12,10 +12,12 @@ using RapidBots.Types.Core;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
 {
     [ChatType(ChatType.Private)]
+    [ExpectedParams("property")]
     public class NotificationSettingsChange : Command
     {
         private readonly BotClient botClient;
@@ -35,10 +37,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
 
             TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
 
-            string queryString = update.CallbackQuery.Data.Substring(update.CallbackQuery.Data.IndexOf('?') + 1);   // Common action
-
-            var properties = QueryHelpers.ParseNullableQuery(queryString);
-            int notificationDelayKey = Convert.ToInt32(properties["property"][0]);
+            int notificationDelayKey = Convert.ToInt32(update.GetParams()["property"]);
             dbUser.MiddlewareData = notificationDelayKey.ToString();
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NotificationsSettingsChangeInput>();
             await repository.UpdateAsync(dbUser);
