@@ -98,9 +98,6 @@ namespace BirthdayBot.DAL
                 .HasForeignKey(x => x.ChatId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Entities.ChatMember>()
-                .Property(c => c.Status)
-                .HasConversion<int>();
             modelBuilder.Entity<Entities.Chat>()
                 .Property(c => c.Type)
                 .HasConversion<int>();

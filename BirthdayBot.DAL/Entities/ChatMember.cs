@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.DAL.Entities
@@ -14,8 +15,6 @@ namespace BirthdayBot.DAL.Entities
 
         public Chat Chat { get; set; }
 
-        public bool IsAnonymous { get; set; }
-
-        public ChatMemberStatus Status { get; set; }
+        public DateTime AddingDate { get; set; }
     }
 }

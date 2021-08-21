@@ -12,6 +12,9 @@ namespace BirthdayBot.DAL.Interfaces
         IEnumerable<T> GetRange<T>(bool tracking, Func<T, bool> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
             where T : class;
 
+        /// <summary>
+        /// Example: GetAsync<User>(true, x => x.Id = 0, include: u => u.Include(x => x.Notes))
+        /// </summary>
         T Get<T>(bool tracking, Func<T, bool> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
             where T : class;
 
@@ -40,6 +43,9 @@ namespace BirthdayBot.DAL.Interfaces
         Task<IEnumerable<T>> GetRangeAsync<T>(bool tracking, Func<T, bool> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
             where T : class;
 
+        /// <summary>
+        /// Example: GetAsync<User>(true, x => x.Id = 0, include: u => u.Include(x => x.Notes))
+        /// </summary>
         Task<T> GetAsync<T>(bool tracking, Func<T, bool> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
             where T : class;
 
