@@ -48,7 +48,18 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
             TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
-            GoogleGeoCodeResponse geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(dbUser.MiddlewareData);
+            long? fromChat = null;
+            GoogleGeoCodeResponse geocodeResponse = null;
+            try
+            {
+                var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
+                fromChat = Convert.ToInt64(data["fromChat"]);
+                geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(data["address"]);
+            }
+            catch (InvalidCastException)
+            {
+                geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(dbUser.MiddlewareData);
+            }
             dbUser.Addresses = mapper.Map<IEnumerable<RapidBots.GoogleGeoCode.Types.Address>, IEnumerable<DAL.Entities.Address>>(geocodeResponse.Results).ToList();
             dbUser.MiddlewareData = null;
             await repository.UpdateAsync(dbUser);
@@ -89,7 +100,14 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             {
                 dbUser.RegistrationDate = DateTime.Now;
                 await repository.UpdateAsync(dbUser);
-
+                try
+                {
+                    var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == fromChat, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
+                    chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now });
+                    await repository.UpdateAsync(chat);
+                }
+                catch
+                { }
                 StartMenu menu = new StartMenu(resources);
                 await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
             }

@@ -13,6 +13,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using Newtonsoft.Json;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
@@ -82,7 +83,18 @@ namespace BirthdayBot.BLL.Inputs.Start
                 month++;
 
                 // Change status
-                dbUser.MiddlewareData = Convert.ToDateTime(dbUser.MiddlewareData).AddMonths(month - dbUser.BirthDate.Month).ToString();
+                try
+                {
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
+                    var date = DateTime.Parse(data["date"]);
+                    date = date.AddMonths(month - dbUser.BirthDate.Month);
+                    data["date"] = date.ToString();
+                    dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
+                }
+                catch
+                {
+                    dbUser.MiddlewareData = Convert.ToDateTime(dbUser.MiddlewareData).AddMonths(month - dbUser.BirthDate.Month).ToString();
+                }
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthDayInput>();
                 await repository.UpdateAsync(dbUser);
             }

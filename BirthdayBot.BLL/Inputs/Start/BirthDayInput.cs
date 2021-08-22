@@ -13,6 +13,8 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
@@ -54,6 +56,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 return;
             }
 
+            DateTime date = new DateTime();
             // Logic
             try
             {
@@ -65,7 +68,20 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                dbUser.MiddlewareData = Convert.ToDateTime(dbUser.MiddlewareData).AddDays(day - dbUser.BirthDate.Day).ToString();
+                try
+                {
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
+                    date = DateTime.Parse(data["date"]);
+                    date = date.AddDays(day - dbUser.BirthDate.Day);
+                    data["date"] = date.ToString();
+                    dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
+                }
+                catch
+                {
+                    date = Convert.ToDateTime(dbUser.MiddlewareData).AddDays(day - dbUser.BirthDate.Day);
+                    dbUser.MiddlewareData = date.ToString();
+                }
+                dbUser.CurrentStatus = null;
                 await repository.UpdateAsync(dbUser);
             }
             catch
@@ -81,7 +97,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             {
                 await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove());
             }
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, Convert.ToDateTime(dbUser.MiddlewareData).ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, date.ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
         }
     }
 }

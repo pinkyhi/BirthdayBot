@@ -19,6 +19,7 @@ using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
@@ -112,8 +113,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             GoogleGeoCodeResponse geocodeResponse;
             // Logic
             try
-            {
-                
+            {      
                 HttpClient client = new HttpClient();
                 HttpRequestMessage request = new HttpRequestMessage();
                 request.Method = HttpMethod.Get;
@@ -165,7 +165,16 @@ namespace BirthdayBot.BLL.Inputs.Start
                     {
                         throw new ArgumentException();
                     }
-                    dbUser.MiddlewareData = json;
+                    if(dbUser.MiddlewareData != null)
+                    {
+                        var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
+                        data.Add("address", json);
+                        dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
+                    }
+                    else
+                    {
+                        dbUser.MiddlewareData = json;
+                    }
                 }
                 else
                 {
