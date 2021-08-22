@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -29,8 +31,13 @@ namespace BirthdayBot.BLL.Actions
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             try
             {
-                var chat = await repository.GetAsync<DAL.Entities.Chat>(false, x => update.MyChatMember.Chat.Id == x.Id);
-                await repository.DeleteAsync(chat);
+                var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => update.Message.Chat.Id == x.Id, x => x.Include(x => x.ChatMembers));
+                var member = chat.ChatMembers.FirstOrDefault(x => x.UserId == update.Message.LeftChatMember.Id);
+                if(member != null)
+                {
+                    chat.ChatMembers.Remove(member);
+                    await repository.UpdateAsync(chat);
+                }
             }
             catch
             {
@@ -40,14 +47,7 @@ namespace BirthdayBot.BLL.Actions
 
         public override bool ValidateUpdate(Update update)
         {
-            if (update.Type == UpdateType.MyChatMember && update.MyChatMember.NewChatMember.User.Id == botClient.Me.Id && update.MyChatMember.OldChatMember.User.Id == botClient.Me.Id)
-            {
-                if ((update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Left || update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Kicked || update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Restricted) && (update.MyChatMember.OldChatMember.Status == ChatMemberStatus.Member || update.MyChatMember.OldChatMember.Status == ChatMemberStatus.Administrator))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return update.Message?.LeftChatMember != null && update.Message.LeftChatMember.IsBot == false;
         }
     }
 }
