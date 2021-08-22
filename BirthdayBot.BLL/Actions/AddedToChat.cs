@@ -38,7 +38,7 @@ namespace BirthdayBot.BLL.Actions
                 return;
             }
 
-            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.Message.Chat.Id) };
+            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.MyChatMember.Chat.Id) };
             await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"], replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
         }
 

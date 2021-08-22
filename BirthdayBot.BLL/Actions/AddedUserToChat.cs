@@ -6,6 +6,7 @@ using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -52,7 +53,12 @@ namespace BirthdayBot.BLL.Actions
 
         public override bool ValidateUpdate(Update update)
         {
-            return update.Message?.NewChatMembers != null;
+            if(update.Message?.NewChatMembers != null)
+            {
+                var newMembers = update.Message.NewChatMembers.Where(x => !x.IsBot);
+                return newMembers.Count() > 0;
+            }
+            return false;
         }
     }
 }
