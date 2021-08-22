@@ -23,7 +23,7 @@ using RapidBots.Extensions;
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams("property", CallbackParams.Page)]
+    [ExpectedParams("targetId", CallbackParams.Page)]
     public class OpenSubscription : Command
     {
         private readonly BotClient botClient;

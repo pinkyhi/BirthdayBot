@@ -91,6 +91,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                             return;
                         }
                         dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
+                        dbUser.CurrentStatus = null;
                         await repository.UpdateAsync(dbUser);
                         await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_SUCCESS"], replyMarkup: new ReplyKeyboardRemove());
 
