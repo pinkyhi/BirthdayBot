@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
 using RapidBots.Types.Menus;
+using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Menus.People
@@ -12,9 +13,11 @@ namespace BirthdayBot.BLL.Menus.People
     public class AddPeopleMenu : IMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
+        private readonly string peoplePage;
 
-        public AddPeopleMenu(IStringLocalizer<SharedResources> resources)
+        public AddPeopleMenu(IStringLocalizer<SharedResources> resources, string peoplePage)
         {
+            this.peoplePage = peoplePage;
             this.resources = resources;
         }
 
@@ -25,16 +28,19 @@ namespace BirthdayBot.BLL.Menus.People
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            InlineKeyboardButton birthDateConfirm = new InlineKeyboardButton() { CallbackData = CommandKeys.AddByChats, Text = resources["CHATS_BUTTON"] };
-            InlineKeyboardButton birthDateReject = new InlineKeyboardButton() { CallbackData = CommandKeys.AddPersonal, Text = resources["PERSONAL_BUTTON"] };
-            InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{0}"), Text = resources["BACK_BUTTON"] };
+            Dictionary<string, string> qParams = new Dictionary<string, string>();
+            qParams.Add(CallbackParams.Page, "0");
+            qParams.Add("peoplePage", peoplePage);
+            InlineKeyboardButton chats = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, qParams), Text = resources["CHATS_BUTTON"] };
+            InlineKeyboardButton personal = new InlineKeyboardButton() { CallbackData = CommandKeys.AddPersonal, Text = resources["PERSONAL_BUTTON"] };
+            InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{peoplePage}"), Text = resources["BACK_BUTTON"] };
 
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
                 {
-                    birthDateConfirm,
-                    birthDateReject
+                    chats,
+                    personal
                 },
                 new[]
                 {

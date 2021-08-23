@@ -286,6 +286,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to openChat.
+        /// </summary>
+        public static string OpenChat {
+            get {
+                return ResourceManager.GetString("OpenChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to openNote.
         /// </summary>
         public static string OpenNote {

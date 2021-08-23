@@ -88,6 +88,16 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                         if(dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
                         {
                             await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"]);
+                            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+                            await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
+
+                            dbUser.CurrentStatus = null;
+                            dbUser.MiddlewareData = null;
+                            await repository.UpdateAsync(dbUser);
+
+                            AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0");
+
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope));
                             return;
                         }
                         dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });

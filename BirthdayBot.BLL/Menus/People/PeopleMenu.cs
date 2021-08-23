@@ -30,7 +30,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public IReplyMarkup GetMarkup(int page, List<Subscription> source, IServiceScope actionScope = null)
         {
-            var addButton = new InlineKeyboardButton() { Text = resources["ADD_BUTTON"], CallbackData = CommandKeys.AddPeople };
+            var addButton = new InlineKeyboardButton() { Text = resources["ADD_BUTTON"], CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddPeople, "peoplePage", page.ToString()) };
             var result = new List<List<InlineKeyboardButton>>() { new List<InlineKeyboardButton>() { addButton } };
             var now = DateTime.Now;
             source.Sort((x, y) => (x.IsStrong).CompareTo(y.IsStrong));

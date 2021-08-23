@@ -16,52 +16,69 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
+using System.Linq;
 
-namespace BirthdayBot.BLL.Commands.People
+namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page)]
-    public class People : Command
+    [ExpectedParams(CallbackParams.Page, "peoplePage")]
+    public class AddByChats : Command
     {
         private readonly BotClient botClient;
 
-        public People(BotClient botClient)
+        public AddByChats(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public override string Key => CommandKeys.People;
+        public override string Key => CommandKeys.AddByChats;
 
         public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Subscriptions));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.Chat));
 
-            if (dbUser?.Subscriptions == null)
+            if (dbUser?.ChatMembers == null)
             {
-                await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
+                await repository.LoadCollectionAsync(dbUser, x => x.ChatMembers);
+                foreach(var chatMember in dbUser.ChatMembers)
+                {
+                    if(chatMember.Chat == null)
+                    {
+                        await repository.LoadReferenceAsync(chatMember, x => x.Chat);
+                    }
+                }
             }
             dbUser.MiddlewareData = null;
             dbUser.CurrentStatus = null;
             await repository.UpdateAsync(dbUser);
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
+            string peoplePage = update.GetParams()[CallbackParams.Page];
 
             var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
-            PeopleMenu menu = new PeopleMenu(resources);
+            ChatsMenu menu = new ChatsMenu(resources, peoplePage);
 
-            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
+            try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, dbUser.Subscriptions, actionScope));
+            var chats = dbUser.ChatMembers.Select(x => x.Chat).Distinct().ToList();
+            if (chats.Count() > 0)
+            {
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chats, actionScope));
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHATS_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chats, actionScope));
+            }
         }
     }
 }

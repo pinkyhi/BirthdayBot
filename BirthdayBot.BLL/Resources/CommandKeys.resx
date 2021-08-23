@@ -192,6 +192,9 @@
   <data name="NotificationsSettingsChange" xml:space="preserve">
     <value>notificationSettingsChange</value>
   </data>
+  <data name="OpenChat" xml:space="preserve">
+    <value>openChat</value>
+  </data>
   <data name="OpenNote" xml:space="preserve">
     <value>openNote</value>
   </data>
