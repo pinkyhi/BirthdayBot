@@ -21,7 +21,7 @@ using System.Linq;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page, "peoplePage")]
+    [ExpectedParams(CallbackParams.Page)]
     public class AddByChats : Command
     {
         private readonly BotClient botClient;
@@ -48,7 +48,9 @@ namespace BirthdayBot.BLL.Commands.People.Chats
                     if(chatMember.Chat == null)
                     {
                         await repository.LoadReferenceAsync(chatMember, x => x.Chat);
+                        await repository.LoadCollectionAsync(chatMember.Chat, x => x.ChatMembers);
                     }
+                    
                 }
             }
             dbUser.MiddlewareData = null;
@@ -56,12 +58,11 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             await repository.UpdateAsync(dbUser);
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
-            string peoplePage = update.GetParams()[CallbackParams.Page];
 
             var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
-            ChatsMenu menu = new ChatsMenu(resources, peoplePage);
+            ChatsMenu menu = new ChatsMenu(resources);
 
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try

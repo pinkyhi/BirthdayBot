@@ -19,11 +19,13 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
+    [ExpectedParams("chatId", "chatPage", "targetId")]
     public class OpenSubscription : Command
     {
         private readonly BotClient botClient;
@@ -47,12 +49,22 @@ namespace BirthdayBot.BLL.Commands.People
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
             }
 
-            long targetId = Convert.ToInt32(update.GetParams()["targetId"]);
-            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
+            var qParams = new Dictionary<string, string>();
+            var updateParams = update.GetParams();
+            long targetId = Convert.ToInt32(updateParams["targetId"]);
+            qParams.Add("targetId", updateParams["targetId"]);
+            if (updateParams.ContainsKey(CallbackParams.Page))
+            {
+                qParams.Add(CallbackParams.Page, updateParams[CallbackParams.Page]);
+            }
+            else {
+                qParams.Add("chatId", updateParams["chatId"]);
+                qParams.Add("chatPage", updateParams["chatPage"]);
+            }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
 
-            SubscriptionMenu menu = new SubscriptionMenu(resources, page, subscription);
+            SubscriptionMenu menu = new SubscriptionMenu(resources, qParams, subscription);
 
             try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try

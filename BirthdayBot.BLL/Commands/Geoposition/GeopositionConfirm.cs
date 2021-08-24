@@ -105,6 +105,7 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                     var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == fromChat, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
                     chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now });
                     await repository.UpdateAsync(chat);
+                    await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title]);
                 }
                 catch
                 { }

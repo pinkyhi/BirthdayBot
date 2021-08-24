@@ -17,12 +17,10 @@ namespace BirthdayBot.BLL.Menus.People
     public class ChatsMenu : PaginationMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
-        private readonly string peoplePage;
 
-        public ChatsMenu(IStringLocalizer<SharedResources> resources, string peoplePage) : base(8, 1, CommandKeys.Notes)
+        public ChatsMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.Notes)
         {
             this.resources = resources;
-            this.peoplePage = peoplePage;
         }
 
         public override string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
@@ -38,12 +36,12 @@ namespace BirthdayBot.BLL.Menus.People
             {
 
                 var qParams = new Dictionary<string, string>();
-                qParams.Add("peoplePage", $"{peoplePage}");
                 qParams.Add("chatsPage", $"{page}");
                 qParams.Add("chatId", $"{x.Id}");
-                if(x.ChatMembers.Count() > 1)
+                qParams.Add(CallbackParams.Page, "0");
+                if (x.ChatMembers.Count() > 1)
                 {
-                    return new InlineKeyboardButton() { Text = x.Title, CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
+                    return new InlineKeyboardButton() { Text = x.Title, CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, qParams) };
                 }
                 else
                 {
@@ -51,7 +49,7 @@ namespace BirthdayBot.BLL.Menus.People
                 }
             });
 
-            var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddPeople, "peoplePage", peoplePage), Text = resources["BACK_BUTTON"] };
+            var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddPeople, "peoplePage", "0"), Text = resources["BACK_BUTTON"] };
 
             result.AddRange(pageButtons);
             result.Add(new List<InlineKeyboardButton>() { backBut });

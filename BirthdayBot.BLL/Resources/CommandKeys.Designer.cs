@@ -367,7 +367,16 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to subsRemoveConfirm.
+        ///   Looks up a localized string similar to subsOnMem.
+        /// </summary>
+        public static string SubscribeOnMember {
+            get {
+                return ResourceManager.GetString("SubscribeOnMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to subsRemCon.
         /// </summary>
         public static string SubscriptionRemoveConfirm {
             get {

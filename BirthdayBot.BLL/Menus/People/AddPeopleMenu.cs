@@ -30,7 +30,6 @@ namespace BirthdayBot.BLL.Menus.People
         {
             Dictionary<string, string> qParams = new Dictionary<string, string>();
             qParams.Add(CallbackParams.Page, "0");
-            qParams.Add("peoplePage", peoplePage);
             InlineKeyboardButton chats = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, qParams), Text = resources["CHATS_BUTTON"] };
             InlineKeyboardButton personal = new InlineKeyboardButton() { CallbackData = CommandKeys.AddPersonal, Text = resources["PERSONAL_BUTTON"] };
             InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{peoplePage}"), Text = resources["BACK_BUTTON"] };

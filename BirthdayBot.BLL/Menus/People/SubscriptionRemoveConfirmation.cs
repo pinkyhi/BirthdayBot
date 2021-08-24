@@ -14,13 +14,14 @@ namespace BirthdayBot.BLL.Menus.Notes
     public class SubscriptionRemoveConfirmation : IMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
+        private readonly Dictionary<string, string> qParams;
         private readonly int fromPage;
         private readonly Subscription subscription;
 
-        public SubscriptionRemoveConfirmation(IStringLocalizer<SharedResources> resources, int fromPage, Subscription subscription)
+        public SubscriptionRemoveConfirmation(IStringLocalizer<SharedResources> resources, Dictionary<string, string> qParams, Subscription subscription)
         {
             this.resources = resources;
-            this.fromPage = fromPage;
+            this.qParams = qParams;
             this.subscription = subscription;
         }
 
@@ -31,10 +32,6 @@ namespace BirthdayBot.BLL.Menus.Notes
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            var qParams = new Dictionary<string, string>();
-            qParams.Add("targetId", $"{subscription.TargetId}");
-            qParams.Add(CallbackParams.Page, fromPage.ToString());
-
             InlineKeyboardButton Confirm = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscriptionRemoveConfirm, qParams), Text = resources["CONFIRM_BUTTON"] };
             InlineKeyboardButton Reject = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams), Text = resources["REJECT_BUTTON"] };
 

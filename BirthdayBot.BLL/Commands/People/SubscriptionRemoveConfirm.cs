@@ -19,11 +19,13 @@ using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using RapidBots.Extensions;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
+    [ExpectedParams("chatId", "chatPage", "targetId")]
     public class SubscriptionRemoveConfirm : Command
     {
         private readonly BotClient botClient;
@@ -47,8 +49,19 @@ namespace BirthdayBot.BLL.Commands.People
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
             }
 
-            long targetId = Convert.ToInt32(update.GetParams()["targetId"]);
-            int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
+            var qParams = new Dictionary<string, string>();
+            var updateParams = update.GetParams();
+            long targetId = Convert.ToInt32(updateParams["targetId"]);
+            qParams.Add("targetId", updateParams["targetId"]);
+            if (updateParams.ContainsKey(CallbackParams.Page))
+            {
+                qParams.Add(CallbackParams.Page, updateParams[CallbackParams.Page]);
+            }
+            else
+            {
+                qParams.Add("chatId", updateParams["chatId"]);
+                qParams.Add("chatPage", updateParams["chatPage"]);
+            }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
             if (subscription != null)
@@ -61,16 +74,54 @@ namespace BirthdayBot.BLL.Commands.People
                 throw new ArgumentException();
             }
 
-            PeopleMenu menu = new PeopleMenu(resources);
-
-            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
-            try
+            if (updateParams.ContainsKey(CallbackParams.Page))
             {
-                await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                PeopleMenu menu = new PeopleMenu(resources);
+
+                try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
+                try
+                {
+                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                }
+                catch
+                { }
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(Convert.ToInt32(updateParams[CallbackParams.Page]), dbUser.Subscriptions, actionScope));
             }
-            catch
-            { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, dbUser.Subscriptions, actionScope));
+            else
+            {
+                long chatId = Convert.ToInt64(updateParams["chatId"]);
+                int page = Convert.ToInt32(updateParams["chatPage"]);
+                var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
+
+                var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+                await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
+
+                var chatMembers = chat.ChatMembers;
+                if (chatMembers == null)
+                {
+                    await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["OPEN_CHAT_ERROR"]);
+                    throw new ArgumentException();
+                }
+                chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
+
+                OpenChatMenu menu = new OpenChatMenu(resources, "0", dbUser);
+
+                try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
+                try
+                {
+                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                }
+                catch
+                { }
+                if (chatMembers.Count() > 0)
+                {
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope));
+                }
+                else
+                {
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHAT_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope));
+                }
+            }
         }
     }
 }

@@ -14,14 +14,14 @@ namespace BirthdayBot.BLL.Menus.People
     public class SubscriptionMenu : IMenu
     {
         private readonly IStringLocalizer<SharedResources> resources;
-        private readonly int fromPage;
         private readonly Subscription subcription;
+        private readonly Dictionary<string, string> qParams;
 
-        public SubscriptionMenu(IStringLocalizer<SharedResources> resources, int fromPage, Subscription subcription)
+        public SubscriptionMenu(IStringLocalizer<SharedResources> resources, Dictionary<string,string> qParams, Subscription subcription)
         {
             this.resources = resources;
-            this.fromPage = fromPage;
             this.subcription = subcription;
+            this.qParams = qParams;
         }
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
@@ -31,9 +31,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
-            var qParams = new Dictionary<string, string>();
-            qParams.Add("targetId", $"{subcription.TargetId}");
-            qParams.Add(CallbackParams.Page, fromPage.ToString());
+            var backDict = new Dictionary<string, string>();
 
             InlineKeyboardButton removeBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.RemoveSubscription, qParams), Text = resources["REMOVE_BUTTON"] };
 
@@ -46,8 +44,20 @@ namespace BirthdayBot.BLL.Menus.People
             {
                 changeSubsotifBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeSubscriptionType, qParams), Text = resources["COMMON_NOTIFICATION_BUTTON"] };
             }
+            InlineKeyboardButton back = null;
+            if (qParams.ContainsKey(CallbackParams.Page))
+            {
+                backDict.Add(CallbackParams.Page, qParams[CallbackParams.Page]);
+                back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, backDict), Text = resources["BACK_BUTTON"] };
+            }
+            else
+            {
+                backDict.Add("chatsPage", "0");
+                backDict.Add("chatId", qParams["chatId"]);
+                backDict.Add(CallbackParams.Page, qParams["chatPage"]);
+                back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, backDict), Text = resources["BACK_BUTTON"] };
+            }
 
-            InlineKeyboardButton back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{fromPage}"), Text = resources["BACK_BUTTON"] };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
