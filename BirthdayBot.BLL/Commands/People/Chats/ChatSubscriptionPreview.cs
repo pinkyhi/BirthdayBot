@@ -66,7 +66,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             }
             var subscription = new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target };
 
-            SubscriptionMenu menu = new SubscriptionMenu(resources, qParams, subscription);
+            SubscriptionPreviewMenu menu = new SubscriptionPreviewMenu(resources, qParams, subscription);
 
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try

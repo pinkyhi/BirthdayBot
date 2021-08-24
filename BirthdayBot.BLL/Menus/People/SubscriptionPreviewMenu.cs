@@ -31,9 +31,16 @@ namespace BirthdayBot.BLL.Menus.People
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
+            var backDict = new Dictionary<string, string>();
+
             InlineKeyboardButton subscribe = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscriptionPreviewConfirm, qParams), Text = resources["SUBSCRIBE_BUTTON"] };
 
-            InlineKeyboardButton back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, qParams), Text = resources["BACK_BUTTON"] };
+            InlineKeyboardButton back = null;
+
+            backDict.Add("chatsPage", "0");
+            backDict.Add("chatId", qParams["chatId"]);
+            backDict.Add(CallbackParams.Page, qParams["chatPage"]);
+            back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, backDict), Text = resources["BACK_BUTTON"] };
             
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
