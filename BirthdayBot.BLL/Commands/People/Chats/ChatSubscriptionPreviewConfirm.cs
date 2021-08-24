@@ -25,16 +25,16 @@ namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("chatId", "chatPage", "targetId")]
-    public class SubscribeOnMember : Command
+    public class ChatSubscriptionPreviewConfirm : Command
     {
         private readonly BotClient botClient;
 
-        public SubscribeOnMember(BotClient botClient)
+        public ChatSubscriptionPreviewConfirm(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public override string Key => CommandKeys.SubscribeOnMember;
+        public override string Key => CommandKeys.SubscriptionPreviewConfirm;
 
         public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -60,17 +60,18 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             if (dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
             {
                 await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, text: resources["SUBSCRIBE_ON_MEMBER_DUPLICATE"], showAlert: true);
-                return;
             }
-            dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
-            dbUser.CurrentStatus = null;
-            await repository.UpdateAsync(dbUser);
-            try
+            else
             {
-                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIBE_ON_MEMBER_SUCCESS"]);
+                dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
+                dbUser.CurrentStatus = null;
+                await repository.UpdateAsync(dbUser);
+                try
+                {
+                    await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIBE_ON_MEMBER_SUCCESS"]);
+                }
+                catch { }
             }
-            catch { }
-
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
 
             SubscriptionMenu menu = new SubscriptionMenu(resources, qParams, subscription);

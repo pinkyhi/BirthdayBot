@@ -150,6 +150,9 @@
   <data name="ChangeSubscriptionType" xml:space="preserve">
     <value>changeSubsType</value>
   </data>
+  <data name="ChatSubscriptionPreview" xml:space="preserve">
+    <value>subPrev</value>
+  </data>
   <data name="CommonNotificationsSettings" xml:space="preserve">
     <value>commonNotificationsSettings</value>
   </data>
@@ -221,6 +224,9 @@
   </data>
   <data name="SubscribeOnMember" xml:space="preserve">
     <value>subsOnMem</value>
+  </data>
+  <data name="SubscriptionPreviewConfirm" xml:space="preserve">
+    <value>subPrevCon</value>
   </data>
   <data name="SubscriptionRemoveConfirm" xml:space="preserve">
     <value>subsRemCon</value>

@@ -25,16 +25,16 @@ namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("chatId", "chatPage", "targetId")]
-    public class SubscribeOnMember : Command
+    public class ChatSubscriptionPreview : Command
     {
         private readonly BotClient botClient;
 
-        public SubscribeOnMember(BotClient botClient)
+        public ChatSubscriptionPreview(BotClient botClient)
         {
             this.botClient = botClient;
         }
 
-        public override string Key => CommandKeys.SubscribeOnMember;
+        public override string Key => CommandKeys.ChatSubscriptionPreview;
 
         public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -52,8 +52,10 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             var updateParams = update.GetParams();
             long targetId = Convert.ToInt32(updateParams["targetId"]);
             qParams.Add("targetId", updateParams["targetId"]);
+
             qParams.Add("chatId", updateParams["chatId"]);
             qParams.Add("chatPage", updateParams["chatPage"]);
+
 
             var target = await repository.GetAsync<TUser>(true, x => x.Id == targetId);
 
@@ -62,19 +64,11 @@ namespace BirthdayBot.BLL.Commands.People.Chats
                 await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, text: resources["SUBSCRIBE_ON_MEMBER_DUPLICATE"], showAlert: true);
                 return;
             }
-            dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
-            dbUser.CurrentStatus = null;
-            await repository.UpdateAsync(dbUser);
-            try
-            {
-                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIBE_ON_MEMBER_SUCCESS"]);
-            }
-            catch { }
-
-            var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
+            var subscription = new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target };
 
             SubscriptionMenu menu = new SubscriptionMenu(resources, qParams, subscription);
 
+            try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);

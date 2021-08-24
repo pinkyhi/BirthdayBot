@@ -160,6 +160,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to subPrev.
+        /// </summary>
+        public static string ChatSubscriptionPreview {
+            get {
+                return ResourceManager.GetString("ChatSubscriptionPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to commonNotificationsSettings.
         /// </summary>
         public static string CommonNotificationsSettings {
@@ -372,6 +381,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string SubscribeOnMember {
             get {
                 return ResourceManager.GetString("SubscribeOnMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to subPrevCon.
+        /// </summary>
+        public static string SubscriptionPreviewConfirm {
+            get {
+                return ResourceManager.GetString("SubscriptionPreviewConfirm", resourceCulture);
             }
         }
         

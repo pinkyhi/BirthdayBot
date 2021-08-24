@@ -49,6 +49,7 @@ namespace BirthdayBot.BLL.Menus.People
                 }
                 else
                 {
+                    qParams.Add("targetId", x.User.Id.ToString());
                     return new InlineKeyboardButton() { Text = x.User.Username ?? string.Format("{0} {1}", x.User.FirstName, x.User.LastName), CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeOnMember, qParams) };
                 }
             });
