@@ -56,7 +56,7 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                 fromChat = Convert.ToInt64(data["fromChat"]);
                 geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(data["address"]);
             }
-            catch (InvalidCastException)
+            catch (Exception)
             {
                 geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(dbUser.MiddlewareData);
             }

@@ -126,7 +126,7 @@ namespace BirthdayBot.Controllers
             }
             catch (Exception exception)
             {
-                return Ok(exception.Message);
+                return Ok(exception.Message + " " + exception.GetType());
             }
             finally
             {
