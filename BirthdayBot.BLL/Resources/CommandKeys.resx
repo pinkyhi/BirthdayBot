@@ -138,6 +138,9 @@
   <data name="BirthDateReject" xml:space="preserve">
     <value>birthDateReject</value>
   </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>/calendar</value>
+  </data>
   <data name="ChangeBirthDate" xml:space="preserve">
     <value>changeBirthDate</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="GeopositionReject" xml:space="preserve">
     <value>geopositionReject</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>/help</value>
   </data>
   <data name="LanguageSettings" xml:space="preserve">
     <value>languageSettings</value>

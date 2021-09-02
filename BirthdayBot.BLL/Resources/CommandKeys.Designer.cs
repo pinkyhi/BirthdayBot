@@ -124,6 +124,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /calendar.
+        /// </summary>
+        public static string Calendar {
+            get {
+                return ResourceManager.GetString("Calendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to changeBirthDate.
         /// </summary>
         public static string ChangeBirthDate {
@@ -210,6 +219,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string GeopositionReject {
             get {
                 return ResourceManager.GetString("GeopositionReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /help.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
         
