@@ -5,10 +5,15 @@ using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using RapidBots.Extensions;
 using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -19,16 +24,14 @@ namespace BirthdayBot.BLL.Commands.General
     [ChatType(ChatType.Group, ChatType.Supergroup)]
     public class CalendarChat : Command
     {
-        private readonly IMapper mapper;
         private readonly BotClient botClient;
 
-        public CalendarChat(IMapper mapper, BotClient botClient)
+        public CalendarChat(BotClient botClient)
         {
             this.botClient = botClient;
-            this.mapper = mapper;
         }
 
-        public override string Key => CommandKeys.Start;
+        public override string Key => CommandKeys.Calendar;
 
         public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
@@ -36,44 +39,47 @@ namespace BirthdayBot.BLL.Commands.General
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == (update.Message?.From.Id ?? update.CallbackQuery.From.Id));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.Message.Chat.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
-            if (dbUser == null)
+            long chatId = update.Message.Chat.Id;
+            var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
+
+            var users = chat.ChatMembers.Select(x => new { Name = $"@{x.User.Username}" ?? $"{x.User.FirstName} {x.User.LastName}", Date = x.User.BirthDate }).GroupBy(x => x.Date.Month - 1);
+            string format = "{0} - {1};\n";
+            int monthNow = DateTime.Now.Month;
+
+            List<string> monthes = new List<string>(){
+                resources["JANUARY"],
+                resources["FEBRUARY"],
+                resources["MARCH"],
+                resources["APRIL"],
+                resources["MAY"],
+                resources["JUNE"],
+                resources["JULY"],
+                resources["AUGUST"],
+                resources["SEPTEMBER"],
+                resources["OCTOBER"],
+                resources["NOVEMBER"],
+                resources["DECEMBER"]
+            };
+
+            var resultStr = $"{resources["CALENDAR_MENU_TEXT"]}\n";
+            for(int i = 0; i < 12; i++)
             {
-                TUser newUser = mapper.Map<TUser>(update.Message?.From ?? update.CallbackQuery?.From);
-                dbUser = await repository.AddAsync(newUser);
-            }
-
-            // Zeroing
-            dbUser.CurrentStatus = null;
-            dbUser.MiddlewareData = null;
-            await repository.UpdateAsync(dbUser);
-
-            if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
-            {
-                try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
-                try
+                int month = (monthNow + i) % 12;
+                var usersNow = users.FirstOrDefault(x => x.Key == month);
+                if(usersNow == null)
                 {
-                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                    continue;
                 }
-                catch
-                { }
+                var strs = $"<b>{monthes[month]}</b>\n";
+                foreach(var userNow in usersNow)
+                {
+                    strs += $"{string.Format(format, userNow.Name, userNow.Date.ToShortDateString())}";
+                }
+                resultStr += strs;
             }
-
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
-            await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
-
-            if (dbUser.RegistrationDate == null)
-            {
-                dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
-                await repository.UpdateAsync(dbUser);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
-            }
-            else
-            {
-                StartMenu menu = new StartMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
-            }
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace BirthdayBot.BLL.Commands.General
             {
                 month = Convert.ToInt32(strMonth);
             }
-            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", Date = x.Target.RegistrationDate.Value });
+            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", Date = x.Target.BirthDate });
             var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, Date = x.Date});
             string format = "{0} - {1};\n";
             int monthNow = DateTime.Now.Month;
@@ -78,7 +78,6 @@ namespace BirthdayBot.BLL.Commands.General
             }
 
              await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
-            
         }
     }
 }
