@@ -53,7 +53,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 dbUser.Addresses = tempDbUser.Addresses;
             }
 
-            if (dbUser.RegistrationDate != null && update.Message.Text.Trim().Equals(resources["BACK_BUTTON"]))
+            if (dbUser.RegistrationDate != null && update.Message?.Text != null && update.Message.Text.Trim().Equals(resources["BACK_BUTTON"]))
             {
                 dbUser.CurrentStatus = null;
                 dbUser.MiddlewareData = null;
