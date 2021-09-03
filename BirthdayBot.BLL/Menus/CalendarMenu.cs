@@ -42,22 +42,38 @@ namespace BirthdayBot.BLL.Menus
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return string.Concat(resources["CALENDAR_MENU_TEXT", monthes[month - 1]], "\n", users);
+            return string.Concat(resources["CALENDAR_MENU_TEXT", $"<b>{monthes[month - 1]}</b>"], "\n", users);
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
+            List<InlineKeyboardButton> monthes0row = new List<InlineKeyboardButton>()
+            {
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"1"), Text = string.Concat(resources["JANUARY"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"2"), Text = string.Concat(resources["FEBRUARY"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"3"), Text = string.Concat(resources["MARCH"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"4"), Text = string.Concat(resources["APRIL"])}
 
-            InlineKeyboardButton back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"{(month - 1 < 1 ? 12 : month - 1)}"), Text = string.Concat(monthes[month - 2 < 0 ? 11 : month - 2], "←") };
-            InlineKeyboardButton forward = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"{(month + 1 > 12 ? 1 : month + 1)}"), Text = string.Concat("→", monthes[month > 11 ? 0 : month]) };
+            };
+            List<InlineKeyboardButton> monthes1row = new List<InlineKeyboardButton>()
+            {
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"5"), Text = string.Concat(resources["MAY"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"6"), Text = string.Concat(resources["JUNE"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"7"), Text = string.Concat(resources["JULY"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"8"), Text = string.Concat(resources["AUGUST"])}
 
-            InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
-                new[]
-                {
-                    back,
-                    forward
-                }
-            });
+            };
+            List<InlineKeyboardButton> monthes2row = new List<InlineKeyboardButton>()
+            {
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"9"), Text = string.Concat(resources["SEPTEMBER"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"10"), Text = string.Concat(resources["OCTOBER"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"11"), Text = string.Concat(resources["NOVEMBER"])},
+                new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"12"), Text = string.Concat(resources["DECEMBER"])}
+
+            };
+            var keyboard = new List<List<InlineKeyboardButton>>() { monthes0row, monthes1row, monthes2row };
+
+            InlineKeyboardMarkup result = new InlineKeyboardMarkup(keyboard);
             return result;
         }
     }

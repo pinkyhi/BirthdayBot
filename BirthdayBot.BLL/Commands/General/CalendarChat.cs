@@ -63,7 +63,7 @@ namespace BirthdayBot.BLL.Commands.General
                 resources["DECEMBER"]
             };
 
-            var resultStr = $"{resources["CALENDAR_MENU_TEXT"]}\n";
+            var resultStr = $"{resources["CHAT_CALENDAR_MENU_TEXT"]}\n";
             for(int i = 0; i < 12; i++)
             {
                 int month = (monthNow + i) % 12;

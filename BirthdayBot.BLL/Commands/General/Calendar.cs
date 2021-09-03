@@ -62,7 +62,7 @@ namespace BirthdayBot.BLL.Commands.General
             }
             var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", Date = x.Target.BirthDate });
             var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, Date = x.Date});
-            string format = "{0} - {1};\n";
+            string format = "{0} - {1};";
             int monthNow = DateTime.Now.Month;
             var strs = subs.Concat(notes).OrderBy(x => monthNow - x.Date.Month < 0 ? monthNow - x.Date.Month + 12 : monthNow - x.Date.Month).Select(x => string.Format(format, x.Name, x.Date.ToShortDateString()));
             CalendarMenu menu = new CalendarMenu(resources, month, string.Join('\n', strs));
@@ -71,13 +71,25 @@ namespace BirthdayBot.BLL.Commands.General
                 try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
                 try
                 {
-                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
-                }
-                catch
-                { };
-            }
+                    await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, menu.GetDefaultTitle(actionScope), parseMode: ParseMode.Html);
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: menu.GetMarkup(actionScope) as InlineKeyboardMarkup);
 
-             await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+                    }
+                    catch
+                    { };
+                    await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
+                }
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
+            }
         }
     }
 }
