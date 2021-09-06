@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Mon, 06 Sep 2021 17:11:05 +0300 
+  Exported at: Mon, 06 Sep 2021 17:31:21 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -280,7 +280,7 @@ BirthdayMaster can’t read your chat except commands and telegram messages as �
     <value>Menu opening...</value> 
   </data> 
   <data name="SHARE_TO_GROUP" xml:space="preserve"> 
-    <value>Share to group👥</value> 
+    <value>Share to group</value> 
   </data> 
   <data name="REPLY_KEYBOARD_REMOVE_TEXT" xml:space="preserve"> 
     <value>Temporary data cleared.</value> 
@@ -299,9 +299,8 @@ BirthdayMaster can’t read your chat except commands and telegram messages as �
     <value>Please, send note title.
 </value> 
   </data> 
-  <data name="Ok, now I need year of this occasion." xml:space="preserve"> 
-    <value>NOTE_YEAR_INPUT
-</value> 
+  <data name="NOTE_YEAR_INPUT" xml:space="preserve"> 
+    <value>Okay, now I'm waiting for year of this occasion</value> 
   </data> 
   <data name="NOTE_MONTH_INPUT" xml:space="preserve"> 
     <value>Next I'm waiting month.</value> 
@@ -398,9 +397,22 @@ Date: {1}</value>
     <value>Join chat calendar📆</value> 
   </data> 
   <data name="ADDED_TO_CHAT_TEXT" xml:space="preserve"> 
-    <value>Hi, I'm BirthdayMaster, and I'm here to help everybody manage birthdays🎁. You can add yourself to this chat calendar📆 and others will see you there and even subscribe to you. Also, I will notify you about this important event in this chat🎉 :)</value> 
+    <value>Hi, I'm BirthdayMaster, and I'm here to help everybody manage birthdays🎁. 
+You can add yourself to this chat calendar📆 and others will see you there and even subscribe to you.
+Also, I will notify you about this important event in this chat🎉 :)</value> 
   </data> 
   <data name="SUCCESS_START_FROM_CHAT" xml:space="preserve"> 
     <value>You were successfully added to chat *{0}* calendar. If you want to leave it, just rejoin the chat.</value> 
+  </data> 
+  <data name="WARNING_ICON" xml:space="preserve"> 
+    <value>⚠️</value> 
+  </data> 
+  <data name="CHAT_WARNING_TEXT" xml:space="preserve"> 
+    <value>
+⚠️It seems that here aren't users who added themself in the calendar. Use button in group to join it. 
+You can get it by calling `/calendar` command in your chat.</value> 
+  </data> 
+  <data name="CHAT_CALENDAR_MENU_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Chat calendar&lt;/b&gt;</value> 
   </data> 
 </root>

@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Mon, 06 Sep 2021 17:11:05 +0300 
+  Exported at: Mon, 06 Sep 2021 17:31:21 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -282,7 +282,7 @@
   <data name="NOTE_TITLE_INPUT" xml:space="preserve"> 
     <value /> 
   </data> 
-  <data name="Ok, now I need year of this occasion." xml:space="preserve"> 
+  <data name="NOTE_YEAR_INPUT" xml:space="preserve"> 
     <value /> 
   </data> 
   <data name="NOTE_MONTH_INPUT" xml:space="preserve"> 
@@ -373,6 +373,15 @@
     <value /> 
   </data> 
   <data name="SUCCESS_START_FROM_CHAT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="WARNING_ICON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CHAT_WARNING_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CHAT_CALENDAR_MENU_TEXT" xml:space="preserve"> 
     <value /> 
   </data> 
 </root>

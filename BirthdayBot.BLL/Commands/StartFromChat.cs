@@ -69,10 +69,15 @@ namespace BirthdayBot.BLL.Commands
             {
                 var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == chatId, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
                 chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now });
-                await repository.UpdateAsync(chat);
+                try
+                {
+                    await repository.UpdateAsync(chat);
+                }
+                catch (InvalidOperationException ex)
+                {}
                 StartMenu menu = new StartMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title]);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Markdown);
             }
         }
     }

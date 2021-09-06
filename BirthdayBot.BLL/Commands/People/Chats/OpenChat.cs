@@ -74,11 +74,11 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             { }
             if (chatMembers.Count() > 0)
             {
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope));
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope), parseMode: ParseMode.Markdown);
             }
             else
             {
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHAT_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope));
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHAT_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chatMembers, actionScope), parseMode: ParseMode.Markdown);
             }
         }
     }
