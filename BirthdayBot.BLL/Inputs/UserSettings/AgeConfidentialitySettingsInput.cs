@@ -72,7 +72,7 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["AGE_CONFIDENTIALITY_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
                 return;
             }
 

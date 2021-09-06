@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Fri, 30 Jul 2021 13:19:28 +0300 
+  Exported at: Mon, 06 Sep 2021 17:11:05 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -86,9 +86,6 @@
   </data> 
   <data name="START_LOCATION_INPUT" xml:space="preserve"> 
     <value>Последний шаг. Отправь свою геопозицию, или геопозицию своего города. Это нужно для того чтобы знать твой часовой пояс. У вас осталось {0} попыток</value> 
-  </data> 
-  <data name="SUBSCRIPTIONS_BUTTON" xml:space="preserve"> 
-    <value>Подписки</value> 
   </data> 
   <data name="PEOPLE_BUTTON" xml:space="preserve"> 
     <value>Люди</value> 
@@ -245,5 +242,137 @@
   </data> 
   <data name="BACK_BUTTON" xml:space="preserve"> 
     <value>Назад</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_TYPE_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="INPUT_ERROR" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="YOU_CHOOSED_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTES_BUTTON" xml:space="preserve"> 
+    <value>Заметки</value> 
+  </data> 
+  <data name="HELP_PRIVATE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CALENDAR_MENU_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="MENU_OPENER_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SHARE_TO_GROUP" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="REPLY_KEYBOARD_REMOVE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CHANGE_LOCATION_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTES_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_TITLE_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="Ok, now I need year of this occasion." xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_MONTH_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_DAY_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_DATE_CONFIRMATION" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="REMOVE_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="NOTE_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="PEOPLE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUBSCRIPTION_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUBSCRIPTION_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_PEOPLE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CHATS_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="CHATS_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="PERSONAL_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_NOT_FOUND" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_MANUALLY_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="PERSONAL_INVITE_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SEND_PERSONAL_INVITE_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_SUCCESS" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="TICK_ICON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUBSCRIPTION_PREVIEW_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUBSCRIBE_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUBSCRIBE_ON_MEMBER_SUCCESS" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="JOIN_CHAT_CALENDAR_BUTTON" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="ADDED_TO_CHAT_TEXT" xml:space="preserve"> 
+    <value /> 
+  </data> 
+  <data name="SUCCESS_START_FROM_CHAT" xml:space="preserve"> 
+    <value /> 
   </data> 
 </root>

@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Fri, 30 Jul 2021 13:19:28 +0300 
+  Exported at: Mon, 06 Sep 2021 17:11:05 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -87,14 +87,11 @@
   <data name="START_LOCATION_INPUT" xml:space="preserve"> 
     <value>The last one. Send your geoposition, or geoposition of your city. That's important to know your timezone. You have {0} attempts.</value> 
   </data> 
-  <data name="SUBSCRIPTIONS_BUTTON" xml:space="preserve"> 
-    <value>Subscriptions</value> 
-  </data> 
   <data name="PEOPLE_BUTTON" xml:space="preserve"> 
-    <value>People</value> 
+    <value>People🥳</value> 
   </data> 
   <data name="USER_SETTINGS_BUTTON" xml:space="preserve"> 
-    <value>User settings</value> 
+    <value>User settings⚙️</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve"> 
     <value>Sorry, seems that there is format error. Try again, write your birth year, for example *2001*</value> 
@@ -142,7 +139,7 @@
     <value>February</value> 
   </data> 
   <data name="SHARE_LOCATION_BUTTON" xml:space="preserve"> 
-    <value>Share location</value> 
+    <value>Share location📍</value> 
   </data> 
   <data name="GEOPOSITION_INPUT_ERROR" xml:space="preserve"> 
     <value>Geopoint read crashed. Try again, attempts count – {0}.</value> 
@@ -250,5 +247,160 @@ Your location is `{1}`</value>
   </data> 
   <data name="BACK_BUTTON" xml:space="preserve"> 
     <value>Back</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_TYPE_INPUT" xml:space="preserve"> 
+    <value>Write confidentiality type or choose it from keyboard below.</value> 
+  </data> 
+  <data name="INPUT_ERROR" xml:space="preserve"> 
+    <value>Unexpected input value, try again</value> 
+  </data> 
+  <data name="YOU_CHOOSED_TEXT" xml:space="preserve"> 
+    <value>You choosed *{0}*</value> 
+  </data> 
+  <data name="NOTES_BUTTON" xml:space="preserve"> 
+    <value>Notes✍️</value> 
+  </data> 
+  <data name="HELP_PRIVATE_TEXT" xml:space="preserve"> 
+    <value>*What can you do? 🎉 *
+1. You can subscribe on your friends with their username, and you will receive notifications before their birthdays. For that check _People_ page.
+2. You can manage when you will get notifications by choosing subscription type. You can change type on any existed subscription. Also you can specify how many days before you need to receive notifications in _Settings_ page.
+3. If your subscription target doesn’t have Username, or in any other case, you can add subscription through joint chat with this person, this person shared himself to chat-calendar.
+4. Even if your friend hasn’t Telegram or this bot, you can invite him, do it :) Or you can add note that doesn’t depend on specific user, but you still will be able to get notifications about it, and even choose subscription type.
+5. Except of subscription types settings you also can change your profile confidentiality, language or profile settings such as location or birthdate. 
+*Commands 📌 *
+/calendar – Show your subscriptions/*in chat* shows chat calendar
+*Security 🛡 *
+BirthdayMaster can’t read your chat except commands and telegram messages as “New chat member” etc. We doesn’t share your private info with any third-party companies. Bot needs your location for understanding your local time. You can hide your age in the settings, in this case only month and day will be available to other bot users.</value> 
+  </data> 
+  <data name="CALENDAR_MENU_TEXT" xml:space="preserve"> 
+    <value>Birthdays in {0}:
+</value> 
+  </data> 
+  <data name="MENU_OPENER_TEXT" xml:space="preserve"> 
+    <value>Menu opening...</value> 
+  </data> 
+  <data name="SHARE_TO_GROUP" xml:space="preserve"> 
+    <value>Share to group👥</value> 
+  </data> 
+  <data name="REPLY_KEYBOARD_REMOVE_TEXT" xml:space="preserve"> 
+    <value>Temporary data cleared.</value> 
+  </data> 
+  <data name="CHANGE_LOCATION_INPUT" xml:space="preserve"> 
+    <value>Send your location with button below, or send your city name. You have {0} attempt(-s).</value> 
+  </data> 
+  <data name="NOTES_TEXT" xml:space="preserve"> 
+    <value>Here you can see your notes or add a new one.
+</value> 
+  </data> 
+  <data name="ADD_BUTTON" xml:space="preserve"> 
+    <value>➕</value> 
+  </data> 
+  <data name="NOTE_TITLE_INPUT" xml:space="preserve"> 
+    <value>Please, send note title.
+</value> 
+  </data> 
+  <data name="Ok, now I need year of this occasion." xml:space="preserve"> 
+    <value>NOTE_YEAR_INPUT
+</value> 
+  </data> 
+  <data name="NOTE_MONTH_INPUT" xml:space="preserve"> 
+    <value>Next I'm waiting month.</value> 
+  </data> 
+  <data name="NOTE_DAY_INPUT" xml:space="preserve"> 
+    <value>And finally – day.</value> 
+  </data> 
+  <data name="NOTE_DATE_CONFIRMATION" xml:space="preserve"> 
+    <value>Is that right date? *{0}*</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>Common subscription type
+</value> 
+  </data> 
+  <data name="NOTE_TEXT" xml:space="preserve"> 
+    <value>*Note*
+Title: {0}
+Date: {1}
+{2}</value> 
+  </data> 
+  <data name="REMOVE_BUTTON" xml:space="preserve"> 
+    <value>Remove🗑</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value>✖️</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>Strong subscription type</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value>⭐️</value> 
+  </data> 
+  <data name="NOTE_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value>Are you sure, that you want remove that note?</value> 
+  </data> 
+  <data name="PEOPLE_TEXT" xml:space="preserve"> 
+    <value>Here you can look up your subscriptions on people, or add a new one.</value> 
+  </data> 
+  <data name="SUBSCRIPTION_TEXT" xml:space="preserve"> 
+    <value>*Subscription*
+User name: {0}
+Date: {1}
+{2}</value> 
+  </data> 
+  <data name="SUBSCRIPTION_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value>Are you sure, that you want to remove this subscription?</value> 
+  </data> 
+  <data name="ADD_PEOPLE_TEXT" xml:space="preserve"> 
+    <value>How would you like to add a new subscription to a person?</value> 
+  </data> 
+  <data name="CHATS_BUTTON" xml:space="preserve"> 
+    <value>By chats</value> 
+  </data> 
+  <data name="CHATS_TEXT" xml:space="preserve"> 
+    <value>Choose joint chat with the preferred person. If you don't see one here, add the bot to this chat and revoke the menu. Actually, this person should add himself to this chat calendar too. </value> 
+  </data> 
+  <data name="PERSONAL_BUTTON" xml:space="preserve"> 
+    <value>By username</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT" xml:space="preserve"> 
+    <value>Put in username.</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_NOT_FOUND" xml:space="preserve"> 
+    <value>Sorry, but a user with username {0} was not found. You can create your own note with this title.</value> 
+  </data> 
+  <data name="ADD_MANUALLY_BUTTON" xml:space="preserve"> 
+    <value>Add note</value> 
+  </data> 
+  <data name="PERSONAL_INVITE_TEXT" xml:space="preserve"> 
+    <value>Hi, that is an invite text, try this bot. It's really cool in managing birthdays🎁. I'm waiting on you there :)</value> 
+  </data> 
+  <data name="SEND_PERSONAL_INVITE_BUTTON" xml:space="preserve"> 
+    <value>Send invite</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_SUCCESS" xml:space="preserve"> 
+    <value>Success🎉! I found this user.</value> 
+  </data> 
+  <data name="TICK_ICON" xml:space="preserve"> 
+    <value>✔️
+</value> 
+  </data> 
+  <data name="SUBSCRIPTION_PREVIEW_TEXT" xml:space="preserve"> 
+    <value>*Subscription preview*
+Title: {0}
+Date: {1}</value> 
+  </data> 
+  <data name="SUBSCRIBE_BUTTON" xml:space="preserve"> 
+    <value>Subscribe👌</value> 
+  </data> 
+  <data name="SUBSCRIBE_ON_MEMBER_SUCCESS" xml:space="preserve"> 
+    <value>Subscription success🎉</value> 
+  </data> 
+  <data name="JOIN_CHAT_CALENDAR_BUTTON" xml:space="preserve"> 
+    <value>Join chat calendar📆</value> 
+  </data> 
+  <data name="ADDED_TO_CHAT_TEXT" xml:space="preserve"> 
+    <value>Hi, I'm BirthdayMaster, and I'm here to help everybody manage birthdays🎁. You can add yourself to this chat calendar📆 and others will see you there and even subscribe to you. Also, I will notify you about this important event in this chat🎉 :)</value> 
+  </data> 
+  <data name="SUCCESS_START_FROM_CHAT" xml:space="preserve"> 
+    <value>You were successfully added to chat *{0}* calendar. If you want to leave it, just rejoin the chat.</value> 
   </data> 
 </root>

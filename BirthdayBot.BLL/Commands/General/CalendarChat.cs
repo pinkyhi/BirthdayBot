@@ -79,7 +79,8 @@ namespace BirthdayBot.BLL.Commands.General
                 }
                 resultStr += strs;
             }
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true);
+            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id) };
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
         }
     }
 }
