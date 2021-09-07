@@ -49,7 +49,7 @@ namespace BirthdayBot.BLL.Commands.People
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             PeopleMenu menu = new PeopleMenu(resources);
@@ -61,7 +61,7 @@ namespace BirthdayBot.BLL.Commands.People
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, dbUser.Subscriptions, actionScope));
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, dbUser.Subscriptions, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

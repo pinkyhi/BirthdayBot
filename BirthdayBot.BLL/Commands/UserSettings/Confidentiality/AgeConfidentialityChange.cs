@@ -48,7 +48,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Confidentiality
             { }
 
             ConfidentialityTypeSelectMenu menu = new ConfidentialityTypeSelectMenu(resources, dbUser.Settings.BirthYearConfidentiality);
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(), replyMarkup: menu.GetMarkup());
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(), replyMarkup: menu.GetMarkup(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

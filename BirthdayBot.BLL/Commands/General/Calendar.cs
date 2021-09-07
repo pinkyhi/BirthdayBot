@@ -75,7 +75,7 @@ namespace BirthdayBot.BLL.Commands.General
                     await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: menu.GetMarkup(actionScope) as InlineKeyboardMarkup);
 
                 }
-                catch (Exception ex)
+                catch
                 {
                     try
                     {

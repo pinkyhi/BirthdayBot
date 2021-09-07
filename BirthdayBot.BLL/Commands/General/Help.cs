@@ -32,7 +32,7 @@ namespace BirthdayBot.BLL.Commands.General
         {
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["HELP_PRIVATE_TEXT"], parseMode: ParseMode.Markdown);
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["HELP_PRIVATE_TEXT"], parseMode: ParseMode.Html);
         }
     }
 }

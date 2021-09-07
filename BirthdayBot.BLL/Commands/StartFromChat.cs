@@ -54,7 +54,7 @@ namespace BirthdayBot.BLL.Commands
             dbUser.MiddlewareData = null;
             await repository.UpdateAsync(dbUser);
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             if (dbUser.RegistrationDate == null)
@@ -63,7 +63,7 @@ namespace BirthdayBot.BLL.Commands
                 await repository.UpdateAsync(dbUser);
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
                 await repository.UpdateAsync(dbUser);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false }, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             else
             {
@@ -73,11 +73,11 @@ namespace BirthdayBot.BLL.Commands
                 {
                     await repository.UpdateAsync(chat);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {}
                 StartMenu menu = new StartMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Markdown);
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Html);
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
             }
         }
     }

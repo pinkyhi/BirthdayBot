@@ -72,16 +72,16 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["YOU_CHOOSED_TEXT", update.Message.Text.Trim()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["YOU_CHOOSED_TEXT", update.Message.Text.Trim()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
             
             ConfidentialitySettingsMenu menu = new ConfidentialitySettingsMenu(resources);
 
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Settings.BirthYearConfidentiality.ToString()), replyMarkup: menu.GetMarkup(actionScope));
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Settings.BirthYearConfidentiality.ToString()), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
 
         }

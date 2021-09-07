@@ -44,7 +44,7 @@ namespace BirthdayBot.BLL.Commands.People
             dbUser.CurrentStatus = null;
             await repository.UpdateAsync(dbUser);
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             AddPeopleMenu menu = new AddPeopleMenu(resources, peoplePage);
@@ -56,7 +56,7 @@ namespace BirthdayBot.BLL.Commands.People
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

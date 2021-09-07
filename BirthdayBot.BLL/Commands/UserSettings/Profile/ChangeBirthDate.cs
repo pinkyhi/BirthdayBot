@@ -50,7 +50,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
 
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
             await repository.UpdateAsync(dbUser);
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardMarkup(backBut) { ResizeKeyboard = true });
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardMarkup(backBut) { ResizeKeyboard = true }, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

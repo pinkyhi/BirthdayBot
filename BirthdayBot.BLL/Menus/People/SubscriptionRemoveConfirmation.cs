@@ -15,14 +15,11 @@ namespace BirthdayBot.BLL.Menus.Notes
     {
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly Dictionary<string, string> qParams;
-        private readonly int fromPage;
-        private readonly Subscription subscription;
 
-        public SubscriptionRemoveConfirmation(IStringLocalizer<SharedResources> resources, Dictionary<string, string> qParams, Subscription subscription)
+        public SubscriptionRemoveConfirmation(IStringLocalizer<SharedResources> resources, Dictionary<string, string> qParams)
         {
             this.resources = resources;
             this.qParams = qParams;
-            this.subscription = subscription;
         }
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)

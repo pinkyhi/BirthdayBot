@@ -45,7 +45,7 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             { }
 
             // Output
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["BIRTH_YEAR_INPUT"], replyMarkup: new ReplyKeyboardRemove() { Selective = false }, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

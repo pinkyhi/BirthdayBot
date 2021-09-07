@@ -44,7 +44,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
                 string inputStr = update.Message.Text.Trim();
                 if (inputStr.Equals(resources["BACK_BUTTON"]))
                 {
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     dbUser.CurrentStatus = null;
@@ -58,7 +58,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
                     }
 
                     NotesMenu notesMenu = new NotesMenu(resources);
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, notesMenu.GetDefaultTitle(actionScope), replyMarkup: notesMenu.GetMarkup(0, dbUser.Notes, actionScope));
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, notesMenu.GetDefaultTitle(actionScope), replyMarkup: notesMenu.GetMarkup(0, dbUser.Notes, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                     return;
                 }
@@ -96,13 +96,13 @@ namespace BirthdayBot.BLL.Inputs.Notes
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["BIRTH_MONTH_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["BIRTH_MONTH_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
             // Output
 
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTE_DAY_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardMarkup(new KeyboardButton() { Text = resources["BACK_BUTTON"] }) { ResizeKeyboard = true });       
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTE_DAY_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardMarkup(new KeyboardButton() { Text = resources["BACK_BUTTON"] }) { ResizeKeyboard = true });       
         }
     }
 }

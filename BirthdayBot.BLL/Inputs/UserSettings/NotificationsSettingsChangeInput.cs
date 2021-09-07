@@ -71,7 +71,7 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTIFICATIONS_SETTINGS_CHANGE_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTIFICATIONS_SETTINGS_CHANGE_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
@@ -82,7 +82,7 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
                 menuDictionary.Add(((int)NotificationsDelaysKeys.Common0), dbUser.Settings.CommonNotification_0);
 
                 var menu = new NotificationsSettingsChangeMenu(resources, menuDictionary);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             else
             {
@@ -92,7 +92,7 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
                 menuDictionary.Add(((int)NotificationsDelaysKeys.Strong2), dbUser.Settings.StrongNotification_2);
 
                 var menu = new NotificationsSettingsChangeMenu(resources, menuDictionary);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
         }
     }

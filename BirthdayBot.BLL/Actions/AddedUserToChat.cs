@@ -39,14 +39,14 @@ namespace BirthdayBot.BLL.Actions
                 string mentionsInlineString = "";
                 foreach(var chatMember in update.Message.NewChatMembers)
                 {
-                    mentionsInlineString += string.Format("[{0}](tg://user?id={1})", chatMember.Username ?? chatMember.FirstName ?? chatMember.LastName ?? resources["USER_PLACEHOLDER"], chatMember.Id) + ", ";
+                    mentionsInlineString += string.Format("<a href=\"tg://user?id={1}\">{0}</a>", chatMember.Username ?? chatMember.FirstName ?? chatMember.LastName ?? resources["USER_PLACEHOLDER"], chatMember.Id) + ", ";
                 }
                 mentionsInlineString = mentionsInlineString.Substring(0, mentionsInlineString.Length - 2);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADDED_USER_TO_CHAT_TEXT", mentionsInlineString], parseMode: ParseMode.Markdown, replyMarkup: markup);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADDED_USER_TO_CHAT_TEXT", mentionsInlineString], parseMode: ParseMode.Html, replyMarkup: markup);
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADDED_USER_TO_CHAT_ERROR"], parseMode: ParseMode.Markdown, replyMarkup: markup);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADDED_USER_TO_CHAT_ERROR"], parseMode: ParseMode.Html, replyMarkup: markup);
                 return;
             }
         }

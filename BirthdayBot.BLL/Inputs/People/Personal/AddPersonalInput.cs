@@ -51,7 +51,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 string inputStr = update.Message.Text.Trim();
                 if (inputStr.Equals(resources["BACK_BUTTON"]))
                 {
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     dbUser.CurrentStatus = null;
@@ -60,7 +60,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
 
                     PeopleMenu menu = new PeopleMenu(resources);
 
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(0, dbUser.Subscriptions, actionScope));
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(0, dbUser.Subscriptions, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     return;
                 }
 
@@ -77,7 +77,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 if(targets.Count() < 1)
                 {
                     PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, inputStr);
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, nfMenu.GetDefaultTitle(), replyMarkup: nfMenu.GetMarkup(actionScope));
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, nfMenu.GetDefaultTitle(), replyMarkup: nfMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     return;
                 }
                 else
@@ -87,8 +87,8 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     {
                         if(dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
                         {
-                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"]);
-                            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                             dbUser.CurrentStatus = null;
@@ -97,29 +97,29 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
 
                             AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0");
 
-                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope));
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                             return;
                         }
                         dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
                         dbUser.CurrentStatus = null;
                         await repository.UpdateAsync(dbUser);
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_SUCCESS"], replyMarkup: new ReplyKeyboardRemove());
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_SUCCESS"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                         PeopleMenu menu = new PeopleMenu(resources);
 
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(0, dbUser.Subscriptions, actionScope));
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(0, dbUser.Subscriptions, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                         return;
                     }
                     else
                     {
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_MULTIPLE", string.Join(", ", targets.Select(x => x.Username).Take(10))]);
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_MULTIPLE", string.Join(", ", targets.Select(x => x.Username).Take(10))], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                         return;
                     }
                 }
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PESONAL_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PESONAL_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
         }

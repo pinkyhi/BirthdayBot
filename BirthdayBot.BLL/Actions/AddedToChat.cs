@@ -34,12 +34,12 @@ namespace BirthdayBot.BLL.Actions
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_ERROR"]);
+                await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
             InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.MyChatMember.Chat.Id) };
-            await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"], replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+            await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"], replyMarkup: new InlineKeyboardMarkup(joinChatCalendar), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
 
         public override bool ValidateUpdate(Update update)

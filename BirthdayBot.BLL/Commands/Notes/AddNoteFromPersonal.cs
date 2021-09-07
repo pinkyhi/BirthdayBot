@@ -45,7 +45,7 @@ namespace BirthdayBot.BLL.Commands.Notes
             var newNote = new Note() { Title = title};
             newNote.Title = title;
 
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["TRANSFERED_NOTE_CREATION", title]);
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["TRANSFERED_NOTE_CREATION", title], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
             dbUser.MiddlewareData = JsonConvert.SerializeObject(newNote);
             await repository.UpdateAsync(dbUser);
@@ -64,7 +64,7 @@ namespace BirthdayBot.BLL.Commands.Notes
 
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<NoteYearInput>();
             await repository.UpdateAsync(dbUser);
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["NOTE_YEAR_INPUT"]);
+            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["NOTE_YEAR_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
         }
     }

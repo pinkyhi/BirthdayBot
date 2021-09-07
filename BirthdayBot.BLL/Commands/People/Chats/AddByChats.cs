@@ -59,7 +59,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove());
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             ChatsMenu menu = new ChatsMenu(resources);
@@ -74,11 +74,11 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             var chats = dbUser.ChatMembers.Select(x => x.Chat).Distinct().ToList();
             if (chats.Count() > 0)
             {
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chats, actionScope));
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(page, chats, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             else
             {
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHATS_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chats, actionScope));
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, string.Concat(menu.GetDefaultTitle(actionScope), resources["CHATS_WARNING_TEXT"]), replyMarkup: menu.GetMarkup(page, chats, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
         }
     }

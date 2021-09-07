@@ -26,7 +26,7 @@ namespace BirthdayBot.BLL.Menus.Notes
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["NOTE_TEXT", note.Title, note.Date, note.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
+            return resources["NOTE_TEXT", note.Title, note.Date.ToShortDateString(), note.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)

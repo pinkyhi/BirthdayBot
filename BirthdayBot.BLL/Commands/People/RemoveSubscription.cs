@@ -68,7 +68,7 @@ namespace BirthdayBot.BLL.Commands.People
                 throw new ArgumentException();
             }
 
-            SubscriptionRemoveConfirmation menu = new SubscriptionRemoveConfirmation(resources, qParams, target);
+            SubscriptionRemoveConfirmation menu = new SubscriptionRemoveConfirmation(resources, qParams);
 
             try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
@@ -77,7 +77,7 @@ namespace BirthdayBot.BLL.Commands.People
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope));
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

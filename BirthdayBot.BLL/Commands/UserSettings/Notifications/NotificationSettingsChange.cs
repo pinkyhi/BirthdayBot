@@ -49,7 +49,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Notifications
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["NOTIFICATIONS_SETTINGS_CHANGE_INPUT"]);
+            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, resources["NOTIFICATIONS_SETTINGS_CHANGE_INPUT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

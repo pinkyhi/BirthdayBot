@@ -59,8 +59,8 @@ namespace BirthdayBot.BLL.Inputs.Start
                 dbUser.MiddlewareData = null;
                 await repository.UpdateAsync(dbUser);
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove());
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                 return;
             }
@@ -69,7 +69,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 if((DateTime.Now - dbUser.Limitations.StartLocationInputBlockDate).Value.TotalDays < clientSettings.StartLocationInputBlockDays)
                 {
                     var blockEnd = dbUser.Limitations.StartLocationInputBlockDate.Value.AddDays(clientSettings.StartLocationInputBlockDays);
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_BLOCK", blockEnd.ToLongDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_BLOCK", blockEnd.ToLongDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                     
                     dbUser.CurrentStatus = null;
                     await repository.UpdateAsync(dbUser);
@@ -87,7 +87,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 if ((DateTime.Now - dbUser.Limitations.ChangeLocationInputBlockDate).Value.TotalDays < clientSettings.ChangeLocationInputBlockDays)
                 {
                     var blockEnd = dbUser.Limitations.ChangeLocationInputBlockDate.Value.AddDays(clientSettings.ChangeLocationInputBlockDays);
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_BLOCK", blockEnd.ToLongDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_BLOCK", blockEnd.ToLongDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
 
                     dbUser.CurrentStatus = null;
                     await repository.UpdateAsync(dbUser);
@@ -106,7 +106,7 @@ namespace BirthdayBot.BLL.Inputs.Start
 
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
 
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope));
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
@@ -189,11 +189,11 @@ namespace BirthdayBot.BLL.Inputs.Start
             {
                 if(dbUser.RegistrationDate == null)
                 {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                 }
                 return;
             }
@@ -201,8 +201,8 @@ namespace BirthdayBot.BLL.Inputs.Start
             GeopositionConfirmationMenu menu = new GeopositionConfirmationMenu(resources);
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, geocodeResponse.GetFirstAddress(), replyMarkup: new ReplyKeyboardRemove() { Selective=false });
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: menu.GetMarkup());
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, geocodeResponse.GetFirstAddress(), replyMarkup: new ReplyKeyboardRemove() { Selective=false }, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: menu.GetMarkup());
         }
     }
 }
