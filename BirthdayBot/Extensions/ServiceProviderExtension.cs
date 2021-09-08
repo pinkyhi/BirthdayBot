@@ -88,13 +88,11 @@ namespace BirthdayBot.Extensions
                 q.AddTrigger(opts => opts
                     .ForJob(persNotJobKey)
                     .WithIdentity("PersonalBirthdayNotification-trigger")
-                    .WithCronSchedule("0 0 0/1 1/1 * ? *")
-                    .StartNow());
+                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
                 q.AddTrigger(opts => opts
                     .ForJob(chatNotJobKey)
-                    .WithIdentity("PersonalBirthdayNotification-trigger")
-                    .WithCronSchedule("0 0 0/1 1/1 * ? *")
-                    .StartNow());
+                    .WithIdentity("ChatBirthdayNotificationJob-trigger")
+                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
             });
             services.AddQuartzServer(options =>
             {
