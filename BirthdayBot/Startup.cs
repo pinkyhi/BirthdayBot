@@ -51,6 +51,7 @@ namespace BirthdayBot
             services.AddRapidBots(rapidBotsOptions);
             services.AddGoogleGeoCode(googleGeoCodeOptions);
             services.AddLocalizationSettings();
+            services.AddQuartzHelper();
             services.AddAutoMapper(); // Should be the last
         }
 

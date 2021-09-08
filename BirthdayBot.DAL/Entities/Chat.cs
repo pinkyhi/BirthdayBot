@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,10 @@ namespace BirthdayBot.DAL.Entities
         public string Title { get; set; }
 
         public ChatType Type { get; set; }
+
+        public int NotificationsCount { get; set; }
+
+        public DateTime AddingDate { get; set; }
 
         public string BigFileUniqueId { get; set; }
 

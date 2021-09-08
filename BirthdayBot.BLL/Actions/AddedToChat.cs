@@ -30,7 +30,9 @@ namespace BirthdayBot.BLL.Actions
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             try
             {
-                await repository.AddAsync(mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat));
+                var chat = mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat);
+                chat.AddingDate = DateTime.Now;
+                await repository.AddAsync(chat);
             }
             catch
             {
