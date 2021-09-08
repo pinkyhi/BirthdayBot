@@ -42,6 +42,7 @@ namespace BirthdayBot.BLL.Commands.General
             TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.Message.Chat.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             long chatId = update.Message.Chat.Id;
+            var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId);
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             var users = chat.ChatMembers.Select(x => new { Name = $"@{x.User.Username}" ?? $"{x.User.FirstName} {x.User.LastName}", Date = x.User.BirthDate }).GroupBy(x => x.Date.Month - 1);
@@ -63,7 +64,7 @@ namespace BirthdayBot.BLL.Commands.General
                 resources["DECEMBER"]
             };
 
-            var resultStr = $"{resources["CHAT_CALENDAR_MENU_TEXT"]}\n";
+            var resultStr = $"{resources["CHAT_CALENDAR_MENU_TEXT", chat.ChatMembers.Count, chatMemberCount]}\n";
             for(int i = 0; i < 12; i++)
             {
                 int month = (monthNow + i) % 12;

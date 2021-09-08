@@ -77,6 +77,11 @@ namespace BirthdayBot.BLL.Commands
                 {}
                 StartMenu menu = new StartMenu(resources);
                 await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Html);
+                var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId);
+                if(chatMemberCount == chat.ChatMembers.Count)
+                {
+                    await botClient.SendTextMessageAsync(chatId, resources["ALL_USERS_ADDED_TEXT", chat.Title], parseMode: ParseMode.Html);
+                }
                 await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
             }
         }
