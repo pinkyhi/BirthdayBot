@@ -47,11 +47,11 @@ namespace BirthdayBot
                 connectionString = this.Configuration.GetConnectionString("DefaultConnectionProd");
             }
             services.AddDataAccess(connectionString);
+            services.AddQuartzHelper(connectionString);
             services.AddControllers().AddNewtonsoftJson();
             services.AddRapidBots(rapidBotsOptions);
             services.AddGoogleGeoCode(googleGeoCodeOptions);
             services.AddLocalizationSettings();
-            services.AddQuartzHelper();
             services.AddAutoMapper(); // Should be the last
         }
 

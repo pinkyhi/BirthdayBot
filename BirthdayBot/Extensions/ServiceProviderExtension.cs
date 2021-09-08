@@ -60,23 +60,40 @@ namespace BirthdayBot.Extensions
             });
         }
 
-        public static void AddQuartzHelper(this IServiceCollection services)
+        public static void AddQuartzHelper(this IServiceCollection services, string connectionString)
         {
             services.AddTransient<PersonalBirthdayNotificationJob>();
 
             services.AddQuartz(q =>
             {
-                q.SchedulerId = "Scheduler-Core";
-                var jobKey = new JobKey("NotificationsJob");
                 q.UseMicrosoftDependencyInjectionJobFactory();
-                q.AddJob<PersonalBirthdayNotificationJob>(opts => {
-                    opts.WithIdentity(jobKey);
+                q.UsePersistentStore(s =>
+                {
+                    s.UseSqlServer(connectionString);
+                    s.UseProperties = true;
+                    s.UseJsonSerializer();
                 });
-                // Create a trigger for the job
+                q.SchedulerId = "Scheduler-Core";
+
+                var persNotJobKey = new JobKey("PersonalBirthdayNotificationJob");
+                var chatNotJobKey = new JobKey("ChatBirthdayNotificationJob");
+
+                q.AddJob<PersonalBirthdayNotificationJob>(opts => {
+                    opts.WithIdentity(persNotJobKey);
+                });
+                q.AddJob<ChatBirthdayNotificationJob>(opts => {
+                    opts.WithIdentity(chatNotJobKey);
+                });
+
                 q.AddTrigger(opts => opts
-                    .ForJob(jobKey) // link to the HelloWorldJob
-                    .WithIdentity("NotificationsJob-trigger") // give the trigger a unique name
-                    .WithCronSchedule("0/5 * * 1/1 * ? *") // run every 5 seconds
+                    .ForJob(persNotJobKey)
+                    .WithIdentity("PersonalBirthdayNotification-trigger")
+                    .WithCronSchedule("0 0 0/1 1/1 * ? *")
+                    .StartNow());
+                q.AddTrigger(opts => opts
+                    .ForJob(chatNotJobKey)
+                    .WithIdentity("PersonalBirthdayNotification-trigger")
+                    .WithCronSchedule("0 0 0/1 1/1 * ? *")
                     .StartNow());
             });
             services.AddQuartzServer(options =>
