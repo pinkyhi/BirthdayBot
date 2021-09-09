@@ -26,7 +26,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["SUBSCRIPTION_PREVIEW_TEXT", "@" + subcription.Target.Username, subcription.Target.BirthDate.ToShortDateString()];
+            return resources["SUBSCRIPTION_PREVIEW_TEXT", "@" + subcription.Target.Username, subcription.Subscriber.GetAnotherUserDateString(subcription.Target)];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)

@@ -42,11 +42,12 @@ namespace BirthdayBot.BLL.Commands.People
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Notes));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Subscriptions).ThenInclude(x => x.Target));
 
             if (dbUser?.Subscriptions == null)
             {
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
+                await repository.LoadCollectionAsync(dbUser, x => x.Subscribers);
             }
 
             var qParams = new Dictionary<string, string>();

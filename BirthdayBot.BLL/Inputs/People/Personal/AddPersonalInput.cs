@@ -39,10 +39,11 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id);
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Subscriptions).ThenInclude(x => x.Target));
             if(dbUser.Subscriptions == null)
             {
-                await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions); 
+                await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
+                await repository.LoadCollectionAsync(dbUser, x => x.Subscribers);
             }
 
             // Logic

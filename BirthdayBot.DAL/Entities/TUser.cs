@@ -3,6 +3,7 @@ using BirthdayBot.DAL.Entities.GoogleTimeZone;
 using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telegram.Bot.Types;
 
 namespace BirthdayBot.DAL.Entities
@@ -29,5 +30,32 @@ namespace BirthdayBot.DAL.Entities
         public List<Subscription> Subscribers { get; set; }
 
         public List<Subscription> Subscriptions { get; set; }
+
+        public string GetAnotherUserDateString(TUser user)
+        {
+            if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Public)
+            {
+                return user.BirthDate.ToString();
+            }
+            else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Private)
+            {
+                return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+            }
+            else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Mutual)
+            {
+                if (this.Subscribers?.Any(x => x.SubscriberId == user.Id) == true && this.Subscriptions?.Any(x => x.TargetId == user.Id) == true)
+                {
+                    return user.BirthDate.ToString();
+                }
+                else
+                {
+                    return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+                }
+            }
+            else
+            {
+                return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+            }
+        }
     }
 }
