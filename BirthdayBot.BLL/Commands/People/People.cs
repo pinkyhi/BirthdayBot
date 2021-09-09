@@ -3,7 +3,6 @@ using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
@@ -16,7 +15,6 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
-using System.Linq;
 
 namespace BirthdayBot.BLL.Commands.People
 {

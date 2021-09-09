@@ -31,11 +31,23 @@ namespace BirthdayBot.DAL.Entities
 
         public List<Subscription> Subscriptions { get; set; }
 
+        public string GetConfidentialDateString()
+        {
+            if (this.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Public)
+            {
+                return this.BirthDate.ToShortDateString();
+            }
+            else
+            {
+                return this.BirthDate.AddYears((this.BirthDate.Year * -1) + 1).ToShortDateString();
+            }
+        }
+
         public string GetAnotherUserDateString(TUser user)
         {
             if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Public)
             {
-                return user.BirthDate.ToString();
+                return user.BirthDate.ToShortDateString();
             }
             else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Private)
             {
@@ -45,7 +57,7 @@ namespace BirthdayBot.DAL.Entities
             {
                 if (this.Subscribers?.Any(x => x.SubscriberId == user.Id) == true && this.Subscriptions?.Any(x => x.TargetId == user.Id) == true)
                 {
-                    return user.BirthDate.ToString();
+                    return user.BirthDate.ToShortDateString();
                 }
                 else
                 {

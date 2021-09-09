@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Menus;
+﻿using BirthdayBot.BLL.Menus;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;

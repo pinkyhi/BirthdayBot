@@ -1,21 +1,17 @@
 ﻿using BirthdayBot.BLL.Inputs.Notes;
-using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Resources;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using RapidBots.Types.Core;
-using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-using RapidBots.Extensions;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {

@@ -1,15 +1,10 @@
-﻿using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Menus.Notes;
-using BirthdayBot.BLL.Menus.People;
-using BirthdayBot.BLL.Menus.Settings;
-using BirthdayBot.Core.Enums;
+﻿using BirthdayBot.BLL.Menus.People;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
 using RapidBots.Types.Core;
 using System;
 using System.Linq;

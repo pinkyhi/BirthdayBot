@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using System;
-using Telegram.Bot.Types.Enums;
 
 namespace BirthdayBot.DAL.Entities
 {

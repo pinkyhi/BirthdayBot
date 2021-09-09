@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Menus;
-using BirthdayBot.BLL.Resources;
+﻿using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using RapidBots.Extensions;
 using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System;

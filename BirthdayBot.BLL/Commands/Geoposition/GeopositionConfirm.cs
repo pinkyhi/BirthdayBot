@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using RapidBots.GoogleGeoCode;
 using RapidBots.GoogleGeoCode.Types;
 using RapidBots.Types.Core;
-using RapidBots.Types.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;

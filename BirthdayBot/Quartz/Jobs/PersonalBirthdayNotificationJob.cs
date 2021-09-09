@@ -7,8 +7,6 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 using RapidBots.Types.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BirthdayBot.Quartz.Jobs
@@ -108,9 +106,8 @@ namespace BirthdayBot.Quartz.Jobs
             }
             else
             {
-                logger.LogWarning($"MISSFIRE: {context.JobDetail}, {context.FireTimeUtc}\n Now: {DateTime.UtcNow}");
+                logger.LogWarning($"MISSFIRE: {context.JobDetail}, {context.FireTimeUtc}\n UTC Now: {DateTime.UtcNow}");
             }
-
         }
     }
 }

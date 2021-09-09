@@ -1,11 +1,8 @@
-﻿using BirthdayBot.BLL.Menus.Notes;
-using BirthdayBot.BLL.Menus.People;
-using BirthdayBot.BLL.Menus.Settings;
+﻿using BirthdayBot.BLL.Menus.People;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;

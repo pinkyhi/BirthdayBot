@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Menus.Notes;
-using BirthdayBot.BLL.Menus.Settings;
+﻿using BirthdayBot.BLL.Menus.Notes;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.Core.Types;
@@ -12,10 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using RapidBots.Types.Core;
-using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 

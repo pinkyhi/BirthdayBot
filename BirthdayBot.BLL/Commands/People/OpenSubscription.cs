@@ -1,11 +1,8 @@
-﻿using BirthdayBot.BLL.Menus.Notes;
-using BirthdayBot.BLL.Menus.People;
-using BirthdayBot.BLL.Menus.Settings;
+﻿using BirthdayBot.BLL.Menus.People;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +14,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
 using System.Collections.Generic;
 

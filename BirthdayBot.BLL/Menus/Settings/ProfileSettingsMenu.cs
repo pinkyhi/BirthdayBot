@@ -3,9 +3,6 @@ using BirthdayBot.Core.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Menus;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Menus.Settings

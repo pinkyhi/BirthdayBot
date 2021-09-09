@@ -1,13 +1,10 @@
-﻿using BirthdayBot.BLL.Inputs.Notes;
-using BirthdayBot.BLL.Inputs.People.Personal;
-using BirthdayBot.BLL.Inputs.Start;
+﻿using BirthdayBot.BLL.Inputs.People.Personal;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
 using RapidBots.Types.Core;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;

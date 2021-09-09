@@ -1,6 +1,5 @@
 ﻿using BirthdayBot.BLL.Menus;
 using BirthdayBot.BLL.Menus.Notes;
-using BirthdayBot.BLL.Menus.Settings;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
