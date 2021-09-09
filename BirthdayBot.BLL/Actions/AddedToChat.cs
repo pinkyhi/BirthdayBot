@@ -31,7 +31,7 @@ namespace BirthdayBot.BLL.Actions
             try
             {
                 var chat = mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat);
-                chat.AddingDate = DateTime.Now;
+                chat.AddingDate = DateTime.Now.Date;
                 await repository.AddAsync(chat);
             }
             catch

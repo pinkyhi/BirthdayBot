@@ -68,7 +68,7 @@ namespace BirthdayBot.BLL.Commands
             else
             {
                 var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == chatId, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
-                chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now });
+                chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
                 try
                 {
                     await repository.UpdateAsync(chat);
