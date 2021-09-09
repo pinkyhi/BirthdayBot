@@ -94,11 +94,11 @@ namespace BirthdayBot.Quartz.Jobs
 
                     foreach(var note in notes)
                     {
-                        await botClient.SendTextMessageAsync(note.UserId, resources["PERSONAL_NOTIFICATION_TEXT", note.Title, note.Date.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        await botClient.SendTextMessageAsync(note.UserId, resources["PERSONAL_NOTE_NOTIFICATION_TEXT", note.Title, note.Date.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     }
                     foreach (var sub in subs)
                     {
-                        await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Target.BirthDate.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Target.BirthDate.ToShortDateString(), sub.Target.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     }
                 }
                 catch (Exception ex)
