@@ -77,12 +77,16 @@ namespace BirthdayBot.Extensions
 
                 var persNotJobKey = new JobKey("PersonalBirthdayNotificationJob");
                 var chatNotJobKey = new JobKey("ChatBirthdayNotificationJob");
+                var chatCheckCount = new JobKey("ChatMembersCheckJob");
 
                 q.AddJob<PersonalBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(persNotJobKey);
                 });
                 q.AddJob<ChatBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(chatNotJobKey);
+                });
+                q.AddJob<ChatMembersCheckJob>(opts => {
+                    opts.WithIdentity(chatCheckCount);
                 });
 
                 q.AddTrigger(opts => opts
@@ -92,6 +96,10 @@ namespace BirthdayBot.Extensions
                 q.AddTrigger(opts => opts
                     .ForJob(chatNotJobKey)
                     .WithIdentity("ChatBirthdayNotificationJob-trigger")
+                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
+                q.AddTrigger(opts => opts
+                    .ForJob(chatCheckCount)
+                    .WithIdentity("ChatMembersCheckJob-trigger")
                     .WithCronSchedule("0 0 0/1 1/1 * ? *"));
             });
             services.AddQuartzServer(options =>

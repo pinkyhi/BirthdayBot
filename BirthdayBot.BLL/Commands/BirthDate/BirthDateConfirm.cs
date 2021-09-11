@@ -60,7 +60,6 @@ namespace BirthdayBot.BLL.Commands.BirthDate
             dbUser.CurrentStatus = actionsManager.FindInputStatusByType<GeopositionInput>();
             await repository.UpdateAsync(dbUser);
 
-            try{await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);}catch{}
             try
             {
                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
@@ -93,6 +92,14 @@ namespace BirthdayBot.BLL.Commands.BirthDate
                 ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
 
                 await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address, dbUser.Timezone.TimeZoneName), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            }
+            if(dbUser.RegistrationDate.Value.Month == 2 && dbUser.RegistrationDate.Value.Day == 29)
+            {
+                try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["29_FEBRUARY_WARNING_TEXT"], showAlert: true); } catch { }
+            }
+            else
+            {
+                try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             }
         }
     }

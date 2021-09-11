@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 07 Sep 2021 22:08:21 +0300 
+  Exported at: Sat, 11 Sep 2021 16:33:54 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -228,7 +228,8 @@ Age confidentiality is &lt;code&gt;{0}&lt;/code&gt;</value>
   <data name="PROFILE_SETTINGS_TEXT" xml:space="preserve"> 
     <value>Here you can change your profile.
 Your bitrhdate is &lt;code&gt;{0}&lt;/code&gt;
-Your location is &lt;code&gt;{1}&lt;/code&gt;</value> 
+Your location is &lt;code&gt;{1}&lt;/code&gt;
+Your timezone is &lt;b&gt;{2}&lt;/b&gt;</value> 
   </data> 
   <data name="CHANGE_BIRTH_DATE_BUTTON" xml:space="preserve"> 
     <value>Change birthdate</value> 
@@ -264,15 +265,21 @@ Your location is &lt;code&gt;{1}&lt;/code&gt;</value>
     <value>Notes✍️</value> 
   </data> 
   <data name="HELP_PRIVATE_TEXT" xml:space="preserve"> 
-    <value>*What can you do? 🎉 *
-1. You can subscribe on your friends with their username, and you will receive notifications before their birthdays. For that check _People_ page.
-2. You can manage when you will get notifications by choosing subscription type. You can change type on any existed subscription. Also you can specify how many days before you need to receive notifications in _Settings_ page.
+    <value>&lt;b&gt;What can you do? 🎉 &lt;/b&gt;
+
+1. You can subscribe on your friends with their username, and you will receive notifications before their birthdays. For that check &lt;i&gt;People&lt;/i&gt; page.
+
+2. You can manage when you will get notifications by choosing subscription type. You can change type on any existed subscription. Also you can specify how many days before you need to receive notifications in &lt;i&gt;Settings&lt;/i&gt; page.
+
 3. If your subscription target doesn’t have Username, or in any other case, you can add subscription through joint chat with this person, this person shared himself to chat-calendar.
+
 4. Even if your friend hasn’t Telegram or this bot, you can invite him, do it :) Or you can add note that doesn’t depend on specific user, but you still will be able to get notifications about it, and even choose subscription type.
+
 5. Except of subscription types settings you also can change your profile confidentiality, language or profile settings such as location or birthdate. 
-*Commands 📌 *
+
+&lt;b&gt;Commands 📌 &lt;/b&gt;
 /calendar – Show your subscriptions/*in chat* shows chat calendar
-*Security 🛡 *
+&lt;b&gt;Security 🛡 &lt;/b&gt;
 BirthdayMaster can’t read your chat except commands and telegram messages as “New chat member” etc. We doesn’t share your private info with any third-party companies. Bot needs your location for understanding your local time. You can hide your age in the settings, in this case only month and day will be available to other bot users.</value> 
   </data> 
   <data name="CALENDAR_MENU_TEXT" xml:space="preserve"> 
@@ -416,10 +423,58 @@ Also, I will notify you about this important event in this chat🎉 :)</value>
 You can get it by calling &lt;code&gt;/calendar&lt;/code&gt; command in your chat.</value> 
   </data> 
   <data name="CHAT_CALENDAR_MENU_TEXT" xml:space="preserve"> 
-    <value>&lt;b&gt;Chat calendar&lt;/b&gt;</value> 
+    <value>&lt;b&gt;Chat calendar&lt;/b&gt;
+Users in calendar &lt;i&gt;{0}/{1}&lt;/i&gt;</value> 
   </data> 
   <data name="ADDED_USER_TO_CHAT_TEXT" xml:space="preserve"> 
     <value>As I see we have a new member :) Hi, {0}, I'm BirthdayMaster bot and I used to notify about birthdays, even not only in this chat. 
 You can add your birthday to the calendar, or read more about me by sending &lt;code&gt;/help&lt;/code&gt; in private chat with me.</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_MULTIPLE" xml:space="preserve"> 
+    <value>Found multiple results: may be you means &lt;b&gt;{0}&lt;/b&gt;</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_ERROR" xml:space="preserve"> 
+    <value>Format error. Try again.</value> 
+  </data> 
+  <data name="ADDED_TO_CHAT_ERROR" xml:space="preserve"> 
+    <value>I don't know why, but I can't connect to my database. Remove me and try again a bit laiter, please. :(</value> 
+  </data> 
+  <data name="HELP_CHAT_TEXT" xml:space="preserve"> 
+    <value>Use this command in private chat</value> 
+  </data> 
+  <data name="ALL_USERS_ADDED_TEXT" xml:space="preserve"> 
+    <value>Great🥳! All members connected to chat calendar, great work!
+Thanks for the support, developer sees this result and very much appreciates it ❤️.</value> 
+  </data> 
+  <data name="PERSONAL_NOTE_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Notification&lt;/b&gt;
+Note &lt;i&gt;{0}&lt;/i&gt;
+Will fire on {1}</value> 
+  </data> 
+  <data name="PERSONAL_SUB_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Notificaton&lt;/b&gt;
+&lt;code&gt;{0}&lt;/code&gt; will have smth on {1} :)
+Timezone: {2}</value> 
+  </data> 
+  <data name="CHAT_BIRTH_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>🥳&lt;b&gt;Today&lt;/b&gt;🥳
+This person – {0} has a Birthday🎉
+Happy Birthday, mate🎁🎂🎁
+&lt;i&gt;Date: {1}; Timezone: {2}&lt;/i&gt;</value> 
+  </data> 
+  <data name="29_FEBRUARY_WARNING_TEXT" xml:space="preserve"> 
+    <value>⚠️You choose 29 February as the birth date, but in a low-growing year, it will be represented as 1 March.⚠️</value> 
+  </data> 
+  <data name="FIRST_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>First bot notification
+&lt;i&gt;Members count: {0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="SECOND_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>Second bot notification
+&lt;i&gt;Members count: {0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>Third bot notification
+&lt;i&gt;Members count: {0}/{1}&lt;/i&gt;</value> 
   </data> 
 </root>
