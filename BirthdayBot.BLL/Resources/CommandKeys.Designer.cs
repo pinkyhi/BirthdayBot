@@ -61,6 +61,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to actUser.
+        /// </summary>
+        public static string ActualizeUser {
+            get {
+                return ResourceManager.GetString("ActualizeUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to addByChats.
         /// </summary>
         public static string AddByChats {
