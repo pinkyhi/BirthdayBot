@@ -18,6 +18,7 @@ namespace BirthdayBot.DAL
             : base(options)
         {
             this.clientSettings = clientSettings;
+            this.Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

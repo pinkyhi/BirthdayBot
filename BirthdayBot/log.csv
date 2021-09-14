@@ -1,132 +1,132 @@
-
-MENU_OPENER_TEXT,0,Menu opening...
-WELCOME_TEXT,1,Hi, pinky_hi, that's great to see you here again!
-PEOPLE_BUTTON,0,People🥳
-NOTES_BUTTON,0,Notes✍️
-USER_SETTINGS_BUTTON,0,User settings⚙️
-SHARE_TO_GROUP,0,Share to group
-USER_SETTINGS_TEXT,0,Main settings
-NOTIFICATIONS_SETTINGS_BUTTON,0,Notifications
-LANGUAGE_SETTINGS_BUTTON,0,Language
-CONFIDENTIALITY_SETTINGS_BUTTON,0,Confidentiality
-PROFILE_SETTINGS_BUTTON,0,Profile settings
-BACK_BUTTON,0,Back
-PROFILE_SETTINGS_TEXT,2,Here you can change your profile.
-Your bitrhdate is <code>5/22/2001</code>
-Your location is <code>Zhasminovyj Blvd, 12, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000</code>
-CHANGE_BIRTH_DATE_BUTTON,0,Change birthdate
-CHANGE_LOCATION_BUTTON,0,Change location
-BIRTH_YEAR_INPUT,0,Please send your birth year
-BIRTH_MONTH_INPUT,0,Ok! Next send your birth month :)
-JANUARY,0,January
-FEBRUARY,0,February
-MARCH,0,March
-APRIL,0,April
-MAY,0,May
-JUNE,0,June
-JULY,0,July
-AUGUST,0,August
-SEPTEMBER,0,September
-OCTOBER,0,October
-NOVEMBER,0,November
-DECEMBER,0,December
-BIRTH_DAY_INPUT,0,Success! Next send your birth day
-REPLY_KEYBOARD_REMOVE_TEXT,0,Temporary data cleared.
-BIRTH_DATE_CONFIRMATION,1,Ok, your birthday is on 6/22/2001. Is that right?
-CONFIRM_BUTTON,0,Confirm
-REJECT_BUTTON,0,Reject
-SHARE_LOCATION_BUTTON,0,Share location📍
-CHANGE_LOCATION_INPUT,1,Send your location with button below, or send your city name. You have 0 attempt(-s).
-INPUT_BLOCK,1,You can't input this value up to Tuesday, November 2, 2021
-CONFIDENTIALITY_SETTINGS_TEXT,1,Here you can change confidentiality
-Age confidentiality is <code>Private</code>
-AGE_CONFIDENTIALITY_BUTTON,0,Age confidentiality
-INFO_BUTTON,0,Info
-CONFIDENTIALITY_SETTINGS_INFO,0,Confidentiality settings are used to close your birth year. There are three variants:
-*Private - nobody can see your birth year
-*Mutual - shows only if you are subscribed to each other
-*Public - shows for everyone
-CONFIDENTIALITY_TYPE_INPUT,0,Write confidentiality type or choose it from keyboard below.
-PUBLIC_CONFIDENTIALITY_TYPE,0,Public
-PRIVATE_CONFIDENTIALITY_TYPE,0,Private
-MUTUAL_CONFIDENTIALITY_TYPE,0,Mutual
-YOU_CHOOSED_TEXT,1,You choosed <b>Public</b>
-LANGUAGE_SETTINGS_TEXT,0,Here you can change bot language
-ENGLISH_LANGUAGE_BUTTON,0,English 🇺🇸
-RUSSIAN_LANGUAGE_BUTTON,0,Russian 🇷🇺
-UKRAINIAN_LANGUAGE_BUTTON,0,Ukrainian 🇺🇦
-NOTIFICATIONS_SETTINGS_TEXT,0,Here you can change notifications settings
-STRONG_NOTIFICATIONS_BUTTON,0,Strong notifications
-COMMON_NOTIFICATIONS_BUTTON,0,Common notifications
-NOTIFICATIONS_SETTINGS_INFO,0,You can change the parameter how many days before you will get the notifications about your important occasions. You can change it for both types.
-NOTIFICATIONS_SETTINGS_CHANGE_TEXT,0,Buttons below represent notifications delay. Press one of them to change it. 
-0- On this day
-3- 3 days before
-NOTIFICATIONS_SETTINGS_CHANGE_BUTTON,1,1 days before
-NOTES_TEXT,0,Here you can see your notes or add a new one.
-
-ADD_BUTTON,0,➕
-NOTE_TITLE_INPUT,0,Please, send note title.
-
-NOTE_YEAR_INPUT,0,Okay, now I'm waiting for year of this occasion
-NOTE_MONTH_INPUT,0,Next I'm waiting month.
-NOTE_DAY_INPUT,0,And finally – day.
-NOTE_DATE_CONFIRMATION,1,Is that right date? <b>4/19/1974</b>
-COMMON_NOTIFICATION_TEXT,0,Common subscription type
-
-NOTE_TEXT,3,<b>Note</b>
-Title: Папа
-Date: 4/19/1974 12:00:00 AM
-Common subscription type
-
-REMOVE_BUTTON,0,Remove🗑
-COMMON_NOTIFICATION_BUTTON,0,✖️
-STRONG_NOTIFICATION_TEXT,0,Strong subscription type
-STRONG_NOTIFICATION_BUTTON,0,⭐️
-PEOPLE_TEXT,0,Here you can look up your subscriptions on people, or add a new one.
-ADD_PEOPLE_TEXT,0,How would you like to add a new subscription to a person?
-CHATS_BUTTON,0,By chats
-PERSONAL_BUTTON,0,By username
-ADD_PERSONAL_INPUT,0,Put in username.
-ADD_PERSONAL_INPUT_MULTIPLE,1,404 ADD_PERSONAL_INPUT_MULTIPLE
-pinkyhi
-
-ADD_PERSONAL_INPUT_SUCCESS,0,Success🎉! I found this user.
-SUBSCRIPTION_TEXT,3,<b>Subscription</b>
-User name: @pinkyhi
-Date: 6/22/2001
-Common subscription type
-
-SUBSCRIPTION_REMOVE_CONFIRMATION,0,Are you sure, that you want to remove this subscription?
-ADD_PERSONAL_INPUT_NOT_FOUND,1,Sorry, but a user with username yeahkaty was not found. You can create your own note with this title.
-ADD_MANUALLY_BUTTON,0,Add note
-PERSONAL_INVITE_TEXT,0,Hi, that is an invite text, try this bot. It's really cool in managing birthdays🎁. I'm waiting on you there :)
-SEND_PERSONAL_INVITE_BUTTON,0,Send invite
-JOIN_CHAT_CALENDAR_BUTTON,0,Join chat calendar📆
-ADDED_TO_CHAT_TEXT,0,Hi, I'm BirthdayMaster, and I'm here to help everybody manage birthdays🎁. 
-You can add yourself to this chat calendar📆 and others will see you there and even subscribe to you.
-Also, I will notify you about this important event in this chat🎉 :)
-CHAT_CALENDAR_MENU_TEXT,0,<b>Chat calendar</b>
-SUCCESS_START_FROM_CHAT,1,You were successfully added to chat <b>Friends</b> calendar. If you want to leave it, just rejoin the chat.
-CHATS_TEXT,0,Choose joint chat with the preferred person. If you don't see one here, add the bot to this chat and revoke the menu. Actually, this person should add himself to this chat calendar too. 
-SUBSCRIPTION_PREVIEW_TEXT,2,*Subscription preview*
-Title: @pinky_hi
-Date: 6/22/2001
-SUBSCRIBE_BUTTON,0,Subscribe👌
-SUBSCRIBE_ON_MEMBER_SUCCESS,0,Subscription success🎉
-TICK_ICON,0,✔️
-
-BIRTH_YEAR_INPUT_ERROR,0,Sorry, seems that there is a format error. Try again, write your birth year, for example <code>2001</code>
-HELP_PRIVATE_TEXT,0,*What can you do? 🎉 *
-1. You can subscribe on your friends with their username, and you will receive notifications before their birthdays. For that check _People_ page.
-2. You can manage when you will get notifications by choosing subscription type. You can change type on any existed subscription. Also you can specify how many days before you need to receive notifications in _Settings_ page.
-3. If your subscription target doesn’t have Username, or in any other case, you can add subscription through joint chat with this person, this person shared himself to chat-calendar.
-4. Even if your friend hasn’t Telegram or this bot, you can invite him, do it :) Or you can add note that doesn’t depend on specific user, but you still will be able to get notifications about it, and even choose subscription type.
-5. Except of subscription types settings you also can change your profile confidentiality, language or profile settings such as location or birthdate. 
-*Commands 📌 *
-/calendar – Show your subscriptions/*in chat* shows chat calendar
-*Security 🛡 *
-BirthdayMaster can’t read your chat except commands and telegram messages as “New chat member” etc. We doesn’t share your private info with any third-party companies. Bot needs your location for understanding your local time. You can hide your age in the settings, in this case only month and day will be available to other bot users.
-CALENDAR_MENU_TEXT,1,Birthdays in <b>September</b>:
-
-HELP_CHAT_TEXT,0,404 HELP_CHAT_TEXT
+MENU_OPENER_TEXT;0;Menu opening...;;;
+WELCOME_TEXT;1;Hi; pinky_hi; that's great to see you here again!;
+PEOPLE_BUTTON;0;People🥳;;;
+NOTES_BUTTON;0;Notes✍️;;;
+USER_SETTINGS_BUTTON;0;User settings⚙️;;;
+SHARE_TO_GROUP;0;Share to group;;;
+USER_SETTINGS_TEXT;0;Main settings;;;
+NOTIFICATIONS_SETTINGS_BUTTON;0;Notifications;;;
+LANGUAGE_SETTINGS_BUTTON;0;Language;;;
+CONFIDENTIALITY_SETTINGS_BUTTON;0;Confidentiality;;;
+PROFILE_SETTINGS_BUTTON;0;Profile settings;;;
+BACK_BUTTON;0;Back;;;
+PROFILE_SETTINGS_TEXT;2;Here you can change your profile.;;;
+Your bitrhdate is <code>5/22/2001</code>;;;;;
+Your location is <code>Zhasminovyj Blvd;12; Kharkiv; Kharkivs'ka oblast; Ukraine; 61000</code>
+CHANGE_BIRTH_DATE_BUTTON;0;Change birthdate;;;
+CHANGE_LOCATION_BUTTON;0;Change location;;;
+BIRTH_YEAR_INPUT;0;Please send your birth year;;;
+BIRTH_MONTH_INPUT;0;Ok! Next send your birth month :);;;
+JANUARY;0;January;;;
+FEBRUARY;0;February;;;
+MARCH;0;March;;;
+APRIL;0;April;;;
+MAY;0;May;;;
+JUNE;0;June;;;
+JULY;0;July;;;
+AUGUST;0;August;;;
+SEPTEMBER;0;September;;;
+OCTOBER;0;October;;;
+NOVEMBER;0;November;;;
+DECEMBER;0;December;;;
+BIRTH_DAY_INPUT;0;Success! Next send your birth day;;;
+REPLY_KEYBOARD_REMOVE_TEXT;0;Temporary data cleared.;;;
+BIRTH_DATE_CONFIRMATION;1;Ok; your birthday is on 6/22/2001. Is that right?;;
+CONFIRM_BUTTON;0;Confirm;;;
+REJECT_BUTTON;0;Reject;;;
+SHARE_LOCATION_BUTTON;0;Share location📍;;;
+CHANGE_LOCATION_INPUT;1;Send your location with button below; or send your city name. You have 0 attempt(-s).;;
+INPUT_BLOCK;1;You can't input this value up to Tuesday; November 2;2021;
+CONFIDENTIALITY_SETTINGS_TEXT;1;Here you can change confidentiality;;;
+Age confidentiality is <code>Private</code>;;;;;
+AGE_CONFIDENTIALITY_BUTTON;0;Age confidentiality;;;
+INFO_BUTTON;0;Info;;;
+CONFIDENTIALITY_SETTINGS_INFO;0;Confidentiality settings are used to close your birth year. There are three variants:;;;
+*Private - nobody can see your birth year;;;;;
+*Mutual - shows only if you are subscribed to each other;;;;;
+*Public - shows for everyone;;;;;
+CONFIDENTIALITY_TYPE_INPUT;0;Write confidentiality type or choose it from keyboard below.;;;
+PUBLIC_CONFIDENTIALITY_TYPE;0;Public;;;
+PRIVATE_CONFIDENTIALITY_TYPE;0;Private;;;
+MUTUAL_CONFIDENTIALITY_TYPE;0;Mutual;;;
+YOU_CHOOSED_TEXT;1;You choosed <b>Public</b>;;;
+LANGUAGE_SETTINGS_TEXT;0;Here you can change bot language;;;
+ENGLISH_LANGUAGE_BUTTON;0;English 🇺🇸;;;
+RUSSIAN_LANGUAGE_BUTTON;0;Russian 🇷🇺;;;
+UKRAINIAN_LANGUAGE_BUTTON;0;Ukrainian 🇺🇦;;;
+NOTIFICATIONS_SETTINGS_TEXT;0;Here you can change notifications settings;;;
+STRONG_NOTIFICATIONS_BUTTON;0;Strong notifications;;;
+COMMON_NOTIFICATIONS_BUTTON;0;Common notifications;;;
+NOTIFICATIONS_SETTINGS_INFO;0;You can change the parameter how many days before you will get the notifications about your important occasions. You can change it for both types.;;;
+NOTIFICATIONS_SETTINGS_CHANGE_TEXT;0;Buttons below represent notifications delay. Press one of them to change it. ;;;
+0- On this day;;;;;
+3- 3 days before;;;;;
+NOTIFICATIONS_SETTINGS_CHANGE_BUTTON;1;1 days before;;;
+NOTES_TEXT;0;Here you can see your notes or add a new one.;;;
+;;;;;
+ADD_BUTTON;0;➕;;;
+NOTE_TITLE_INPUT;0;Please; send note title.;;
+;;;;;
+NOTE_YEAR_INPUT;0;Okay; now I'm waiting for year of this occasion;;
+NOTE_MONTH_INPUT;0;Next I'm waiting month.;;;
+NOTE_DAY_INPUT;0;And finally – day.;;;
+NOTE_DATE_CONFIRMATION;1;Is that right date? <b>4/19/1974</b>;;;
+COMMON_NOTIFICATION_TEXT;0;Common subscription type;;;
+;;;;;
+NOTE_TEXT;3;<b>Note</b>;;;
+Title: Папа;;;;;
+Date: 4/19/1974 12:00:00 AM;;;;;
+Common subscription type;;;;;
+;;;;;
+REMOVE_BUTTON;0;Remove🗑;;;
+COMMON_NOTIFICATION_BUTTON;0;✖️;;;
+STRONG_NOTIFICATION_TEXT;0;Strong subscription type;;;
+STRONG_NOTIFICATION_BUTTON;0;⭐️;;;
+PEOPLE_TEXT;0;Here you can look up your subscriptions on people; or add a new one.;;
+ADD_PEOPLE_TEXT;0;How would you like to add a new subscription to a person?;;;
+CHATS_BUTTON;0;By chats;;;
+PERSONAL_BUTTON;0;By username;;;
+ADD_PERSONAL_INPUT;0;Put in username.;;;
+ADD_PERSONAL_INPUT_MULTIPLE;1;404 ADD_PERSONAL_INPUT_MULTIPLE;;;
+pinkyhi;;;;;
+;;;;;
+ADD_PERSONAL_INPUT_SUCCESS;0;Success🎉! I found this user.;;;
+SUBSCRIPTION_TEXT;3;<b>Subscription</b>;;;
+User name: @pinkyhi;;;;;
+Date: 6/22/2001;;;;;
+Common subscription type;;;;;
+;;;;;
+SUBSCRIPTION_REMOVE_CONFIRMATION;0;Are you sure; that you want to remove this subscription?;;
+ADD_PERSONAL_INPUT_NOT_FOUND;1;Sorry; but a user with username yeahkaty was not found. You can create your own note with this title.;;
+ADD_MANUALLY_BUTTON;0;Add note;;;
+PERSONAL_INVITE_TEXT;0;Hi; that is an invite text; try this bot. It's really cool in managing birthdays🎁. I'm waiting on you there :);
+SEND_PERSONAL_INVITE_BUTTON;0;Send invite;;;
+JOIN_CHAT_CALENDAR_BUTTON;0;Join chat calendar📆;;;
+ADDED_TO_CHAT_TEXT;0;Hi; I'm BirthdayMaster; and I'm here to help everybody manage birthdays🎁. ;
+You can add yourself to this chat calendar📆 and others will see you there and even subscribe to you.;;;;;
+Also; I will notify you about this important event in this chat🎉 :);;;;
+CHAT_CALENDAR_MENU_TEXT;0;<b>Chat calendar</b>;;;
+SUCCESS_START_FROM_CHAT;1;You were successfully added to chat <b>Friends</b> calendar. If you want to leave it; just rejoin the chat.;;
+CHATS_TEXT;0;Choose joint chat with the preferred person. If you don't see one here; add the bot to this chat and revoke the menu. Actually; this person should add himself to this chat calendar too. ;
+SUBSCRIPTION_PREVIEW_TEXT;2;*Subscription preview*;;;
+Title: @pinky_hi;;;;;
+Date: 6/22/2001;;;;;
+SUBSCRIBE_BUTTON;0;Subscribe👌;;;
+SUBSCRIBE_ON_MEMBER_SUCCESS;0;Subscription success🎉;;;
+TICK_ICON;0;✔️;;;
+;;;;;
+BIRTH_YEAR_INPUT_ERROR;0;Sorry; seems that there is a format error. Try again; write your birth year; for example <code>2001</code>
+HELP_PRIVATE_TEXT;0;*What can you do? 🎉 *;;;
+1. You can subscribe on your friends with their username; and you will receive notifications before their birthdays. For that check _People_ page.;;;;
+2. You can manage when you will get notifications by choosing subscription type. You can change type on any existed subscription. Also you can specify how many days before you need to receive notifications in _Settings_ page.;;;;;
+3. If your subscription target doesn’t have Username; or in any other case; you can add subscription through joint chat with this person; this person shared himself to chat-calendar.;;
+4. Even if your friend hasn’t Telegram or this bot; you can invite him; do it :) Or you can add note that doesn’t depend on specific user; but you still will be able to get notifications about it; and even choose subscription type.;
+5. Except of subscription types settings you also can change your profile confidentiality; language or profile settings such as location or birthdate. ;;;;
+*Commands 📌 *;;;;;
+/calendar – Show your subscriptions/*in chat* shows chat calendar;;;;;
+*Security 🛡 *;;;;;
+BirthdayMaster can’t read your chat except commands and telegram messages as “New chat member” etc. We doesn’t share your private info with any third-party companies. Bot needs your location for understanding your local time. You can hide your age in the settings; in this case only month and day will be available to other bot users.;;;;
+CALENDAR_MENU_TEXT;1;Birthdays in <b>September</b>:;;;
+;;;;;
+HELP_CHAT_TEXT;0;404 HELP_CHAT_TEXT;;;
+HELP_CHAT_TEXT,0,404 HELP_CHAT_TEXT;;;;;
