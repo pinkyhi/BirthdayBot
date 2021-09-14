@@ -4,6 +4,7 @@ using RapidBots.Types.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Telegram.Bot.Types;
 
 namespace BirthdayBot.DAL.Entities
@@ -51,7 +52,7 @@ namespace BirthdayBot.DAL.Entities
             }
             else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Private)
             {
-                return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+                return ClearYear(user.BirthDate.ToShortDateString());
             }
             else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Mutual)
             {
@@ -61,13 +62,18 @@ namespace BirthdayBot.DAL.Entities
                 }
                 else
                 {
-                    return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+                    return ClearYear(user.BirthDate.ToShortDateString());
                 }
             }
             else
             {
-                return user.BirthDate.AddYears((user.BirthDate.Year * -1) + 1).ToShortDateString();
+                return ClearYear(user.BirthDate.ToShortDateString());
             }
+        }
+
+        private string ClearYear(string date)
+        {
+            return Regex.Replace(date, @"\d\d\d\d", "xxxx");
         }
     }
 }

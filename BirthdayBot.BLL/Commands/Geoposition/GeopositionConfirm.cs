@@ -101,10 +101,13 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                 await repository.UpdateAsync(dbUser);
                 try
                 {
-                    var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == fromChat, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
-                    chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
-                    await repository.UpdateAsync(chat);
-                    await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    if(fromChat != null)
+                    {
+                        var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == fromChat, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
+                        chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
+                        await repository.UpdateAsync(chat);
+                        await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    }
                 }
                 catch
                 { }

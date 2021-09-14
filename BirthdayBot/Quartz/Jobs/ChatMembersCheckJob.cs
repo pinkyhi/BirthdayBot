@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.Quartz.Jobs
 {
@@ -58,9 +59,10 @@ namespace BirthdayBot.Quartz.Jobs
                         }          
                     }, include: x => x.Include(x => x.ChatMembers));
                     var chats = chatsEnum.ToList();
-                    for(int i = 0; i < chats.Count; i++)
+                    for (int i = 0; i < chats.Count; i++)
                     {
                         var chat = chats[i];
+
                         try
                         {
                             int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id);
@@ -72,17 +74,19 @@ namespace BirthdayBot.Quartz.Jobs
                             }
                             else
                             {
+                                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", chat.Id) };
+
                                 chat.NotificationsCount++;
                                 switch (chat.NotificationsCount)
                                 {
                                     case 1:
-                                        await botClient.SendTextMessageAsync(chat.Id, resources["FIRST_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html);
+                                        await botClient.SendTextMessageAsync(chat.Id, resources["FIRST_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
                                         break;
                                     case 2:
-                                        await botClient.SendTextMessageAsync(chat.Id, resources["SECOND_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html);
+                                        await botClient.SendTextMessageAsync(chat.Id, resources["SECOND_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
                                         break;
                                     case 3:
-                                        await botClient.SendTextMessageAsync(chat.Id, resources["THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html);
+                                        await botClient.SendTextMessageAsync(chat.Id, resources["THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
                                         break;
                                 }
                             }
