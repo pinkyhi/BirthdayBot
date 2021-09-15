@@ -32,7 +32,7 @@ namespace BirthdayBot.Controllers
 
         [HttpGet]
         [Route("/")]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             logger.LogDebug("GET request");
             return Ok("Hi, what are you doing here?");
