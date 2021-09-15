@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Sat, 11 Sep 2021 16:33:54 +0300 
+  Exported at: Wed, 15 Sep 2021 18:52:07 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -192,10 +192,10 @@
 3- 3 days before</value> 
   </data> 
   <data name="RUSSIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
-    <value>Russian 🇷🇺</value> 
+    <value>Русский 🇷🇺</value> 
   </data> 
   <data name="UKRAINIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
-    <value>Ukrainian 🇺🇦</value> 
+    <value>Українська 🇺🇦</value> 
   </data> 
   <data name="ENGLISH_LANGUAGE_BUTTON" xml:space="preserve"> 
     <value>English 🇺🇸</value> 
@@ -287,7 +287,7 @@ BirthdayMaster can’t read your chat except commands and telegram messages as �
 </value> 
   </data> 
   <data name="MENU_OPENER_TEXT" xml:space="preserve"> 
-    <value>Menu opening...</value> 
+    <value>Wait...</value> 
   </data> 
   <data name="SHARE_TO_GROUP" xml:space="preserve"> 
     <value>Share to group</value> 
@@ -386,16 +386,16 @@ Date: {1}
     <value>Send invite</value> 
   </data> 
   <data name="ADD_PERSONAL_INPUT_SUCCESS" xml:space="preserve"> 
-    <value>Success🎉! I found this user.</value> 
+    <value>Success!🎉 I found this user.</value> 
   </data> 
   <data name="TICK_ICON" xml:space="preserve"> 
     <value>✔️
 </value> 
   </data> 
   <data name="SUBSCRIPTION_PREVIEW_TEXT" xml:space="preserve"> 
-    <value>*Subscription preview*
-Title: {0}
-Date: {1}</value> 
+    <value>&lt;b&gt;Subscription preview&lt;/b&gt;
+  Title: {0}
+  Date: {1}</value> 
   </data> 
   <data name="SUBSCRIBE_BUTTON" xml:space="preserve"> 
     <value>Subscribe👌</value> 
@@ -418,8 +418,7 @@ Also, I will notify you about this important event in this chat🎉 :)</value>
     <value>⚠️</value> 
   </data> 
   <data name="CHAT_WARNING_TEXT" xml:space="preserve"> 
-    <value>
-⚠️It seems that there aren't users who added themself to the calendar. Use the button in the group to join it. 
+    <value>⚠️It seems that there aren't users who added themself to the calendar. Use the button in the group to join it. 
 You can get it by calling &lt;code&gt;/calendar&lt;/code&gt; command in your chat.</value> 
   </data> 
   <data name="CHAT_CALENDAR_MENU_TEXT" xml:space="preserve"> 
@@ -443,7 +442,7 @@ You can add your birthday to the calendar, or read more about me by sending &lt;
     <value>Use this command in private chat</value> 
   </data> 
   <data name="ALL_USERS_ADDED_TEXT" xml:space="preserve"> 
-    <value>Great🥳! All members connected to chat calendar, great work!
+    <value>Great!🥳 All members connected to chat calendar, great work!
 Thanks for the support, developer sees this result and very much appreciates it ❤️.</value> 
   </data> 
   <data name="PERSONAL_NOTE_NOTIFICATION_TEXT" xml:space="preserve"> 
@@ -476,5 +475,11 @@ Happy Birthday, mate🎁🎂🎁
   <data name="THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
     <value>Third bot notification
 &lt;i&gt;Members count: {0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="ACTUALIZE_USER_BUTTON" xml:space="preserve"> 
+    <value>Actualize user</value> 
+  </data> 
+  <data name="ACTUALIZE_USER_TEXT" xml:space="preserve"> 
+    <value>User data is up to date now</value> 
   </data> 
 </root>

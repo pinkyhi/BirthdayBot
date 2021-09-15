@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210915152920_QuartzTables.cs" />
+    <Compile Remove="Migrations\20210915152920_QuartzTables.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.17">
@@ -16,10 +21,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="RapidBots" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RapidBots\RapidBots\RapidBots.csproj" />
     <ProjectReference Include="..\BirthdayBot.Core\BirthdayBot.Core.csproj" />
   </ItemGroup>
 

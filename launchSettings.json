@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "serviceActions": {
+        "birthdaybot": "StartDebugging",
+        "mssqlserver": "StartWithoutDebugging"
+      },
+      "commandVersion": "1.0",
+      "composeLaunchUrl": "localhost:4040"
+    }
+  }
+}

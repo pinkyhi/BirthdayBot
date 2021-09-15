@@ -2,6 +2,7 @@
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RapidBots;
 using RapidBots.Extensions;
 using RapidBots.Types.Core;
@@ -19,13 +20,24 @@ namespace BirthdayBot.Controllers
     {
         private readonly ActionManager actionsManager;
         private readonly IServiceProvider serviceProvider;
+        private readonly ILogger<HomeController> logger;
 
-        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider)
+        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger)
         {
 
             this.actionsManager = actionsManager;
             this.serviceProvider = serviceProvider;
+            this.logger = logger;
         }
+
+        [HttpGet]
+        [Route("/")]
+        public async Task<IActionResult> Get()
+        {
+            logger.LogDebug("GET request");
+            return Ok("Hi, what are you doing here?");
+        }
+
 
         [HttpPost]
         [Route("/")]
@@ -126,6 +138,7 @@ namespace BirthdayBot.Controllers
             }
             catch (Exception exception)
             {
+                logger.LogError(exception.Message + " " + exception.GetType());
                 return Ok(exception.Message + " " + exception.GetType());
             }
             finally
