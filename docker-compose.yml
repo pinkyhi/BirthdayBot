@@ -4,7 +4,6 @@ services:
   birthdaybot:
     image: ${DOCKER_REGISTRY-}birthdaybot
     ports:
-    - "5001:5001"
     - "443:443"
     - "88:88"
     - "8443:8443"
