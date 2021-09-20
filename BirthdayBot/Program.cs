@@ -32,6 +32,14 @@ namespace BirthdayBot
                     {
                         listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
                     });
+                    options.Listen(IPAddress.Any, 5001, listenOptions =>
+                    {
+                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
+                    });
+                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                    {
+                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
+                    });
                 });
             });
     }

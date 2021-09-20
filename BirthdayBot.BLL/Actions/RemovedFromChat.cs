@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using BirthdayBot.Core.Resources;
+using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
+using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -26,8 +28,15 @@ namespace BirthdayBot.BLL.Actions
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             try
             {
-                var chat = await repository.GetAsync<DAL.Entities.Chat>(false, x => update.MyChatMember.Chat.Id == x.Id);
-                await repository.DeleteAsync(chat);
+                if(update.MyChatMember.Chat.Type == ChatType.Group || update.MyChatMember.Chat.Type == ChatType.Supergroup)
+                {
+                    var chat = await repository.GetAsync<DAL.Entities.Chat>(false, x => update.MyChatMember.Chat.Id == x.Id);
+                    await repository.DeleteAsync(chat);
+                }
+                else if(update.MyChatMember.Chat.Type == ChatType.Private){
+                    var deleteUser = await repository.GetAsync<TUser>(true, x => x.Id == update.MyChatMember.Chat.Id);
+                    await repository.DeleteAsync(deleteUser);
+                }
             }
             catch
             {
