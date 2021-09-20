@@ -11,6 +11,9 @@ services:
       context: .
       dockerfile: BirthdayBot/Dockerfile
     restart: always
+    environment:
+    - WebHookUrl
+    - SslCertificate
     depends_on:
           - mssqlserver
 
