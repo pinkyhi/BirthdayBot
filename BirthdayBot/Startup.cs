@@ -47,7 +47,7 @@ namespace BirthdayBot
                 connectionString = this.Configuration.GetConnectionString("DefaultConnectionProd");
             }
             services.AddDataAccess(connectionString);
-            services.AddQuartzHelper(connectionString);
+            services.AddQuartzHelper(connectionString); // Should be after DataAccess
             services.AddControllers().AddNewtonsoftJson();
             services.AddRapidBots(rapidBotsOptions);
             services.AddGoogleGeoCode(googleGeoCodeOptions);
