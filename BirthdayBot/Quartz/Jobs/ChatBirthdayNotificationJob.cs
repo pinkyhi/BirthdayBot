@@ -58,7 +58,11 @@ namespace BirthdayBot.Quartz.Jobs
 
                     foreach (var member in members)
                     {
-                        await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        try
+                        {
+                            await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        }
+                        catch(Exception ex) {logger.LogError(ex.ToString());}
                     }
                 }
                 catch (Exception ex)

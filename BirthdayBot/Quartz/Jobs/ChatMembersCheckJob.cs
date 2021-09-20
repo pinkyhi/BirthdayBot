@@ -93,14 +93,7 @@ namespace BirthdayBot.Quartz.Jobs
                         }
                         catch(Exception ex)
                         {
-                            if (ex.StackTrace.Contains("Telegram.Bot.TelegramBotClient"))
-                            {
-                                // You can delete removed chat here                               
-                            }
-                            else
-                            {
-                                throw ex;
-                            }
+                            logger.LogError(ex.ToString());
                         }
                         
                     }
