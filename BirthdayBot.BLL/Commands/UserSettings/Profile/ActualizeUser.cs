@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using BirthdayBot.BLL.Menus.Settings;
+using Microsoft.EntityFrameworkCore;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Profile
 {
@@ -33,7 +34,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, x => x.Include(x => x.Addresses));
             if (dbUser.Addresses == null)
             {
                 await repository.LoadCollectionAsync(dbUser, x => x.Addresses);

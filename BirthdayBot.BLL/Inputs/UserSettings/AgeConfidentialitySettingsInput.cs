@@ -48,15 +48,15 @@ namespace BirthdayBot.BLL.Inputs.UserSettings
 
                 ConfidentialType confidentialType = dbUser.Settings.BirthYearConfidentiality;
 
-                if (confidTypeStr.Equals(publicType))
+                if (confidTypeStr.Contains(publicType))
                 {
                     confidentialType = ConfidentialType.Public;
                 }
-                else if (confidTypeStr.Equals(privateType))
+                else if (confidTypeStr.Contains(privateType))
                 {
                     confidentialType = ConfidentialType.Private;
                 }
-                else if (confidTypeStr.Equals(mutualType))
+                else if (confidTypeStr.Contains(mutualType))
                 {
                     confidentialType = ConfidentialType.Mutual;
                 }

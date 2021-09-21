@@ -38,7 +38,7 @@ namespace BirthdayBot.BLL.Menus.Settings
             {
                 currentType == ConfidentialType.Mutual ? new KeyboardButton(resources["MUTUAL_CONFIDENTIALITY_TYPE"] + "✔") : new KeyboardButton(resources["MUTUAL_CONFIDENTIALITY_TYPE"])
             };
-            return new ReplyKeyboardMarkup(new List<List<KeyboardButton>>() { types0row, types1row, types2row });
+            return new ReplyKeyboardMarkup(new List<List<KeyboardButton>>() { types0row, types1row, types2row }) { ResizeKeyboard = true, OneTimeKeyboard = true };
         }
     }
 }
