@@ -74,7 +74,10 @@ namespace BirthdayBot.Controllers
                 TUser dbUser = null;
                 try
                 {
-                    dbUser = await repository.GetAsync<TUser>(true, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                    if((update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id) != null)
+                    {
+                        dbUser = await repository.GetAsync<TUser>(false, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                    }
                 }
                 catch { }
                 // Setting culture info for request

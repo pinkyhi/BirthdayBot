@@ -22,6 +22,7 @@ namespace BirthdayBot.Extensions
         {
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(connectionString);
+                options.EnableSensitiveDataLogging();
             });
             ActivatorUtilities.CreateInstance(services.BuildServiceProvider(), typeof(AppDbContext));
             services.AddScoped<IRepository, Repository>();

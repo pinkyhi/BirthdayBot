@@ -64,12 +64,12 @@ namespace BirthdayBot.DAL
                 .HasMany(x => x.Subscriptions)
                 .WithOne(x => x.Subscriber)
                 .HasForeignKey(x => x.SubscriberId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
             modelBuilder.Entity<TUser>()
                 .HasMany(x => x.Subscribers)
                 .WithOne(x => x.Target)
                 .HasForeignKey(x => x.TargetId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TUser>().OwnsOne(c => c.Settings, a => {
                 a.Property(x => x.BirthDateConfidentiality)

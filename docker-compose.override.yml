@@ -7,8 +7,11 @@ services:
       - ASPNETCORE_URLS=https://*:5001,https://*:443
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Bn98rnQBS
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - WebHookUrl=https://93.77.77.44
+      - SslCertificate=/botcerts
     ports:
       - "5001:5001"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${USERPROFILE}/.aspnet/https:/https:ro
+      - ./BirthdayBot/Static:/botcerts:ro

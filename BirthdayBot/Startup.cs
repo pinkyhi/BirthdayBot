@@ -32,6 +32,8 @@ namespace BirthdayBot
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
             rapidBotsOptions.SslCertificate = Configuration["SslCertificate"] ?? rapidBotsOptions.SslCertificate;
             rapidBotsOptions.WebHookUrl = Configuration["WebHookUrl"] ?? rapidBotsOptions.WebHookUrl;
+            rapidBotsOptions.Token = Configuration["Token"] ?? rapidBotsOptions.Token;
+            rapidBotsOptions.DefaultLanguageCode = Configuration["DefaultLanguageCode"] ?? rapidBotsOptions.DefaultLanguageCode;
 
             var googleGeoCodeOptions = new GoogleOptions();
             this.Configuration.GetSection(nameof(GoogleOptions)).Bind(googleGeoCodeOptions);
