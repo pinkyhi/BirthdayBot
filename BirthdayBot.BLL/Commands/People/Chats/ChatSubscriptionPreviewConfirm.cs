@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using RapidBots.Extensions;
 using System.Collections.Generic;
+using BirthdayBot.Core.Const;
 
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
@@ -59,14 +60,22 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             }
             else
             {
-                dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
-                dbUser.CurrentStatus = null;
-                await repository.UpdateAsync(dbUser);
-                try
+                if(dbUser.Subscriptions.Count < Limitations.SubsLimit)
                 {
-                    await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIBE_ON_MEMBER_SUCCESS"]);
+                    dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
+                    dbUser.CurrentStatus = null;
+                    await repository.UpdateAsync(dbUser);
+                    try
+                    {
+                        await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIBE_ON_MEMBER_SUCCESS"]);
+                    }
+                    catch { }
                 }
-                catch { }
+                else
+                {
+                    await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["SUBSCRIPTIONS_LIMIT"], showAlert: true);
+                }
+
             }
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
 

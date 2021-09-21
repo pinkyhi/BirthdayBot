@@ -107,7 +107,7 @@ namespace BirthdayBot.Controllers
                     }
                     else
                     {
-                        await command.Execute(update, dbUser, requestScope);
+                        await command.Execute(update, actionScope: requestScope);
                     }
                 }
                 catch (KeyNotFoundException)
@@ -119,7 +119,7 @@ namespace BirthdayBot.Controllers
                             var input = actionsManager.Inputs[(int)dbUser.CurrentStatus];
                             if (input.ValidateUpdate(update))
                             {
-                                await input.Execute(update, dbUser, requestScope);
+                                await input.Execute(update, actionScope: requestScope);
                             }
                             else
                             {
@@ -134,7 +134,7 @@ namespace BirthdayBot.Controllers
                     catch (KeyNotFoundException)
                     {
                         var action = actionsManager.Actions.First(x => x.ValidateUpdate(update));
-                        await action.Execute(update, dbUser, requestScope);
+                        await action.Execute(update, actionScope: requestScope);
                     }
                 }
                 return Ok();

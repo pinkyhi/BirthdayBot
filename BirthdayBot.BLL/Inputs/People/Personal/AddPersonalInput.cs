@@ -13,6 +13,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using BirthdayBot.Core.Const;
 
 namespace BirthdayBot.BLL.Inputs.People.Personal
 {
@@ -96,11 +97,20 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                             await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                             return;
                         }
-                        dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
-                        dbUser.CurrentStatus = null;
-                        await repository.UpdateAsync(dbUser);
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_SUCCESS"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        if (dbUser.Subscriptions.Count < Limitations.SubsLimit)
+                        {
+                            dbUser.Subscriptions.Add(new Subscription() { IsStrong = false, Subscriber = dbUser, Target = target });
+                            dbUser.CurrentStatus = null;
+                            await repository.UpdateAsync(dbUser);
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_SUCCESS"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
+                        }
+                        else
+                        {
+                            dbUser.CurrentStatus = null;
+                            await repository.UpdateAsync(dbUser);
+                            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["SUBSCRIPTIONS_LIMIT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        }
                         PeopleMenu menu = new PeopleMenu(resources);
 
                         await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(0, dbUser.Subscriptions, actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
