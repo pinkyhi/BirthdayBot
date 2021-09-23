@@ -67,12 +67,7 @@ namespace BirthdayBot.Quartz.Jobs
                         {
                             int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id) - 1;
 
-                            if (chatMemberCount == chat.ChatMembers.Count)
-                            {
-                                chat.NotificationsCount = 4;
-                                await botClient.SendTextMessageAsync(chat.Id, resources["ALL_USERS_ADDED_TEXT", chat.Title], parseMode: ParseMode.Html);
-                            }
-                            else
+                            if (chatMemberCount != chat.ChatMembers.Count)
                             {
                                 InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", chat.Id) };
 
@@ -89,6 +84,10 @@ namespace BirthdayBot.Quartz.Jobs
                                         await botClient.SendTextMessageAsync(chat.Id, resources["THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION", chat.ChatMembers.Count, chatMemberCount], parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
                                         break;
                                 }
+                            }
+                            else
+                            {
+                                chat.NotificationsCount = 3;
                             }
                         }
                         catch(Exception ex)
