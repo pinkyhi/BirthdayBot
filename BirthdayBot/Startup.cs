@@ -30,7 +30,8 @@ namespace BirthdayBot
             AssemblyBLL.LoadAssembly(); // .Net will load BLL project in assemblies only if there is a connection to it. BLL assembly is important for reflection to commands etc
             var rapidBotsOptions = new RapidBotsOptions();
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
-            rapidBotsOptions.SslCertificate = Configuration["SslCertificate"] ?? rapidBotsOptions.SslCertificate;
+            rapidBotsOptions.SslCertificatePEM = Configuration["SslCertificatePEM"] ?? rapidBotsOptions.SslCertificatePEM;
+            rapidBotsOptions.SslCertificatePFX = Configuration["SslCertificatePFX"] ?? rapidBotsOptions.SslCertificatePFX;
             rapidBotsOptions.WebHookUrl = Configuration["WebHookUrl"] ?? rapidBotsOptions.WebHookUrl;
             rapidBotsOptions.Token = Configuration["Token"] ?? rapidBotsOptions.Token;
             rapidBotsOptions.DefaultLanguageCode = Configuration["DefaultLanguageCode"] ?? rapidBotsOptions.DefaultLanguageCode;

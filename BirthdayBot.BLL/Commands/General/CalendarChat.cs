@@ -35,10 +35,10 @@ namespace BirthdayBot.BLL.Commands.General
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.Message.Chat.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             long chatId = update.Message.Chat.Id;
-            var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId);
+            var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId) - 1;
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             var users = chat.ChatMembers.Select(x => new { Name = $"@{x.User.Username}" ?? $"{x.User.FirstName} {x.User.LastName}", Date = x.User.BirthDate }).GroupBy(x => x.Date.Month - 1);

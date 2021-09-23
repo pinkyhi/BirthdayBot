@@ -53,8 +53,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
 
                     if (dbUser?.Notes == null)
                     {
-                        var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Notes));
-                        dbUser.Notes = tempDbUser.Notes;
+                        await repository.LoadCollectionAsync(dbUser, x => x.Notes);
                     }
 
                     NotesMenu notesMenu = new NotesMenu(resources);

@@ -34,7 +34,14 @@ namespace BirthdayBot.BLL.Menus.Notes
                 var qParams = new Dictionary<string, string>();
                 qParams.Add("property", $"{x.Id}");
                 qParams.Add(CallbackParams.Page, page.ToString());
-                return new InlineKeyboardButton() { Text = string.Concat(x.Title, " ", x.Date.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenNote, qParams) };
+                if (x.IsStrong)
+                {
+                    return new InlineKeyboardButton() { Text = string.Concat(resources["STRONG_NOTIFICATION_BUTTON"], x.Title, " ", x.Date.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenNote, qParams) };
+                }
+                else
+                {
+                    return new InlineKeyboardButton() { Text = string.Concat(x.Title, " ", x.Date.ToShortDateString()), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenNote, qParams) };
+                }
             });
 
             var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };

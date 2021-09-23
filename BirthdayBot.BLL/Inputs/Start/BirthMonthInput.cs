@@ -45,8 +45,7 @@ namespace BirthdayBot.BLL.Inputs.Start
 
                 if (dbUser?.Addresses == null)
                 {
-                    var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Addresses));
-                    dbUser.Addresses = tempDbUser.Addresses;
+                    await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
                 }
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
                 await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);

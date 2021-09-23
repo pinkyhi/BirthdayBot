@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RapidBots;
+using System;
 using System.Net;
 using System.Security.Authentication;
 
@@ -24,23 +28,26 @@ namespace BirthdayBot
                     {
                         co.SslProtocols = SslProtocols.Tls12;
                     });
-                    options.Listen(IPAddress.Loopback, 443, listenOptions =>
-                    {
-                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
-                    });
+                    var pfxPath = GetPfxPath();
                     options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
-                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
-                    });
-                    options.Listen(IPAddress.Any, 5001, listenOptions =>
-                    {
-                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
+                        listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
                     });
                     options.Listen(IPAddress.Loopback, 5001, listenOptions =>
                     {
-                        listenOptions.UseHttps("./Static/PUBLIC.pfx", "Bn98rnQBS");
+                        listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
                     });
                 });
             });
+        
+        private static string GetPfxPath()
+        {
+            var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+            var rapidBotsOptions = new RapidBotsOptions();
+            config.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
+            return Environment.GetEnvironmentVariable("SslCertificatePFX") ?? rapidBotsOptions.SslCertificatePFX;
+        }
     }
 }

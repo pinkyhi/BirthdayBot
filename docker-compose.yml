@@ -13,7 +13,8 @@ services:
     restart: always
     environment:
     - WebHookUrl
-    - SslCertificate
+    - SslCertificatePEM
+    - SslCertificatePFX
     depends_on:
           - mssqlserver
 

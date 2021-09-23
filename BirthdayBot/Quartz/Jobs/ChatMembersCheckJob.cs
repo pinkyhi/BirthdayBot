@@ -65,7 +65,7 @@ namespace BirthdayBot.Quartz.Jobs
 
                         try
                         {
-                            int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id);
+                            int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id) - 1;
 
                             if (chatMemberCount == chat.ChatMembers.Count)
                             {

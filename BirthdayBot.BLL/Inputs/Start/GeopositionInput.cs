@@ -46,11 +46,10 @@ namespace BirthdayBot.BLL.Inputs.Start
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser;
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, x => x.Id == update.Message.From.Id, x => x.Include(x => x.Addresses));
             if (dbUser?.Addresses == null)
             {
-                var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Addresses));
-                dbUser.Addresses = tempDbUser.Addresses;
+                await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
             }
 
             if (dbUser.RegistrationDate != null && update.Message?.Text != null && update.Message.Text.Trim().Equals(resources["BACK_BUTTON"]))

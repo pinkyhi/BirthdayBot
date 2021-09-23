@@ -38,7 +38,6 @@ namespace BirthdayBot.Controllers
             return Ok("Hi, what are you doing here?");
         }
 
-
         [HttpPost]
         [Route("/")]
         public async Task<IActionResult> Post([FromBody] Update update)
