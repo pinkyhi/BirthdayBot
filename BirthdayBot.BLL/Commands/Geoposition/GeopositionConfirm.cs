@@ -46,7 +46,12 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(true, u => u.Id == update.CallbackQuery.From.Id, x => x.Include(x => x.Addresses));
+            if (dbUser?.Addresses == null)
+            {
+                await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
+            }
+
             long? fromChat = null;
             GoogleGeoCodeResponse geocodeResponse = null;
             try
@@ -116,14 +121,9 @@ namespace BirthdayBot.BLL.Commands.Geoposition
             }
             else
             {
-                if (dbUser?.Addresses == null)
-                {
-                    dbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Addresses));
-                }
-
                 ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
-
-                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address, dbUser.Timezone.TimeZoneName), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
+                await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress, dbUser.Timezone.TimeZoneName), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
 
         }
