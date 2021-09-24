@@ -40,7 +40,7 @@ namespace BirthdayBot.DAL.Entities
             }
             else
             {
-                return this.BirthDate.AddYears((this.BirthDate.Year * -1) + 1).ToShortDateString();
+                return ClearYear(this.BirthDate.ToShortDateString()); ;
             }
         }
 
