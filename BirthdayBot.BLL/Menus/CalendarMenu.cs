@@ -72,9 +72,15 @@ namespace BirthdayBot.BLL.Menus
                 new InlineKeyboardButton(){CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"12"), Text = string.Concat(resources["DECEMBER"], countPerMonth.FirstOrDefault(x => x.Key == 12) == null ? "" : $" ({countPerMonth.FirstOrDefault(x => x.Key == 12).Count()})" )}
 
             };
-            var keyboard = new List<List<InlineKeyboardButton>>() { monthes0row, monthes1row, monthes2row };
+            var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };
+            List<InlineKeyboardButton> row3 = new List<InlineKeyboardButton>()
+            {
+               backBut 
+            };
 
-            InlineKeyboardMarkup result = new InlineKeyboardMarkup(keyboard);
+            var keyboard = new List<List<InlineKeyboardButton>>() { monthes0row, monthes1row, monthes2row, row3 };
+
+            InlineKeyboardMarkup result = new InlineKeyboardMarkup(keyboard) ;
             return result;
         }
     }

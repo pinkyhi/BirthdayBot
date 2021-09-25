@@ -219,6 +219,9 @@
   <data name="ProfileSettings" xml:space="preserve">
     <value>profileSettings</value>
   </data>
+  <data name="ProfileSettingsInfo" xml:space="preserve">
+    <value>profSetInf</value>
+  </data>
   <data name="RemoveNote" xml:space="preserve">
     <value>removeNote</value>
   </data>

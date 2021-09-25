@@ -367,6 +367,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to profSetInf.
+        /// </summary>
+        public static string ProfileSettingsInfo {
+            get {
+                return ResourceManager.GetString("ProfileSettingsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to removeNote.
         /// </summary>
         public static string RemoveNote {
