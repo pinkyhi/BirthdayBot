@@ -48,7 +48,7 @@ namespace BirthdayBot.Quartz.Jobs
                         {
                             var utcAdding = x.AddingDate.ToUniversalTime();
 
-                            if ((uNow - utcAdding).TotalHours > x.NotificationsCount * 2)
+                            if ((uNow - utcAdding).TotalHours > x.NotificationsCount * 24)
                             {
                                 return true;
                             }
@@ -71,13 +71,13 @@ namespace BirthdayBot.Quartz.Jobs
                         {
                             int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id) - 1;
                             
-                            if (chatMemberCount != chat.ChatMembers.Count)
+                            if (Convert.ToInt32(chatMemberCount * 0.35) > chat.ChatMembers.Count)
                             {
                                 string chatAvgLanCode = chat.ChatMembers.Select(x => x.User.LanguageCode).GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
                                 CultureInfo.CurrentCulture = new CultureInfo(chatAvgLanCode ?? options.DefaultLanguageCode);
                                 CultureInfo.CurrentUICulture = new CultureInfo(chatAvgLanCode ?? options.DefaultLanguageCode);
 
-                                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", chat.Id) };
+                                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", chat.Id) };
 
                                 chat.NotificationsCount++;
                                 switch (chat.NotificationsCount)

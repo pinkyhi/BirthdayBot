@@ -10,6 +10,7 @@ using RapidBots.Types.Core;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.Quartz.Jobs
 {
@@ -64,9 +65,10 @@ namespace BirthdayBot.Quartz.Jobs
                     {
                         try
                         {
+                            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", member.ChatId) };
                             CultureInfo.CurrentCulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
                             CultureInfo.CurrentUICulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
-                            await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                            await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
                         }
                         catch(Exception ex) {logger.LogError(ex.ToString());}
                     }

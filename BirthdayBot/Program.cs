@@ -29,14 +29,29 @@ namespace BirthdayBot
                         co.SslProtocols = SslProtocols.Tls12;
                     });
                     var pfxPath = GetPfxPath();
-                    options.Listen(IPAddress.Any, 443, listenOptions =>
+                    if (System.IO.File.Exists(pfxPath))
                     {
-                        listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
-                    });
-                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, 443, listenOptions =>
+                        {
+                            listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
+                        });
+                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        {
+                            listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
+                        });
+                    }
+                    else
                     {
-                        listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
-                    });
+                        options.Listen(IPAddress.Any, 443, listenOptions =>
+                        {
+                            listenOptions.UseHttps();
+                        });
+                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        {
+                            listenOptions.UseHttps();
+                        });
+                    }
+
                 });
             });
         

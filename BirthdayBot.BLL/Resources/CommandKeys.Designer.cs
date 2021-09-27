@@ -322,6 +322,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to notTgUser.
+        /// </summary>
+        public static string NotTelegramUser {
+            get {
+                return ResourceManager.GetString("NotTelegramUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to openChat.
         /// </summary>
         public static string OpenChat {

@@ -52,12 +52,15 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                 await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
             }
 
-            long? fromChat = null;
+            string fromChat = null;
+            string refId = null;
             GoogleGeoCodeResponse geocodeResponse = null;
             try
             {
                 var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
-                fromChat = Convert.ToInt64(data["fromChat"]);
+                data.TryGetValue("fromChat", out fromChat);
+                data.TryGetValue("refId", out refId);
+
                 geocodeResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(data["address"]);
             }
             catch (Exception)
@@ -108,10 +111,14 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                 {
                     if(fromChat != null)
                     {
-                        var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == fromChat, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
+                        var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == Convert.ToInt64(fromChat), x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
                         chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
                         await repository.UpdateAsync(chat);
                         await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    }
+                    if(refId != null)
+                    {
+                        await botClient.SendTextMessageAsync(Convert.ToInt64(refId), resources["REFERRAL_NOTIFICATION", update.CallbackQuery.From.Username == null ? $"{update.CallbackQuery.From.FirstName} {update.CallbackQuery.From.LastName}" : $"@{update.CallbackQuery.From.Username}"]);
                     }
                 }
                 catch

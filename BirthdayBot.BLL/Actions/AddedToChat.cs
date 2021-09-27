@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BirthdayBot.Core.Resources;
+using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -26,6 +28,23 @@ namespace BirthdayBot.BLL.Actions
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var mapper = actionScope.ServiceProvider.GetService<IMapper>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
+
+            string telegramUserLanguageCode = update.MyChatMember?.From?.LanguageCode;
+
+            try
+            {
+                var tUser = await repository.GetAsync<TUser>(false, x => x.Id == update.MyChatMember.From.Id);
+                telegramUserLanguageCode = tUser.LanguageCode;
+            }
+            catch
+            {}
+
+            if (!string.IsNullOrEmpty(telegramUserLanguageCode))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(telegramUserLanguageCode);
+                CultureInfo.CurrentUICulture = new CultureInfo(telegramUserLanguageCode);
+            }
+
             try
             {
                 var chat = mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat);
@@ -38,7 +57,7 @@ namespace BirthdayBot.BLL.Actions
                 return;
             }
 
-            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.MyChatMember.Chat.Id) };
+            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", update.MyChatMember.Chat.Id) };
             await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"], replyMarkup: new InlineKeyboardMarkup(joinChatCalendar), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
 

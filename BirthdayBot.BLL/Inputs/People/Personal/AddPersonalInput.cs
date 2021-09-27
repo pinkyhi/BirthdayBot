@@ -73,7 +73,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username.Contains(inputStr) && x.Id != dbUser.Id && x.RegistrationDate != null);
                 if(targets.Count() < 1)
                 {
-                    PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, inputStr);
+                    PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, inputStr, dbUser.Id);
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, nfMenu.GetDefaultTitle(), replyMarkup: nfMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     return;
                 }

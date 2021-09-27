@@ -1,7 +1,10 @@
 ﻿using BirthdayBot.Core.Resources;
+using BirthdayBot.DAL.Entities;
+using BirthdayBot.DAL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -21,8 +24,27 @@ namespace BirthdayBot.BLL.Actions
 
         public async override Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
+            var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
-            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.Message.Chat.Id) };
+
+            var newUser = update.Message.NewChatMembers.FirstOrDefault(x => !x.IsBot);
+            string telegramUserLanguageCode = newUser?.LanguageCode;
+
+            try
+            {
+                var tUser = await repository.GetAsync<TUser>(false, x => x.Id == newUser.Id);
+                telegramUserLanguageCode = tUser.LanguageCode;
+            }
+            catch
+            { }
+
+            if (!string.IsNullOrEmpty(telegramUserLanguageCode))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(telegramUserLanguageCode);
+                CultureInfo.CurrentUICulture = new CultureInfo(telegramUserLanguageCode);
+            }
+
+            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", update.Message.Chat.Id) };
 
             InlineKeyboardMarkup markup = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]

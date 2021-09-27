@@ -73,7 +73,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["NOTE_TITLE_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 

@@ -69,8 +69,7 @@ namespace BirthdayBot.BLL.Inputs.Start
                 // Change status
                 if(dbUser.MiddlewareData != null)
                 {
-                    var data = new Dictionary<string, string>();
-                    data.Add("fromChat", dbUser.MiddlewareData);
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
                     data.Add("date", dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString());
                     dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
                 }
