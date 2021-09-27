@@ -237,6 +237,9 @@
   <data name="StrongNotificationsSettings" xml:space="preserve">
     <value>strongNotificationsSettings</value>
   </data>
+  <data name="SubscribeByReferralReply" xml:space="preserve">
+    <value>subByRefRep</value>
+  </data>
   <data name="SubscribeOnMember" xml:space="preserve">
     <value>subsOnMem</value>
   </data>

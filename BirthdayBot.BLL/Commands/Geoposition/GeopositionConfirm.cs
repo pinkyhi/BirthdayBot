@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace BirthdayBot.BLL.Commands.Geoposition
 {
@@ -118,7 +120,8 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                     }
                     if(refId != null)
                     {
-                        await botClient.SendTextMessageAsync(Convert.ToInt64(refId), resources["REFERRAL_NOTIFICATION", update.CallbackQuery.From.Username == null ? $"{update.CallbackQuery.From.FirstName} {update.CallbackQuery.From.LastName}" : $"@{update.CallbackQuery.From.Username}"]);
+                        var subsRefBut = new InlineKeyboardButton() { Text = resources["SUBSCRIBE_BUTTON"], CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeByReferralReply, "userId", dbUser.Id.ToString()) };
+                        await botClient.SendTextMessageAsync(Convert.ToInt64(refId), resources["REFERRAL_NOTIFICATION", update.CallbackQuery.From.Username == null ? $"{update.CallbackQuery.From.FirstName} {update.CallbackQuery.From.LastName}" : $"@{update.CallbackQuery.From.Username}"], ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(subsRefBut));
                     }
                 }
                 catch

@@ -421,6 +421,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to subByRefRep.
+        /// </summary>
+        public static string SubscribeByReferralReply {
+            get {
+                return ResourceManager.GetString("SubscribeByReferralReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to subsOnMem.
         /// </summary>
         public static string SubscribeOnMember {
