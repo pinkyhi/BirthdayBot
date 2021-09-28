@@ -38,7 +38,7 @@ namespace BirthdayBot.BLL.Commands.General
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == (update.Message?.From?.Id ?? update.CallbackQuery?.From?.Id), include: u => u.Include(x => x.Subscriptions).ThenInclude(x => x.Target).Include(x => x.Notes));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == (update.Message?.From?.Id ?? update.CallbackQuery?.From?.Id), include: u => u.Include(x => x.Subscriptions).ThenInclude(x => x.Target).Include(x => x.Subscribers).Include(x => x.Notes));
 
             if (dbUser?.Subscriptions == null)
             {
