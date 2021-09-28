@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 28 Sep 2021 00:09:34 +0300 
+  Exported at: Tue, 28 Sep 2021 17:34:17 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -343,7 +343,7 @@
   </data> 
   <data name="PEOPLE_TEXT" xml:space="preserve"> 
     <value>&lt;b&gt;Люди&lt;/b&gt;
-Тут ти можете подивитися підписки на людей або додати нову.</value> 
+Тут ти можеш подивитися підписки на людей або додати нову.</value> 
   </data> 
   <data name="SUBSCRIPTION_TEXT" xml:space="preserve"> 
     <value>&lt;b&gt;Підписка&lt;/b&gt;
@@ -576,5 +576,14 @@
   </data> 
   <data name="ADD_BY_CONTACT_INPUT" xml:space="preserve"> 
     <value>Відправ контакт</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_DUPLICATE" xml:space="preserve"> 
+    <value>Ти вже маєш підписку на цього користувача.</value> 
+  </data> 
+  <data name="REFERRAL_TARGET_UNKNOWN" xml:space="preserve"> 
+    <value>Здається ця людина не користується ботом.</value> 
+  </data> 
+  <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
+    <value>Мені не вдається створити підписку автоматично. Спробуй зробити це сам.</value> 
   </data> 
 </root>

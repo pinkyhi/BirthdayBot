@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 28 Sep 2021 00:09:34 +0300 
+  Exported at: Tue, 28 Sep 2021 17:34:17 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -579,5 +579,14 @@ Now you are redirected to event creation.</value>
   </data> 
   <data name="ADD_BY_CONTACT_INPUT" xml:space="preserve"> 
     <value>Send contact</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_DUPLICATE" xml:space="preserve"> 
+    <value>You are already subscribed to this person</value> 
+  </data> 
+  <data name="REFERRAL_TARGET_UNKNOWN" xml:space="preserve"> 
+    <value>Seems this person already doesn't use this bot.</value> 
+  </data> 
+  <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
+    <value>I can't create a subscription automatically. Try to make it on your own.</value> 
   </data> 
 </root>

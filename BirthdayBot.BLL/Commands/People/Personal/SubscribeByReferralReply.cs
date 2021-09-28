@@ -68,10 +68,15 @@ namespace BirthdayBot.BLL.Commands.People.Personal
                         await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, resources["SUBSCRIPTIONS_LIMIT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     }
                 }
+                else
+                {
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, resources["REFERRAL_TARGET_UNKNOWN"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    return;
+                }
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, resources["ADD_PESONAL_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, resources["SUBSCRIBE_REFERRAL_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
         }

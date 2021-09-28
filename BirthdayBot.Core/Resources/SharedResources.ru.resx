@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 28 Sep 2021 00:09:34 +0300 
+  Exported at: Tue, 28 Sep 2021 17:34:17 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -344,7 +344,7 @@
   </data> 
   <data name="PEOPLE_TEXT" xml:space="preserve"> 
     <value>&lt;b&gt;Люди&lt;/b&gt;
-Здесь ты можете посмотреть подписки на людей или добавить новую.</value> 
+Здесь ты можешь посмотреть подписки на людей или добавить новую.</value> 
   </data> 
   <data name="SUBSCRIPTION_TEXT" xml:space="preserve"> 
     <value>&lt;b&gt;Подписка&lt;/b&gt;
@@ -577,5 +577,14 @@ Happens {1}</value>
   </data> 
   <data name="ADD_BY_CONTACT_INPUT" xml:space="preserve"> 
     <value>Отправь контакт</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_DUPLICATE" xml:space="preserve"> 
+    <value>Ты уже подписался на этого пользователя раньше.</value> 
+  </data> 
+  <data name="REFERRAL_TARGET_UNKNOWN" xml:space="preserve"> 
+    <value>Похоже этот человек не использует бота.</value> 
+  </data> 
+  <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
+    <value>У меня не получается создать подписку автоматически. Попытайся сделать это сам.</value> 
   </data> 
 </root>
