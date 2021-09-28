@@ -46,11 +46,11 @@ namespace BirthdayBot.BLL.Menus.People
                 qParams.Add(CallbackParams.Page, page.ToString());
                 if (x.IsStrong)
                 {
-                    return new InlineKeyboardButton() { Text = string.Concat(resources["STRONG_NOTIFICATION_BUTTON"], x.Target.Username, " ", x.Subscriber.GetAnotherUserDateString(x.Target)), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
+                    return new InlineKeyboardButton() { Text = string.Concat(resources["STRONG_NOTIFICATION_BUTTON"], x.Target.Username ?? $"{x.Target.FirstName} {x.Target.LastName}", " ", x.Subscriber.GetAnotherUserDateString(x.Target)), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
                 }
                 else
                 {
-                    return new InlineKeyboardButton() { Text = string.Concat(x.Target.Username, " ", x.Subscriber.GetAnotherUserDateString(x.Target)), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
+                    return new InlineKeyboardButton() { Text = string.Concat(x.Target.Username ?? $"{x.Target.FirstName} {x.Target.LastName}", " ", x.Subscriber.GetAnotherUserDateString(x.Target)), CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenSubscription, qParams) };
                 }
             });
 

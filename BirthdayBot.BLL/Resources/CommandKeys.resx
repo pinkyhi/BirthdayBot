@@ -123,6 +123,9 @@
   <data name="AddByChats" xml:space="preserve">
     <value>addByChats</value>
   </data>
+  <data name="AddByContact" xml:space="preserve">
+    <value>adByCont</value>
+  </data>
   <data name="AddNote" xml:space="preserve">
     <value>addNote</value>
   </data>

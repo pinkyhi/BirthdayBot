@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Mon, 27 Sep 2021 21:12:53 +0300 
+  Exported at: Tue, 28 Sep 2021 00:09:34 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -561,6 +561,21 @@ Happens {1}</value>
     <value>Без Telegram</value> 
   </data> 
   <data name="REFERRAL_NOTIFICATION" xml:space="preserve"> 
-    <value>{0} присоединился по твоей реферальной ссылке :) Спасибо!</value> 
+    <value>{0} присоединился по твоей реферальной ссылке</value> 
+  </data> 
+  <data name="NO_CONTACT_ERROR" xml:space="preserve"> 
+    <value>Я не вижу контакт. Попробуй прикрепить контакт, ты можешь сделать это только через мобильную версию Telegram.</value> 
+  </data> 
+  <data name="EMPTY_CONTACT_ERROR" xml:space="preserve"> 
+    <value>Похоже этот человек не использует Telegram.</value> 
+  </data> 
+  <data name="CONTACT_NOT_FOUND" xml:space="preserve"> 
+    <value>Я не знаю этого пользователя :(</value> 
+  </data> 
+  <data name="ADD_BY_CONTACT_BUTTON" xml:space="preserve"> 
+    <value>По контакту</value> 
+  </data> 
+  <data name="ADD_BY_CONTACT_INPUT" xml:space="preserve"> 
+    <value>Отправь контакт</value> 
   </data> 
 </root>

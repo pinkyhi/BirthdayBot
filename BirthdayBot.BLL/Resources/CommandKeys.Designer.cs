@@ -79,6 +79,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to adByCont.
+        /// </summary>
+        public static string AddByContact {
+            get {
+                return ResourceManager.GetString("AddByContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to addNote.
         /// </summary>
         public static string AddNote {

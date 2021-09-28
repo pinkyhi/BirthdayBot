@@ -58,13 +58,13 @@ namespace BirthdayBot.BLL.Commands.General
             {
                 month = Convert.ToInt32(strMonth);
             }
-            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", Date = x.Target.BirthDate });
-            var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, Date = x.Date});
+            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", DateStr = dbUser.GetAnotherUserDateString(x.Target), Date = x.Target.BirthDate });
+            var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, DateStr = x.Date.ToShortDateString(), Date = x.Date});
             var countPerMonth = dbUser.Subscriptions.Select(x => x.Target.BirthDate.Month).Concat(dbUser.Notes.Select(x => x.Date.Month));
 
             string format = "{0} - {1};";
             int monthNow = DateTime.Now.Month;
-            var strs = subs.Concat(notes).OrderBy(x => monthNow - x.Date.Month < 0 ? monthNow - x.Date.Month + 12 : monthNow - x.Date.Month).Select(x => string.Format(format, x.Name, x.Date.ToShortDateString()));
+            var strs = subs.Concat(notes).OrderBy(x => monthNow - x.Date.Month < 0 ? monthNow - x.Date.Month + 12 : monthNow - x.Date.Month).Select(x => string.Format(format, x.Name, x.DateStr));
             CalendarMenu menu = new CalendarMenu(resources, month, string.Join('\n', strs), countPerMonth.GroupBy(x => x));
             if (update.CallbackQuery != null)
             {

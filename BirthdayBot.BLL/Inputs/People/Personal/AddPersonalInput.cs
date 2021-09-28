@@ -70,7 +70,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     inputStr = inputStr.Substring(1);
                 }
 
-                var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username.Contains(inputStr) && x.Id != dbUser.Id && x.RegistrationDate != null);
+                var targets = await repository.GetRangeAsync<TUser>(true, x => x.Username?.Contains(inputStr) == true && x.Id != dbUser.Id && x.RegistrationDate != null);
                 if(targets.Count() < 1)
                 {
                     PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, inputStr, dbUser.Id);
@@ -79,7 +79,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 }
                 else
                 {
-                    var target = targets.FirstOrDefault(x => x.Username.Equals(inputStr));
+                    var target = targets.FirstOrDefault(x => x.Username?.Equals(inputStr) == true);
                     if (target != null)
                     {
                         if(dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
@@ -118,14 +118,14 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     }
                     else
                     {
-                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_MULTIPLE", string.Join(", ", targets.Select(x => x.Username).Take(10))], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_MULTIPLE", string.Join(", ", targets.Select(x => x.Username != null).Take(10))], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                         return;
                     }
                 }
             }
             catch
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PESONAL_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
         }

@@ -7,11 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.17" />
-    <PackageReference Include="RapidBots" Version="1.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\RapidBots\RapidBots\RapidBots.csproj" />
+    <PackageReference Include="RapidBots" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>

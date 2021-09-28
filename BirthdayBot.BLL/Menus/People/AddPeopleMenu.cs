@@ -33,8 +33,8 @@ namespace BirthdayBot.BLL.Menus.People
             InlineKeyboardButton chats = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, qParams), Text = resources["CHATS_BUTTON"] };
             InlineKeyboardButton personal = new InlineKeyboardButton() { CallbackData = CommandKeys.AddPersonal, Text = resources["PERSONAL_BUTTON"] };
             InlineKeyboardButton notTelegram = new InlineKeyboardButton() { CallbackData = CommandKeys.NotTelegramUser, Text = resources["NOT_TELEGRAM_USER_BUTTON"] };
+            InlineKeyboardButton byContact = new InlineKeyboardButton() { CallbackData = CommandKeys.AddByContact, Text = resources["ADD_BY_CONTACT_BUTTON"] };
             InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{peoplePage}"), Text = resources["BACK_BUTTON"] };
-
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
@@ -45,6 +45,10 @@ namespace BirthdayBot.BLL.Menus.People
                 new[]
                 {
                     notTelegram
+                },
+                new[]
+                {
+                    byContact
                 },
                 new[]
                 {

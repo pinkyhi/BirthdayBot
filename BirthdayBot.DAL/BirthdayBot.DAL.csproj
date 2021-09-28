@@ -21,11 +21,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RapidBots" Version="1.0.4" />
+    <PackageReference Include="RapidBots" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RapidBots\RapidBots\RapidBots.csproj" />
     <ProjectReference Include="..\BirthdayBot.Core\BirthdayBot.Core.csproj" />
   </ItemGroup>
 
