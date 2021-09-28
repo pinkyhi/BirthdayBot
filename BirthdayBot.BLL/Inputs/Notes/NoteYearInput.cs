@@ -3,7 +3,6 @@ using BirthdayBot.BLL.Menus.Notes;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;

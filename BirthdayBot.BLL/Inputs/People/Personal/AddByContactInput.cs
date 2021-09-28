@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Core;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Const;
 

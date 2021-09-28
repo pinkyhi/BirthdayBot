@@ -1,5 +1,4 @@
-﻿using BirthdayBot.BLL.Menus.People;
-using BirthdayBot.Core.Resources;
+﻿using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Const;
@@ -69,7 +67,6 @@ namespace BirthdayBot.BLL.Commands.People.Personal
                     {
                         await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, resources["SUBSCRIPTIONS_LIMIT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     }
-                    return;
                 }
             }
             catch

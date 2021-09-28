@@ -1,10 +1,8 @@
 ﻿using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Types.Menus;
-using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Menus.People

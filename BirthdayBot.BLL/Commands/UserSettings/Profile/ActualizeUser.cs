@@ -1,5 +1,4 @@
-﻿using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Resources;
+﻿using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
