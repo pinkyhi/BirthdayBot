@@ -30,7 +30,7 @@ namespace BirthdayBot.BLL.Menus
             InlineKeyboardButton notes = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{0}"), Text = resources["NOTES_BUTTON"]};
             InlineKeyboardButton calendar = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"{DateTime.Now.Month}"), Text = resources["CALENDAR_BUTTON"] };
             InlineKeyboardButton userSettings = new InlineKeyboardButton() { CallbackData = CommandKeys.UserSettings, Text = resources["USER_SETTINGS_BUTTON"] };
-            InlineKeyboardButton startGroup = new InlineKeyboardButton() { Text = resources["SHARE_TO_GROUP"], Url = "https://t.me/birthdayMaster_bot?startgroup=1" };
+            InlineKeyboardButton startGroup = new InlineKeyboardButton() { Text = resources["SHARE_TO_GROUP"], Url = "https://t.me/yourdate_bot?startgroup=1" };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]

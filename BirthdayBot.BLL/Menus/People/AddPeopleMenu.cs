@@ -39,7 +39,10 @@ namespace BirthdayBot.BLL.Menus.People
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
                 {
-                    chats,
+                    chats
+                },
+                new[]
+                {
                     personal
                 },
                 new[]

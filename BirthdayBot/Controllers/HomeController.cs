@@ -94,7 +94,7 @@ namespace BirthdayBot.Controllers
                 {
                     if (!string.IsNullOrEmpty(update.Message.Text))
                     {
-                        commandKey = actionsManager.GetCommandKey(update.Message.Text);
+                        commandKey = actionsManager.GetCommandKey(update.Message.Text, "yourdate_bot");
                     }
                 }
                 try
