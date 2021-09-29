@@ -47,7 +47,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 
                 if (inputStr?.Equals(resources["BACK_BUTTON"]) == true)
                 {
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     dbUser.CurrentStatus = null;
@@ -67,7 +67,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 if (update.Message.Contact.UserId == 0)
                 {
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["EMPTY_CONTACT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     dbUser.CurrentStatus = null;
@@ -84,7 +84,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                 if (target == null)
                 {
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["CONTACT_NOT_FOUND"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     PersonalNotFoundMenu nfMenu = new PersonalNotFoundMenu(resources, update.Message.Contact.FirstName ?? update.Message.Contact.PhoneNumber, dbUser.Id);
@@ -96,7 +96,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     if (dbUser.Subscriptions.FirstOrDefault(x => x.TargetId == target.Id) != null)
                     {
                         await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["ADD_PERSONAL_INPUT_DUPLICATE"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                        var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                         await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                         dbUser.CurrentStatus = null;
