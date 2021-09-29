@@ -113,7 +113,7 @@ namespace BirthdayBot.Quartz.Jobs
                         CultureInfo.CurrentUICulture = new CultureInfo(sub.Subscriber?.LanguageCode ?? options.DefaultLanguageCode);
                         try
                         {
-                            await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Subscriber.GetAnotherUserDateString(sub.Target), sub.Target.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                            await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Subscriber.GetAnotherUserDateString(sub.Target)], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                         }
                         catch (Exception ex)
                         {
