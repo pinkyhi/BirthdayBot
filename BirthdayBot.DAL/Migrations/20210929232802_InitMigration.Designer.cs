@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210929185248_subscribeOnCalendar")]
-    partial class subscribeOnCalendar
+    [Migration("20210929232802_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -344,7 +344,7 @@ namespace BirthdayBot.DAL.Migrations
                             b1.Property<int>("BirthYearConfidentiality")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
-                                .HasDefaultValue(1);
+                                .HasDefaultValue(0);
 
                             b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()

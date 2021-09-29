@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BirthdayBot.DAL.Migrations
 {
-    public partial class Chats : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,8 @@ namespace BirthdayBot.DAL.Migrations
                     Id = table.Column<long>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
+                    NotificationsCount = table.Column<int>(nullable: false),
+                    AddingDate = table.Column<DateTime>(nullable: false),
                     BigFileUniqueId = table.Column<string>(nullable: true),
                     SmallFileUniqueId = table.Column<string>(nullable: true)
                 },
@@ -51,7 +53,7 @@ namespace BirthdayBot.DAL.Migrations
                     MiddlewareData = table.Column<string>(nullable: true),
                     RegistrationDate = table.Column<DateTime>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    Settings_BirthYearConfidentiality = table.Column<int>(nullable: true, defaultValue: 1),
+                    Settings_BirthYearConfidentiality = table.Column<int>(nullable: true, defaultValue: 0),
                     Settings_BirthDateConfidentiality = table.Column<int>(nullable: true, defaultValue: 0),
                     Settings_StrongNotification_0 = table.Column<int>(nullable: true, defaultValue: 7),
                     Settings_StrongNotification_1 = table.Column<int>(nullable: true, defaultValue: 3),
@@ -98,8 +100,8 @@ namespace BirthdayBot.DAL.Migrations
                 {
                     UserId = table.Column<long>(nullable: false),
                     ChatId = table.Column<long>(nullable: false),
-                    IsAnonymous = table.Column<bool>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    IsSubscribedOnCalendar = table.Column<bool>(nullable: true, defaultValue: true),
+                    AddingDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,13 +158,13 @@ namespace BirthdayBot.DAL.Migrations
                         column: x => x.SubscriberId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Subscription_Users_TargetId",
                         column: x => x.TargetId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

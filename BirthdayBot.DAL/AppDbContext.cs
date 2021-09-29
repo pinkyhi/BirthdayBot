@@ -18,11 +18,8 @@ namespace BirthdayBot.DAL
             : base(options)
         {
             this.clientSettings = clientSettings;
-            if (this.Database.EnsureCreated())
-            {
-                FillQuartzTables();
-            }
             this.Database.Migrate();
+            FillQuartzTables();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
