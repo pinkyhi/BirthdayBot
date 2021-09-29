@@ -17,12 +17,14 @@ namespace BirthdayBot.BLL.Menus.People
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly string chatsPage;
         private readonly TUser dbUser;
+        private readonly long chatId;
 
-        public OpenChatMenu(IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser) : base(8, 1, CommandKeys.Notes)
+        public OpenChatMenu(IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId) : base(8, 1, CommandKeys.Notes)
         {
             this.resources = resources;
             this.chatsPage = chatsPage;
             this.dbUser = dbUser;
+            this.chatId = chatId;
         }
 
         public override string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
@@ -54,6 +56,22 @@ namespace BirthdayBot.BLL.Menus.People
 
             var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, CallbackParams.Page, $"{chatsPage}"), Text = resources["BACK_BUTTON"] };
 
+            var groupParams = new Dictionary<string, string>();
+            groupParams.Add(CallbackParams.Page, $"{chatsPage}");
+            groupParams.Add("chatId", chatId.ToString());
+            var subAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeAll, groupParams), Text = resources["SUBSCRIBE_ALL_BUTTON"] };
+            var unsubAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.UnsubscribeAll, groupParams), Text = resources["UNSUBSCRIBE_ALL_BUTTON"] };
+            if(page == 0 && pageButtons.Count > 1)
+            {
+                if(!source.All(x => dbUser.Subscriptions.Any(y => y.TargetId == x.UserId)))
+                {
+                    result.Add(new List<InlineKeyboardButton>() { subAllBut });
+                }
+                if(source.Any(x => dbUser.Subscriptions.FirstOrDefault(y => y.TargetId == x.UserId) != null))
+                {
+                    result.Add(new List<InlineKeyboardButton>() { unsubAllBut });
+                }
+            }
             result.AddRange(pageButtons);
             result.Add(new List<InlineKeyboardButton>() { backBut });
             return new InlineKeyboardMarkup(result);

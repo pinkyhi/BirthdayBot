@@ -62,7 +62,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             }
             chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-            OpenChatMenu menu = new OpenChatMenu(resources, chatsPage, dbUser);
+            OpenChatMenu menu = new OpenChatMenu(resources, chatsPage, dbUser, chat.Id);
 
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try

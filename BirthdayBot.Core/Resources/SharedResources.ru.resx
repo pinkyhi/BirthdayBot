@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Wed, 29 Sep 2021 16:35:53 +0300 
+  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -181,7 +181,7 @@
     <value>Простая подписка</value> 
   </data> 
   <data name="NOTIFICATIONS_SETTINGS_INFO" xml:space="preserve"> 
-    <value>Ты можешь, изменить параметр, за скольки дней до события тебе будут приходить уведомления. Ты можешь изменить его для обоих типов подписки.</value> 
+    <value>Ты можешь, изменить параметр, за сколько дней до события тебе будут приходить уведомления. Ты можешь изменить его для обоих типов подписки.</value> 
   </data> 
   <data name="NOTIFICATIONS_SETTINGS_TEXT" xml:space="preserve"> 
     <value>Здесь ты можешь изменить настройки уведомлений</value> 
@@ -359,7 +359,7 @@
     <value>Выберите способ добавления</value> 
   </data> 
   <data name="CHATS_BUTTON" xml:space="preserve"> 
-    <value>В чате</value> 
+    <value>Через чат</value> 
   </data> 
   <data name="CHATS_TEXT" xml:space="preserve"> 
     <value>Выбрав чат, ты сможешь добавить в свой список напоминаний людей из календаря этого чата.</value> 
@@ -590,5 +590,27 @@
   </data> 
   <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
     <value>Похоже у меня сейчас проблемы :( Попробуй позже.</value> 
+  </data> 
+  <data name="FRIEND_ADDED_TO_CHAT_CALENDAR" xml:space="preserve"> 
+    <value>{0} добавился в календарь чата {1}.
+Подписаться на этого пользователя?</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>Не уведомлять</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
+    <value>Подписка на календарь чат изменена</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Подписаться на всех🧨</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Созданы подписки на всех из этого чата!</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Отписаться от всех👋</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Ты отписался от всех участников чата</value> 
   </data> 
 </root>

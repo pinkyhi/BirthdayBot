@@ -448,6 +448,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to subAll.
+        /// </summary>
+        public static string SubscribeAll {
+            get {
+                return ResourceManager.GetString("SubscribeAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to subByRefRep.
         /// </summary>
         public static string SubscribeByReferralReply {
@@ -480,6 +489,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string SubscriptionRemoveConfirm {
             get {
                 return ResourceManager.GetString("SubscriptionRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unsubAll.
+        /// </summary>
+        public static string UnsubscribeAll {
+            get {
+                return ResourceManager.GetString("UnsubscribeAll", resourceCulture);
             }
         }
         

@@ -246,6 +246,9 @@
   <data name="StrongNotificationsSettings" xml:space="preserve">
     <value>strongNotificationsSettings</value>
   </data>
+  <data name="SubscribeAll" xml:space="preserve">
+    <value>subAll</value>
+  </data>
   <data name="SubscribeByReferralReply" xml:space="preserve">
     <value>subByRefRep</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="SubscriptionRemoveConfirm" xml:space="preserve">
     <value>subsRemCon</value>
+  </data>
+  <data name="UnsubscribeAll" xml:space="preserve">
+    <value>unsubAll</value>
   </data>
   <data name="UserSettings" xml:space="preserve">
     <value>userSettings</value>

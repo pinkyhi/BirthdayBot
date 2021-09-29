@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Wed, 29 Sep 2021 16:35:53 +0300 
+  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -592,5 +592,27 @@ Now you are redirected to event creation.</value>
   </data> 
   <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
     <value>Seems that I have problems now :( Try again later.</value> 
+  </data> 
+  <data name="FRIEND_ADDED_TO_CHAT_CALENDAR" xml:space="preserve"> 
+    <value>{0} added himself to {1} chat calendar.
+Would you like to subscribe to him?</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>Don't show anymore</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
+    <value>Chat calendar subscription changed</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Subscribe all🧨</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Subscriptions to all from this chat are created!</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Unsubscribe all👋</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>You have unsubscribed from all chat members</value> 
   </data> 
 </root>

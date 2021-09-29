@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Wed, 29 Sep 2021 16:35:53 +0300 
+  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -589,5 +589,27 @@
   </data> 
   <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
     <value>Здається я маю проблеми назараз :( Спробуй пізніше.</value> 
+  </data> 
+  <data name="FRIEND_ADDED_TO_CHAT_CALENDAR" xml:space="preserve"> 
+    <value>{0} додав себе у календар чату {1}.
+Створити підписку на цю людину?</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>Не повідомлювати</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
+    <value>Підписку на календар чату змінено</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Підписка на усіх🧨</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Створені підписки на усіх з цього чату!</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Відписатися від усіх👋</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Ти відписався від усіх людей з чату</value> 
   </data> 
 </root>
