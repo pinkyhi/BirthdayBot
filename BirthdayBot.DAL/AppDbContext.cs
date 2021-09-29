@@ -22,6 +22,7 @@ namespace BirthdayBot.DAL
             {
                 FillQuartzTables();
             }
+            this.Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

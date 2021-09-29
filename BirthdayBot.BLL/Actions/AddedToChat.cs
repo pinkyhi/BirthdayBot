@@ -67,7 +67,7 @@ namespace BirthdayBot.BLL.Actions
             {
                 if(update.MyChatMember.Chat.Type == ChatType.Group || update.MyChatMember.Chat.Type == ChatType.Supergroup)
                 {
-                    if ((update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Member || update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Administrator) && (update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Member || update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Administrator))
+                    if ((update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Member || update.MyChatMember.NewChatMember.Status == ChatMemberStatus.Administrator) && (update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Member && update.MyChatMember.OldChatMember.Status != ChatMemberStatus.Administrator))
                     {
                         return true;
                     }

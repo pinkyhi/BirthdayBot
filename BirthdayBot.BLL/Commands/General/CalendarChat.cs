@@ -41,7 +41,7 @@ namespace BirthdayBot.BLL.Commands.General
             var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId) - 1;
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
-            var users = chat.ChatMembers.Select(x => new { Name = $"@{x.User.Username}" ?? $"{x.User.FirstName} {x.User.LastName}", Date = x.User.BirthDate, DateStr = x.User.GetConfidentialDateString() }).GroupBy(x => x.Date.Month - 1);
+            var users = chat.ChatMembers.Select(x => new { Name = x.User.Username == null ? $"{x.User.FirstName} {x.User.LastName}" : $"@{x.User.Username}", Date = x.User.BirthDate, DateStr = x.User.GetConfidentialDateString() }).GroupBy(x => x.Date.Month - 1);
             string format = "{0} - {1};\n";
             int monthNow = DateTime.Now.Month;
 

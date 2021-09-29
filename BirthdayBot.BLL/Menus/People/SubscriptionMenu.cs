@@ -26,7 +26,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["SUBSCRIPTION_TEXT", "@" + subcription.Target.Username, subcription.Subscriber.GetAnotherUserDateString(subcription.Target), subcription.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
+            return resources["SUBSCRIPTION_TEXT", subcription.Target.Username == null ? $"{subcription.Target.FirstName} {subcription.Target.LastName}" : $"@{subcription.Target.Username}", subcription.Subscriber.GetAnotherUserDateString(subcription.Target), subcription.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)

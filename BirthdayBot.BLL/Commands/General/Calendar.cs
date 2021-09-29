@@ -58,7 +58,7 @@ namespace BirthdayBot.BLL.Commands.General
             {
                 month = Convert.ToInt32(strMonth);
             }
-            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", DateStr = dbUser.GetAnotherUserDateString(x.Target), Date = x.Target.BirthDate });
+            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = x.Target.Username == null ? $"{x.Target.FirstName} {x.Target.LastName}" : $"@{x.Target.Username}", DateStr = dbUser.GetAnotherUserDateString(x.Target), Date = x.Target.BirthDate });
             var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, DateStr = x.Date.ToShortDateString(), Date = x.Date});
             var countPerMonth = dbUser.Subscriptions.Select(x => x.Target.BirthDate.Month).Concat(dbUser.Notes.Select(x => x.Date.Month));
 
