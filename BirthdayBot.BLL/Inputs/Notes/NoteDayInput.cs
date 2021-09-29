@@ -80,7 +80,9 @@ namespace BirthdayBot.BLL.Inputs.Notes
             NoteDateConfirmationMenu menu = new NoteDateConfirmationMenu(resources);
 
             // Output
-            await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            var removeMessage = await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
+            try { await botClient.DeleteMessageAsync(removeMessage.Chat.Id, removeMessage.MessageId); } catch { }
+
             await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, note.Date.ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: menu.GetMarkup());
         }
     }

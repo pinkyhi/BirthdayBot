@@ -51,7 +51,9 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
                 string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                var removeMessage = await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
+                try { await botClient.DeleteMessageAsync(removeMessage.Chat.Id, removeMessage.MessageId); } catch { }
+
                 await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                 return;
@@ -96,7 +98,8 @@ namespace BirthdayBot.BLL.Inputs.Start
             // Output
             if(dbUser.RegistrationDate != null)
             {
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                var removeMessage = await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
+                try { await botClient.DeleteMessageAsync(removeMessage.Chat.Id, removeMessage.MessageId); } catch { }
             }
             await botClient.SendTextMessageAsync(update.Message.Chat.Id, menu.GetDefaultTitle(null, date.ToShortDateString()), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: menu.GetMarkup());
         }
