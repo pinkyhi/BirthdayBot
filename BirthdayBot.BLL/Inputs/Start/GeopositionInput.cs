@@ -161,6 +161,14 @@ namespace BirthdayBot.BLL.Inputs.Start
                     {
                         throw new ArgumentException();
                     }
+                    else if (geocodeResponse.Status.Equals("REQUEST_DENIED"))
+                    {
+                        dbUser.Limitations.StartLocationInputAttempts--;
+                        await repository.UpdateAsync(dbUser);
+
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_DENIED_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                        return;
+                    }
                     if(dbUser.MiddlewareData != null)
                     {
                         var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
@@ -183,14 +191,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             }
             catch
             {
-                if(dbUser.RegistrationDate == null)
-                {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
-                }
-                else
-                {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
-                }
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                 return;
             }
 
