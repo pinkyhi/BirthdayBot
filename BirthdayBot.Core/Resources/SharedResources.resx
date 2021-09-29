@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 28 Sep 2021 17:34:17 +0300 
+  Exported at: Wed, 29 Sep 2021 16:35:53 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -369,7 +369,8 @@ Date: {1}
     <value>By username</value> 
   </data> 
   <data name="ADD_PERSONAL_INPUT" xml:space="preserve"> 
-    <value>Enter username</value> 
+    <value>Enter username
+&lt;i&gt;For example&lt;/i&gt;: &lt;code&gt;@yourdate_bot&lt;/code&gt;</value> 
   </data> 
   <data name="ADD_PERSONAL_INPUT_NOT_FOUND" xml:space="preserve"> 
     <value>{0} ❓
@@ -449,14 +450,14 @@ To join the general calendar, click on the button. This one ⬇️.</value>
 The dev is happy and praises me❤️.</value> 
   </data> 
   <data name="PERSONAL_NOTE_NOTIFICATION_TEXT" xml:space="preserve"> 
-    <value>&lt;b&gt;Notification&lt;/b&gt;
-Note &lt;i&gt;{0}&lt;/i&gt;
-Will fire on {1}</value> 
+    <value>&lt;b&gt;❗️Notification❗️&lt;/b&gt;
+Event &lt;i&gt;{0}&lt;/i&gt;
+Will hit on {1}</value> 
   </data> 
   <data name="PERSONAL_SUB_NOTIFICATION_TEXT" xml:space="preserve"> 
-    <value>&lt;b&gt;Notice&lt;/b&gt;
-&lt;code&gt; {0} &lt;/code&gt;indicated the date of birth - {1} :)
-&lt;i&gt;Time zone: {2}&lt;/i&gt;</value> 
+    <value>&lt;b&gt;❗️Notice❗️&lt;/b&gt;
+&lt;code&gt; {0} &lt;/code&gt; has birthday on - {1} :)
+Don't forget🎉</value> 
   </data> 
   <data name="CHAT_BIRTH_NOTIFICATION_TEXT" xml:space="preserve"> 
     <value>@{0} happy birthday! 🎁🎂🎁
@@ -588,5 +589,8 @@ Now you are redirected to event creation.</value>
   </data> 
   <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
     <value>I can't create a subscription automatically. Try to make it on your own.</value> 
+  </data> 
+  <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
+    <value>Seems that I have problems now :( Try again later.</value> 
   </data> 
 </root>

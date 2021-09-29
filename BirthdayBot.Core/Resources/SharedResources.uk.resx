@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Tue, 28 Sep 2021 17:34:17 +0300 
+  Exported at: Wed, 29 Sep 2021 16:35:53 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -85,7 +85,7 @@
     <value>Успішно! Далі мені потрібен день народження</value> 
   </data> 
   <data name="START_LOCATION_INPUT" xml:space="preserve"> 
-    <value>Останній крок. Відправ свою геопозіцію, або геопозіцію свого міста. Це потрібно для того щоб знати твій часовий пояс. У вас залишилося {0} спроб</value> 
+    <value>Останній крок. Відправ свою геопозіцію або геопозіцію свого міста. Це потрібно для того щоб знати твій часовий пояс. У тебе залишилося {0} спроб</value> 
   </data> 
   <data name="PEOPLE_BUTTON" xml:space="preserve"> 
     <value>Люди🥳</value> 
@@ -367,7 +367,8 @@
     <value>За ніком</value> 
   </data> 
   <data name="ADD_PERSONAL_INPUT" xml:space="preserve"> 
-    <value>Введіть нікнейм користувача.</value> 
+    <value>Введіть нікнейм користувача.
+&lt;i&gt;Наприклад&lt;/i&gt;: &lt;code&gt;@yourdate_bot&lt;/code&gt;</value> 
   </data> 
   <data name="ADD_PERSONAL_INPUT_NOT_FOUND" xml:space="preserve"> 
     <value>{0}❓
@@ -446,14 +447,14 @@
 Разраб задоволений й хвалит мене❤️.</value> 
   </data> 
   <data name="PERSONAL_NOTE_NOTIFICATION_TEXT" xml:space="preserve"> 
-    <value>&lt;i&gt;Повідомлення&lt;/i&gt;
-Примітка &lt;b&gt;{0}&lt;/b&gt;
+    <value>&lt;i&gt;❗️Повідомлення❗️&lt;/i&gt;
+Подія &lt;b&gt;{0}&lt;/b&gt;
 Відбудеться {1}</value> 
   </data> 
   <data name="PERSONAL_SUB_NOTIFICATION_TEXT" xml:space="preserve"> 
-    <value>&lt;b&gt;Повідомлення&lt;/b&gt;
-&lt;code&gt;{0}&lt;/code&gt; вказав дату народження - {1} :)
-&lt;i&gt;Часовий пояс: {2}&lt;/i&gt;</value> 
+    <value>&lt;b&gt;❗️Повідомлення❗️&lt;/b&gt;
+&lt;code&gt;{0}&lt;/code&gt; святкує день народження - {1} :)
+Не забувай 🎉</value> 
   </data> 
   <data name="CHAT_BIRTH_NOTIFICATION_TEXT" xml:space="preserve"> 
     <value>@{0}, з днем народження! 🎁🎂🎁
@@ -585,5 +586,8 @@
   </data> 
   <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
     <value>Мені не вдається створити підписку автоматично. Спробуй зробити це сам.</value> 
+  </data> 
+  <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
+    <value>Здається я маю проблеми назараз :( Спробуй пізніше.</value> 
   </data> 
 </root>
