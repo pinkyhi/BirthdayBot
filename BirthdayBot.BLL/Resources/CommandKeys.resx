@@ -150,6 +150,9 @@
   <data name="ChangeBirthDate" xml:space="preserve">
     <value>changeBirthDate</value>
   </data>
+  <data name="ChangeChatSubscription" xml:space="preserve">
+    <value>chChtSub</value>
+  </data>
   <data name="ChangeLocation" xml:space="preserve">
     <value>changeLocation</value>
   </data>
@@ -227,6 +230,9 @@
   </data>
   <data name="ProfileSettingsInfo" xml:space="preserve">
     <value>profSetInf</value>
+  </data>
+  <data name="RemoveMessage" xml:space="preserve">
+    <value>rmMes</value>
   </data>
   <data name="RemoveNote" xml:space="preserve">
     <value>removeNote</value>

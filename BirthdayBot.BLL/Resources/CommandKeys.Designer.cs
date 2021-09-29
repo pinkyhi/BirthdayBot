@@ -160,6 +160,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to chChtSub.
+        /// </summary>
+        public static string ChangeChatSubscription {
+            get {
+                return ResourceManager.GetString("ChangeChatSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to changeLocation.
         /// </summary>
         public static string ChangeLocation {
@@ -390,6 +399,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string ProfileSettingsInfo {
             get {
                 return ResourceManager.GetString("ProfileSettingsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rmMes.
+        /// </summary>
+        public static string RemoveMessage {
+            get {
+                return ResourceManager.GetString("RemoveMessage", resourceCulture);
             }
         }
         

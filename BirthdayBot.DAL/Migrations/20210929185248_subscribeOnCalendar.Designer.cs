@@ -4,14 +4,16 @@ using BirthdayBot.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210929185248_subscribeOnCalendar")]
+    partial class subscribeOnCalendar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,7 +344,7 @@ namespace BirthdayBot.DAL.Migrations
                             b1.Property<int>("BirthYearConfidentiality")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
-                                .HasDefaultValue(0);
+                                .HasDefaultValue(1);
 
                             b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()

@@ -46,6 +46,9 @@ namespace BirthdayBot.DAL
                 .HasForeignKey(x => x.AddressComponentId)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
+            modelBuilder.Entity<Entities.ChatMember>()
+                .Property(x => x.IsSubscribedOnCalendar).HasDefaultValue(true);
+
             modelBuilder.Entity<TUser>()
                 .HasMany(x => x.Addresses)
                 .WithOne(x => x.User)
@@ -78,7 +81,7 @@ namespace BirthdayBot.DAL
                 .HasDefaultValue(ConfidentialType.Public);
                 a.Property(x => x.BirthYearConfidentiality)
                 .HasConversion<int>()
-                .HasDefaultValue(ConfidentialType.Mutual);                
+                .HasDefaultValue(ConfidentialType.Public);                
                 a.Property(x => x.CommonNotification_0)
                 .HasDefaultValue(0);
                 a.Property(x => x.StrongNotification_0)

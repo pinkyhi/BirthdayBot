@@ -14,6 +14,8 @@ namespace BirthdayBot.DAL.Entities
 
         public Chat Chat { get; set; }
 
+        public bool? IsSubscribedOnCalendar { get; set; }
+
         public DateTime AddingDate { get; set; }
     }
 }

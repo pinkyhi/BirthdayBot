@@ -23,6 +23,7 @@ using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Microsoft.AspNetCore.WebUtilities;
+using BirthdayBot.BLL.Menus.People;
 
 namespace BirthdayBot.BLL.Commands.Geoposition
 {
@@ -107,16 +108,37 @@ namespace BirthdayBot.BLL.Commands.Geoposition
 
             if (dbUser.RegistrationDate == null)
             {
+                StartMenu menu = new StartMenu(resources);
                 dbUser.RegistrationDate = DateTime.Now.Date;
                 await repository.UpdateAsync(dbUser);
                 try
                 {
                     if(fromChat != null)
                     {
-                        var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == Convert.ToInt64(fromChat), x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
+                        var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == Convert.ToInt64(fromChat), x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User).ThenInclude(x => x.Subscriptions));
                         chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
-                        await repository.UpdateAsync(chat);
+                        try
+                        {
+                            await repository.UpdateAsync(chat);
+                        }
+                        catch
+                        {
+                            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username ?? dbUser.FirstName), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
+                            return;
+                        }
                         await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        var usersToMention = chat.ChatMembers.Where(x => x.IsSubscribedOnCalendar == true && !x.User.Subscriptions.Any(x => x.TargetId == dbUser.Id) && x.UserId != dbUser.Id);
+                        var umMenu = new ChatCalendarNotificationMenu(resources, dbUser.Id, chat.Id);
+                        foreach (var utm in usersToMention)
+                        {
+                            await botClient.SendTextMessageAsync(utm.UserId, umMenu.GetDefaultTitle(actionScope, dbUser.Username == null ? $"{dbUser.FirstName} {dbUser.LastName}" : $"@{dbUser.Username}", chat.Title), replyMarkup: umMenu.GetMarkup(actionScope));
+                        }
+
+                        var chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id) - 1;
+                        if (chatMemberCount == chat.ChatMembers.Count)
+                        {
+                            await botClient.SendTextMessageAsync(chat.Id, resources["ALL_USERS_ADDED_TEXT", chat.Title], parseMode: ParseMode.Html);
+                        }
                     }
                     if(refId != null)
                     {
@@ -126,7 +148,7 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                 }
                 catch
                 { }
-                StartMenu menu = new StartMenu(resources);
+
                 await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username ?? dbUser.FirstName), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
             }
             else
