@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
+  Exported at: Thu, 30 Sep 2021 17:13:57 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -595,10 +595,7 @@
 Створити підписку на цю людину?</value> 
   </data> 
   <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
-    <value>Не повідомлювати</value> 
-  </data> 
-  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
-    <value>Підписку на календар чату змінено</value> 
+    <value>Не повідомлювати🔕</value> 
   </data> 
   <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
     <value>Підписка на усіх🧨</value> 
@@ -611,5 +608,33 @@
   </data> 
   <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
     <value>Ти відписався від усіх людей з чату</value> 
+  </data> 
+  <data name="REFERRAL_BACK_NOTIFICATION" xml:space="preserve"> 
+    <value>Тебе запросив {0}. Бажаєш підписатися на нього?</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGED_TO_ON" xml:space="preserve"> 
+    <value>Зараз ти підписан на календар чату.</value> 
+  </data> 
+  <data name=" CHAT_SUBSCRIPTION_CHANGED_TO_OFF" xml:space="preserve"> 
+    <value>Зараз ти НЕ підписан на календар чату.</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON" xml:space="preserve"> 
+    <value>Відстежувати календар чату🔔</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON" xml:space="preserve"> 
+    <value>Не відстежувати календар чату🔕</value> 
+  </data> 
+  <data name="INVITE_FRIEND_BUTTON" xml:space="preserve"> 
+    <value>Запросити друга</value> 
+  </data> 
+  <data name="OPEN_CHAT_TEXT" xml:space="preserve"> 
+    <value>У цьому меню ти маєш змогу підписатися на одного з учасників чату.</value> 
+  </data> 
+  <data name="MAIN_CHATS_BUTTON" xml:space="preserve"> 
+    <value>Чати💬</value> 
+  </data> 
+  <data name="ADD_PEOPLE_FROM_CHAT_TEXT" xml:space="preserve"> 
+    <value>Щоб додавати людей через чат, використовуй меню &lt;b&gt;Чати💬&lt;/b&gt;.
+Тебе було направлено до цього меню.</value> 
   </data> 
 </root>

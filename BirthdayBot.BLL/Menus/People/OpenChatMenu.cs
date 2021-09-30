@@ -31,7 +31,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public override string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["CHATS_TEXT", values];
+            return resources["OPEN_CHAT_TEXT", values];
         }
 
         public IReplyMarkup GetMarkup(int page, List<ChatMember> source, IServiceScope actionScope = null)

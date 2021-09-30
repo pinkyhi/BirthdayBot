@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
+  Exported at: Thu, 30 Sep 2021 17:13:57 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -598,10 +598,7 @@ Now you are redirected to event creation.</value>
 Would you like to subscribe to him?</value> 
   </data> 
   <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
-    <value>Don't show anymore</value> 
-  </data> 
-  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
-    <value>Chat calendar subscription changed</value> 
+    <value>Don't show anymore🔕</value> 
   </data> 
   <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
     <value>Subscribe all🧨</value> 
@@ -614,5 +611,33 @@ Would you like to subscribe to him?</value>
   </data> 
   <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
     <value>You have unsubscribed from all chat members</value> 
+  </data> 
+  <data name="REFERRAL_BACK_NOTIFICATION" xml:space="preserve"> 
+    <value>You have been invited by {0}. Would you like to subscribe?</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGED_TO_ON" xml:space="preserve"> 
+    <value>Now you are subscribed on the chat calendar.</value> 
+  </data> 
+  <data name=" CHAT_SUBSCRIPTION_CHANGED_TO_OFF" xml:space="preserve"> 
+    <value>Now you are NOT subscribed to the chat calendar.</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON" xml:space="preserve"> 
+    <value>Track chat calendar🔔</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON" xml:space="preserve"> 
+    <value>Stop track chat calendar🔕</value> 
+  </data> 
+  <data name="INVITE_FRIEND_BUTTON" xml:space="preserve"> 
+    <value>Invite friend</value> 
+  </data> 
+  <data name="OPEN_CHAT_TEXT" xml:space="preserve"> 
+    <value>In this menu, you can subscribe to chat members.</value> 
+  </data> 
+  <data name="MAIN_CHATS_BUTTON" xml:space="preserve"> 
+    <value>Chats💬</value> 
+  </data> 
+  <data name="ADD_PEOPLE_FROM_CHAT_TEXT" xml:space="preserve"> 
+    <value>To add people from chat you can use &lt;b&gt;Chats💬&lt;/b&gt; menu.
+You are redirected to this menu.</value> 
   </data> 
 </root>

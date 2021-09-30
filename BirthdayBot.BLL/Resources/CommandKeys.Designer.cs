@@ -106,6 +106,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to adPFC.
+        /// </summary>
+        public static string AddPeopleFromChat {
+            get {
+                return ResourceManager.GetString("AddPeopleFromChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to addPersonal.
         /// </summary>
         public static string AddPersonal {

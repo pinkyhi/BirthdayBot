@@ -74,7 +74,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                     dbUser.MiddlewareData = null;
                     await repository.UpdateAsync(dbUser);
 
-                    AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0");
+                    AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0", dbUser.Id);
 
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     return;
@@ -103,7 +103,7 @@ namespace BirthdayBot.BLL.Inputs.People.Personal
                         dbUser.MiddlewareData = null;
                         await repository.UpdateAsync(dbUser);
 
-                        AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0");
+                        AddPeopleMenu peopleMenu = new AddPeopleMenu(resources, "0", dbUser.Id);
 
                         await botClient.SendTextMessageAsync(update.Message.Chat.Id, peopleMenu.GetDefaultTitle(actionScope), replyMarkup: peopleMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                         return;

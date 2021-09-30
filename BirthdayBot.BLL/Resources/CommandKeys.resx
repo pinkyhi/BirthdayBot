@@ -132,6 +132,9 @@
   <data name="AddPeople" xml:space="preserve">
     <value>addPeople</value>
   </data>
+  <data name="AddPeopleFromChat" xml:space="preserve">
+    <value>adPFC</value>
+  </data>
   <data name="AddPersonal" xml:space="preserve">
     <value>addPersonal</value>
   </data>

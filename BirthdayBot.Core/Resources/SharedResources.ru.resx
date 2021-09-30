@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Thu, 30 Sep 2021 00:12:41 +0300 
+  Exported at: Thu, 30 Sep 2021 17:13:57 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -596,10 +596,7 @@
 Подписаться на этого пользователя?</value> 
   </data> 
   <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
-    <value>Не уведомлять</value> 
-  </data> 
-  <data name="CHAT_SUBSCRIPTION_CHANGE" xml:space="preserve"> 
-    <value>Подписка на календарь чат изменена</value> 
+    <value>Не уведомлять🔕</value> 
   </data> 
   <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
     <value>Подписаться на всех🧨</value> 
@@ -612,5 +609,33 @@
   </data> 
   <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
     <value>Ты отписался от всех участников чата</value> 
+  </data> 
+  <data name="REFERRAL_BACK_NOTIFICATION" xml:space="preserve"> 
+    <value>Тебя пригласил {0}. Подписаться на него?</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGED_TO_ON" xml:space="preserve"> 
+    <value>Теперь ты подписан на календарь чата.</value> 
+  </data> 
+  <data name=" CHAT_SUBSCRIPTION_CHANGED_TO_OFF" xml:space="preserve"> 
+    <value>Теперь ты НЕ подписан на календарь чата.</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON" xml:space="preserve"> 
+    <value>Следить за календарем чата🔔</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON" xml:space="preserve"> 
+    <value>Не следить за календарем🔕</value> 
+  </data> 
+  <data name="INVITE_FRIEND_BUTTON" xml:space="preserve"> 
+    <value>Пригласить друга</value> 
+  </data> 
+  <data name="OPEN_CHAT_TEXT" xml:space="preserve"> 
+    <value>В этом меню ты можешь подписаться на учасников чата.</value> 
+  </data> 
+  <data name="MAIN_CHATS_BUTTON" xml:space="preserve"> 
+    <value>Чаты💬</value> 
+  </data> 
+  <data name="ADD_PEOPLE_FROM_CHAT_TEXT" xml:space="preserve"> 
+    <value>Чтобы добавлять людей через чат, используй меню &lt;b&gt;Чаты💬&lt;/b&gt;.
+Ты был перенаправлен в это меню.</value> 
   </data> 
 </root>

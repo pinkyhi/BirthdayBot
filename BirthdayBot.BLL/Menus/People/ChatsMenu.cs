@@ -47,7 +47,8 @@ namespace BirthdayBot.BLL.Menus.People
                 }
             });
 
-            var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddPeople, "peoplePage", "0"), Text = resources["BACK_BUTTON"] };
+
+            var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };
 
             result.AddRange(pageButtons);
             result.Add(new List<InlineKeyboardButton>() { backBut });
