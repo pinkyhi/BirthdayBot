@@ -50,7 +50,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
 
             var updateParams = update.GetParams();
             long chatId = Convert.ToInt64(updateParams["chatId"]);
-            var targets = await repository.GetRangeAsync<DAL.Entities.ChatMember>(false, x => !dbUser.Subscriptions.Any(y => y.TargetId == x.UserId) && x.UserId != dbUser.Id);
+            var targets = await repository.GetRangeAsync<DAL.Entities.ChatMember>(false, x => x.ChatId == chatId && !dbUser.Subscriptions.Any(y => y.TargetId == x.UserId) && x.UserId != dbUser.Id);
             bool limitHit = false;
             foreach(var target in targets)
             {
