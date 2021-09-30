@@ -144,6 +144,10 @@ namespace BirthdayBot.BLL.Commands.Geoposition
                     {
                         var subsRefBut = new InlineKeyboardButton() { Text = resources["SUBSCRIBE_BUTTON"], CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeByReferralReply, "userId", dbUser.Id.ToString()) };
                         await botClient.SendTextMessageAsync(Convert.ToInt64(refId), resources["REFERRAL_NOTIFICATION", update.CallbackQuery.From.Username == null ? $"{update.CallbackQuery.From.FirstName} {update.CallbackQuery.From.LastName}" : $"@{update.CallbackQuery.From.Username}"], ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(subsRefBut));
+
+                        var backSubRefBut = new InlineKeyboardButton() { Text = resources["SUBSCRIBE_BUTTON"], CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeByReferralReply, "userId", refId) };
+                        var referrer = await repository.GetAsync<TUser>(false, x => x.Id == Convert.ToInt64(refId));
+                        await botClient.SendTextMessageAsync(dbUser.Id, resources["REFERRAL_BACK_NOTIFICATION", referrer.Username == null ? $"{referrer.FirstName} {referrer.LastName}" : $"@{referrer.Username}"], ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(backSubRefBut));
                     }
                 }
                 catch
