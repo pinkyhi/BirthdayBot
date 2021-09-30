@@ -87,7 +87,7 @@ namespace BirthdayBot.BLL.Commands
                     return;
                 }
                 await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Html);
-                var usersToMention = chat.ChatMembers.Where(x => x.IsSubscribedOnCalendar == true && !x.User.Subscriptions.Any(x => x.TargetId == dbUser.Id) && x.UserId != dbUser.Id);
+                var usersToMention = chat.ChatMembers.Where(x => x.IsSubscribedOnCalendar == true && x.UserId != dbUser.Id && x.User.Subscriptions?.Any(x => x.TargetId == dbUser.Id) == false);
                 var umMenu = new ChatCalendarNotificationMenu(resources, dbUser.Id, chatId);
                 foreach (var utm in usersToMention)
                 {
