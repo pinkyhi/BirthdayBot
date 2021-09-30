@@ -18,13 +18,15 @@ namespace BirthdayBot.BLL.Menus.People
         private readonly string chatsPage;
         private readonly TUser dbUser;
         private readonly long chatId;
+        private readonly ChatMember chatMember;
 
-        public OpenChatMenu(IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId) : base(8, 1, CommandKeys.Notes)
+        public OpenChatMenu(IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId, ChatMember chatMember) : base(8, 1, CommandKeys.Notes)
         {
             this.resources = resources;
             this.chatsPage = chatsPage;
             this.dbUser = dbUser;
             this.chatId = chatId;
+            this.chatMember = chatMember;
         }
 
         public override string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
@@ -61,15 +63,31 @@ namespace BirthdayBot.BLL.Menus.People
             groupParams.Add("chatId", chatId.ToString());
             var subAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeAll, groupParams), Text = resources["SUBSCRIBE_ALL_BUTTON"] };
             var unsubAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.UnsubscribeAll, groupParams), Text = resources["UNSUBSCRIBE_ALL_BUTTON"] };
-            if(page == 0 && pageButtons.Count > 1)
+            if(page == 0)
             {
-                if(!source.All(x => dbUser.Subscriptions.Any(y => y.TargetId == x.UserId)))
+                InlineKeyboardButton changeChatCalenSub = null;
+                var cccsParams = new Dictionary<string, string>();
+                cccsParams.Add("chatId", chatId.ToString());
+                cccsParams.Add("oneTime", "0");
+                if (chatMember.IsSubscribedOnCalendar == true)
                 {
-                    result.Add(new List<InlineKeyboardButton>() { subAllBut });
+                    changeChatCalenSub = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeChatSubscription, cccsParams), Text = resources["CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON"] };
                 }
-                if(source.Any(x => dbUser.Subscriptions.FirstOrDefault(y => y.TargetId == x.UserId) != null))
+                else
                 {
-                    result.Add(new List<InlineKeyboardButton>() { unsubAllBut });
+                    changeChatCalenSub = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeChatSubscription, cccsParams), Text = resources["CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON"] };
+                }
+                result.Add(new List<InlineKeyboardButton>() { changeChatCalenSub });
+                if (pageButtons.Count > 1)
+                {
+                    if (!source.All(x => dbUser.Subscriptions.Any(y => y.TargetId == x.UserId)))
+                    {
+                        result.Add(new List<InlineKeyboardButton>() { subAllBut });
+                    }
+                    if (source.Any(x => dbUser.Subscriptions.FirstOrDefault(y => y.TargetId == x.UserId) != null))
+                    {
+                        result.Add(new List<InlineKeyboardButton>() { unsubAllBut });
+                    }
                 }
             }
             result.AddRange(pageButtons);

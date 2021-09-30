@@ -35,7 +35,10 @@ namespace BirthdayBot.BLL.Menus.People
 
             InlineKeyboardButton subscribe = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeByReferralReply, "userId", userId.ToString()), Text = resources["SUBSCRIBE_BUTTON"] };
             InlineKeyboardButton notSubscribe = new InlineKeyboardButton() { CallbackData = CommandKeys.RemoveMessage, Text = "❌" };
-            InlineKeyboardButton unsubscribeFromChatCalendar = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeChatSubscription, "chatId", chatId.ToString()), Text = resources["UNSUBSCRIBE_CHAT_BUTTON"] };
+            var qParams = new Dictionary<string, string>();
+            qParams.Add("chatId", chatId.ToString());
+            qParams.Add("oneTime", "1");
+            InlineKeyboardButton unsubscribeFromChatCalendar = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.ChangeChatSubscription, qParams), Text = resources["UNSUBSCRIBE_CHAT_BUTTON"] };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]

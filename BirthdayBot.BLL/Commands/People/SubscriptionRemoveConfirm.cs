@@ -100,9 +100,10 @@ namespace BirthdayBot.BLL.Commands.People
                     await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["OPEN_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     throw new ArgumentException();
                 }
+                var userChatMember = chatMembers.Find(x => x.UserId == dbUser.Id);
                 chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-                OpenChatMenu menu = new OpenChatMenu(resources, "0", dbUser, chat.Id);
+                OpenChatMenu menu = new OpenChatMenu(resources, "0", dbUser, chat.Id, userChatMember);
 
                 try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
                 try

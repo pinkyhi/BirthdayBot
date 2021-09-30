@@ -14,11 +14,12 @@ using Telegram.Bot.Types.Enums;
 using BirthdayBot.Core.Const;
 using BirthdayBot.BLL.Resources;
 using RapidBots.Extensions;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams("chatId")]
+    [ExpectedParams("chatId", "oneTime")]
     public class ChangeChatSubscription : Command
     {
         private readonly BotClient botClient;
@@ -34,6 +35,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
         {
             //Initialisation
             long chatId = Convert.ToInt64(update.GetParams()["chatId"]);
+            bool oneTime = Convert.ToInt32(update.GetParams()["oneTime"]) == 1;
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
@@ -41,8 +43,32 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             var member = await repository.GetAsync<DAL.Entities.ChatMember>(true, x => x.ChatId == chatId && x.UserId == update.CallbackQuery.From.Id);
             member.IsSubscribedOnCalendar = member.IsSubscribedOnCalendar == true ? false : true;
             await repository.UpdateAsync(member);
-            await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["CHAT_SUBSCRIPTION_CHANGE"]);
-            await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+            if (member.IsSubscribedOnCalendar == true)
+            {
+                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["CHAT_SUBSCRIPTION_CHANGED_TO_ON"]);
+            }
+            else
+            {
+                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["CHAT_SUBSCRIPTION_CHANGED_TO_OFF"]);
+            }
+            if (oneTime)
+            {
+                await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId);
+            }
+            else
+            {
+                var keyboard = update.CallbackQuery.Message.ReplyMarkup.InlineKeyboard;
+                if (member.IsSubscribedOnCalendar == true)
+                {
+                    keyboard.ToList().FirstOrDefault(x => x.Any(x => x.CallbackData.Contains(CommandKeys.ChangeChatSubscription))).FirstOrDefault(x => x.CallbackData.Contains(CommandKeys.ChangeChatSubscription)).Text = resources["CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON"];
+                }
+                else
+                {
+                    keyboard.ToList().FirstOrDefault(x => x.Any(x => x.CallbackData.Contains(CommandKeys.ChangeChatSubscription))).FirstOrDefault(x => x.CallbackData.Contains(CommandKeys.ChangeChatSubscription)).Text = resources["CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON"];
+                }
+
+                await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, new InlineKeyboardMarkup(keyboard));
+            }
         }
     }
 }
