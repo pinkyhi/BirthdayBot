@@ -68,13 +68,13 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                if(dbUser.MiddlewareData != null)
+                try
                 {
                     var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
                     data.Add("date", dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString());
                     dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
                 }
-                else
+                catch
                 {
                     dbUser.MiddlewareData = dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString();
                 }
