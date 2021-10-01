@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Thu, 30 Sep 2021 17:13:57 +0300 
+  Exported at: Fri, 01 Oct 2021 10:55:44 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -616,7 +616,7 @@
   <data name="CHAT_SUBSCRIPTION_CHANGED_TO_ON" xml:space="preserve"> 
     <value>Теперь ты подписан на календарь чата.</value> 
   </data> 
-  <data name=" CHAT_SUBSCRIPTION_CHANGED_TO_OFF" xml:space="preserve"> 
+  <data name="CHAT_CALENDAR_SUBSCRIPTION_REMOVED" xml:space="preserve"> 
     <value>Теперь ты НЕ подписан на календарь чата.</value> 
   </data> 
   <data name="CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON" xml:space="preserve"> 

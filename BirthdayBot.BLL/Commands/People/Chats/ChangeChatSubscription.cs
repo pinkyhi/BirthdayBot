@@ -49,7 +49,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             }
             else
             {
-                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["CHAT_SUBSCRIPTION_CHANGED_TO_OFF"]);
+                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["CHAT_CALENDAR_SUBSCRIPTION_REMOVED"]);
             }
             if (oneTime)
             {
