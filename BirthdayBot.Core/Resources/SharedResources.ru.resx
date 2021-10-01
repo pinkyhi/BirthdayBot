@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Fri, 01 Oct 2021 14:16:58 +0300 
+  Exported at: Fri, 01 Oct 2021 21:26:49 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -76,7 +76,7 @@
     <value>Привет, {0}, здорово снова видеть тебя тут!
 &lt;b&gt;Люди🥳&lt;/b&gt; - Все отслеживаемые пользователи.
 &lt;b&gt;События✍️&lt;/b&gt; - Собственноручно созданные события.
-&lt;b&gt;Чаты💬&lt;/b&gt; - Отслеживаемые пользователи в чатах.</value> 
+&lt;b&gt;Чаты💬&lt;/b&gt; - Отслеживаемые пользователи по чатам.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
     <value>Пожалуйста, отправь свой год рождения.</value> 

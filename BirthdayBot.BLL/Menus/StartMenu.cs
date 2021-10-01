@@ -40,11 +40,11 @@ namespace BirthdayBot.BLL.Menus
                 new[]
                 {
                     people,
-                    notes
+                    chats
                 },
                 new[]
                 {
-                    chats
+                    notes
                 },
                 new[]
                 {
