@@ -41,8 +41,8 @@ namespace BirthdayBot.BLL.Menus.People
             var pageButtons = this.GetPage(page, source, x =>
             {
                 var qParams = new Dictionary<string, string>();
-                qParams.Add("chatId", $"{x.Chat.Id}");
-                qParams.Add("chatPage", $"{page}");
+                qParams.Add("chi", $"{x.Chat.Id}");
+                qParams.Add("chp", $"{page}");
                 var subscription = dbUser.Subscriptions.FirstOrDefault(y => y.TargetId == x.UserId);
                 if (subscription != null)
                 {
@@ -60,14 +60,14 @@ namespace BirthdayBot.BLL.Menus.People
 
             var groupParams = new Dictionary<string, string>();
             groupParams.Add(CallbackParams.Page, $"{chatsPage}");
-            groupParams.Add("chatId", chatId.ToString());
+            groupParams.Add("chi", chatId.ToString());
             var subAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.SubscribeAll, groupParams), Text = resources["SUBSCRIBE_ALL_BUTTON"] };
             var unsubAllBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.UnsubscribeAll, groupParams), Text = resources["UNSUBSCRIBE_ALL_BUTTON"] };
             if(page == 0)
             {
                 InlineKeyboardButton changeChatCalenSub = null;
                 var cccsParams = new Dictionary<string, string>();
-                cccsParams.Add("chatId", chatId.ToString());
+                cccsParams.Add("chi", chatId.ToString());
                 cccsParams.Add("oneTime", "0");
                 if (chatMember.IsSubscribedOnCalendar == true)
                 {

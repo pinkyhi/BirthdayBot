@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BirthdayBot.Core.Const;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
@@ -25,38 +26,44 @@ namespace BirthdayBot.BLL.Actions
 
         public async override Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
-            var repository = actionScope.ServiceProvider.GetService<IRepository>();
-            var mapper = actionScope.ServiceProvider.GetService<IMapper>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            string telegramUserLanguageCode = update.MyChatMember?.From?.LanguageCode;
-
-            try
+            lock (Lockers.ChatMigrateLocker)
             {
-                var tUser = await repository.GetAsync<TUser>(false, x => x.Id == update.MyChatMember.From.Id);
-                telegramUserLanguageCode = tUser.LanguageCode;
-            }
-            catch
-            {}
+                var repository = actionScope.ServiceProvider.GetService<IRepository>();
+                var mapper = actionScope.ServiceProvider.GetService<IMapper>();
 
-            if (!string.IsNullOrEmpty(telegramUserLanguageCode))
-            {
-                CultureInfo.CurrentCulture = new CultureInfo(telegramUserLanguageCode);
-                CultureInfo.CurrentUICulture = new CultureInfo(telegramUserLanguageCode);
-            }
+                string telegramUserLanguageCode = update.MyChatMember?.From?.LanguageCode;
 
-            try
-            {
-                var chat = mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat);
-                chat.AddingDate = DateTime.Now;
-                await repository.AddAsync(chat);
-            }
-            catch
-            {
-                await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                return;
-            }
+                try
+                {
+                    var tUser = repository.Get<TUser>(false, x => x.Id == update.MyChatMember.From.Id);
+                    telegramUserLanguageCode = tUser.LanguageCode;
+                }
+                catch
+                { }
 
+                if (!string.IsNullOrEmpty(telegramUserLanguageCode))
+                {
+                    CultureInfo.CurrentCulture = new CultureInfo(telegramUserLanguageCode);
+                    CultureInfo.CurrentUICulture = new CultureInfo(telegramUserLanguageCode);
+                }
+
+                try
+                {
+                    var chat = mapper.Map<DAL.Entities.Chat>(update.MyChatMember.Chat);
+                    chat.AddingDate = DateTime.Now;
+                    repository.Add(chat);
+                }
+                catch (Exception ex)
+                {
+                    if(ex.InnerException?.HResult != -2146232060)
+                    {
+                        botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html).Wait();
+                    }
+                    return;
+                }
+            }
             InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", update.MyChatMember.Chat.Id) };
             await botClient.SendTextMessageAsync(update.MyChatMember.Chat.Id, resources["ADDED_TO_CHAT_TEXT"], replyMarkup: new InlineKeyboardMarkup(joinChatCalendar), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }

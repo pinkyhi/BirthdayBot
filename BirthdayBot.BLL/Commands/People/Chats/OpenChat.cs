@@ -20,7 +20,7 @@ using System.Linq;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page, "chatId", "chatsPage")]
+    [ExpectedParams(CallbackParams.Page, "chi", "chatsPage")]
     public class OpenChat : Command
     {
         private readonly BotClient botClient;
@@ -47,7 +47,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             await repository.UpdateAsync(dbUser);
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
-            long chatId = Convert.ToInt64(update.GetParams()["chatId"]);
+            long chatId = Convert.ToInt64(update.GetParams()["chi"]);
             string chatsPage = update.GetParams()["chatsPage"];
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 

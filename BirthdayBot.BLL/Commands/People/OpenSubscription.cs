@@ -21,7 +21,7 @@ namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class OpenSubscription : Command
     {
         private readonly BotClient botClient;
@@ -55,8 +55,8 @@ namespace BirthdayBot.BLL.Commands.People
                 qParams.Add(CallbackParams.Page, updateParams[CallbackParams.Page]);
             }
             else {
-                qParams.Add("chatId", updateParams["chatId"]);
-                qParams.Add("chatPage", updateParams["chatPage"]);
+                qParams.Add("chi", updateParams["chi"]);
+                qParams.Add("chp", updateParams["chp"]);
             }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
@@ -70,7 +70,7 @@ namespace BirthdayBot.BLL.Commands.People
             }
             catch
             { }
-            await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            await botClient.SendTextMessageAsync(update.CallbackQuery.From.Id, menu.GetDefaultTitle(actionScope), replyMarkup: menu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

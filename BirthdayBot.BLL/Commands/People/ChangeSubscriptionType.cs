@@ -22,7 +22,7 @@ namespace BirthdayBot.BLL.Commands.Subscriptions
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class ChangeSubscriptionType : Command
     {
         private readonly BotClient botClient;
@@ -57,8 +57,8 @@ namespace BirthdayBot.BLL.Commands.Subscriptions
             }
             else
             {
-                qParams.Add("chatId", updateParams["chatId"]);
-                qParams.Add("chatPage", updateParams["chatPage"]);
+                qParams.Add("chi", updateParams["chi"]);
+                qParams.Add("chp", updateParams["chp"]);
             }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);

@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Fri, 01 Oct 2021 10:55:44 +0300 
+  Exported at: Fri, 01 Oct 2021 14:16:58 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -73,7 +73,10 @@
     <value>Ukrainian</value>
   </metadata> 
   <data name="WELCOME_TEXT" xml:space="preserve"> 
-    <value>Привіт, {0}, гарно знову бачити тебе тут!</value> 
+    <value>Привіт, {0}, гарно знову бачити тебе тут!
+&lt;b&gt;Люди🥳&lt;/b&gt; - Усі користувачі на яких є підписка.
+&lt;b&gt;Події✍️&lt;/b&gt; - Власноруч створені події.
+&lt;b&gt;Чати💬&lt;/b&gt; - Користувачі на яких є підписка за чатами.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
     <value>Будь ласка, відправ свій рік народження.</value> 
@@ -636,5 +639,8 @@
   <data name="ADD_PEOPLE_FROM_CHAT_TEXT" xml:space="preserve"> 
     <value>Щоб додавати людей через чат, використовуй меню &lt;b&gt;Чати💬&lt;/b&gt;.
 Тебе було направлено до цього меню.</value> 
+  </data> 
+  <data name="MIGRATED_TO_CHAT" xml:space="preserve"> 
+    <value>Здається хтось змінив тип групи. Календар чату відновлено.</value> 
   </data> 
 </root>

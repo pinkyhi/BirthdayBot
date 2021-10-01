@@ -19,7 +19,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams("chatId", "oneTime")]
+    [ExpectedParams("chi", "oneTime")]
     public class ChangeChatSubscription : Command
     {
         private readonly BotClient botClient;
@@ -34,7 +34,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
         public override async Task Execute(Update update, TelegramUser user = null, IServiceScope actionScope = null)
         {
             //Initialisation
-            long chatId = Convert.ToInt64(update.GetParams()["chatId"]);
+            long chatId = Convert.ToInt64(update.GetParams()["chi"]);
             bool oneTime = Convert.ToInt32(update.GetParams()["oneTime"]) == 1;
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();

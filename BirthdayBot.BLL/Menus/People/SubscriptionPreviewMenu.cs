@@ -38,8 +38,8 @@ namespace BirthdayBot.BLL.Menus.People
             InlineKeyboardButton back = null;
 
             backDict.Add("chatsPage", "0");
-            backDict.Add("chatId", qParams["chatId"]);
-            backDict.Add(CallbackParams.Page, qParams["chatPage"]);
+            backDict.Add("chi", qParams["chi"]);
+            backDict.Add(CallbackParams.Page, qParams["chp"]);
             back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, backDict), Text = resources["BACK_BUTTON"] };
             
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {

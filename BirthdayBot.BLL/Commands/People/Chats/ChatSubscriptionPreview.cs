@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class ChatSubscriptionPreview : Command
     {
         private readonly BotClient botClient;
@@ -49,8 +49,8 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             long targetId = Convert.ToInt32(updateParams["targetId"]);
             qParams.Add("targetId", updateParams["targetId"]);
 
-            qParams.Add("chatId", updateParams["chatId"]);
-            qParams.Add("chatPage", updateParams["chatPage"]);
+            qParams.Add("chi", updateParams["chi"]);
+            qParams.Add("chp", updateParams["chp"]);
 
 
             var target = await repository.GetAsync<TUser>(true, x => x.Id == targetId);

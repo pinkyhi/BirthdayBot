@@ -22,7 +22,7 @@ namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class SubscriptionRemoveConfirm : Command
     {
         private readonly BotClient botClient;
@@ -57,8 +57,8 @@ namespace BirthdayBot.BLL.Commands.People
             }
             else
             {
-                qParams.Add("chatId", updateParams["chatId"]);
-                qParams.Add("chatPage", updateParams["chatPage"]);
+                qParams.Add("chi", updateParams["chi"]);
+                qParams.Add("chp", updateParams["chp"]);
             }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
@@ -87,8 +87,8 @@ namespace BirthdayBot.BLL.Commands.People
             }
             else
             {
-                long chatId = Convert.ToInt64(updateParams["chatId"]);
-                int page = Convert.ToInt32(updateParams["chatPage"]);
+                long chatId = Convert.ToInt64(updateParams["chi"]);
+                int page = Convert.ToInt32(updateParams["chp"]);
                 var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
                 var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);

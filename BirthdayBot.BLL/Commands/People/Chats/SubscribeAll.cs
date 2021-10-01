@@ -21,7 +21,7 @@ using RapidBots.Constants;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page, "chatId")]
+    [ExpectedParams(CallbackParams.Page, "chi")]
     class SubscribeAll : Command
     {
         private readonly BotClient botClient;
@@ -49,7 +49,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             }
 
             var updateParams = update.GetParams();
-            long chatId = Convert.ToInt64(updateParams["chatId"]);
+            long chatId = Convert.ToInt64(updateParams["chi"]);
             var targets = await repository.GetRangeAsync<DAL.Entities.ChatMember>(false, x => x.ChatId == chatId && !dbUser.Subscriptions.Any(y => y.TargetId == x.UserId) && x.UserId != dbUser.Id);
             bool limitHit = false;
             foreach(var target in targets)
