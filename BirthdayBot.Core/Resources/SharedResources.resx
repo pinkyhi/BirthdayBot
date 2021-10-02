@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Fri, 01 Oct 2021 21:26:49 +0300 
+  Exported at: Sat, 02 Oct 2021 17:35:20 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -73,10 +73,10 @@
     <value>English</value>
   </metadata> 
   <data name="WELCOME_TEXT" xml:space="preserve"> 
-    <value>Hi, {0}, that's great to see you here again!
-&lt;b&gt;People🥳&lt;/b&gt; - Tracked users/add new.
-&lt;b&gt;Events✍️&lt;/b&gt; - Your own created events/add new.
-&lt;b&gt;Chats💬&lt;/b&gt; - Tracked users via chats.</value> 
+    <value>Hi {0}, great to see you here again!
+&lt;b&gt; People🥳 &lt;/b&gt; - View all subscriptions / add by nickname, contact, inviting a friend.
+&lt;b&gt; Chats💬 &lt;/b&gt; - Adding new subscriptions through general chats.
+&lt;b&gt; Events✍️ &lt;/b&gt; - Create your own events and receive notifications about them.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
     <value>Please submit your year of birth.</value> 
