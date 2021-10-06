@@ -77,15 +77,17 @@ namespace BirthdayBot.BLL.Commands.General
                 }
                 resultStr += strs;
             }
+            Message message = null;
             if(chat.ChatMembers.Count < chatMemberCount)
             {
                 InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id) };
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+                message = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: ParseMode.Html, disableNotification: true, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
             }
             else
             {
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true);
+               message = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: ParseMode.Html, disableNotification: true);
             }
+            await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, resultStr, parseMode: ParseMode.Html, disableWebPagePreview: true);
         }
     }
 }
