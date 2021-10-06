@@ -87,7 +87,7 @@ namespace BirthdayBot.BLL.Commands.General
             {
                message = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: ParseMode.Html, disableNotification: true);
             }
-            await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, resultStr, parseMode: ParseMode.Html, disableWebPagePreview: true);
+            await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, resultStr, parseMode: ParseMode.Html, disableWebPagePreview: true, replyMarkup: message.ReplyMarkup);
         }
     }
 }
