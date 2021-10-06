@@ -21,21 +21,25 @@ namespace BirthdayBot.Controllers
         private readonly ActionManager actionsManager;
         private readonly IServiceProvider serviceProvider;
         private readonly ILogger<HomeController> logger;
+        private readonly IRepository repository;
 
-        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger)
+        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger, IRepository repository)
         {
 
             this.actionsManager = actionsManager;
             this.serviceProvider = serviceProvider;
             this.logger = logger;
+            this.repository = repository;
         }
 
         [HttpGet]
         [Route("/")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             logger.LogDebug("GET request");
-            return Ok("Hi, what are you doing here?");
+            var users = await repository.GetRangeAsync<TUser>(false, x => x.RegistrationDate != null);
+            var chats = await repository.GetRangeAsync<DAL.Entities.Chat>(false, x => true);
+            return Ok($"Users count: {users.Count()}\nChats count: {chats.Count()}");
         }
 
         [HttpPost]
