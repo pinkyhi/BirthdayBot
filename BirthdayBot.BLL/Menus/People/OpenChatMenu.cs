@@ -20,7 +20,7 @@ namespace BirthdayBot.BLL.Menus.People
         private readonly long chatId;
         private readonly ChatMember chatMember;
 
-        public OpenChatMenu(IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId, ChatMember chatMember) : base(8, 1, CommandKeys.Notes)
+        public OpenChatMenu(Dictionary<string, string> qParams, IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId, ChatMember chatMember) : base(7, 1, CommandKeys.OpenChat, qParams)
         {
             this.resources = resources;
             this.chatsPage = chatsPage;

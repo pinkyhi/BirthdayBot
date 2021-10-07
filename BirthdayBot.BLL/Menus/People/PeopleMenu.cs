@@ -18,7 +18,7 @@ namespace BirthdayBot.BLL.Menus.People
     {
         private readonly IStringLocalizer<SharedResources> resources;
 
-        public PeopleMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.Notes)
+        public PeopleMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.People)
         {
             this.resources = resources;
         }

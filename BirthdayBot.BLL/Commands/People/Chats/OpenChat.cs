@@ -16,6 +16,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
@@ -63,7 +64,12 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             var userChatMember = chatMembers.Find(x => x.UserId == dbUser.Id);
             chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-            OpenChatMenu menu = new OpenChatMenu(resources, chatsPage, dbUser, chat.Id, userChatMember);
+            Dictionary<string, string> qParams = new Dictionary<string, string>();
+
+            qParams.Add("chi", $"{chatId}");
+            qParams.Add("chatsPage", $"{chatsPage}");
+
+            OpenChatMenu menu = new OpenChatMenu(qParams, resources, chatsPage, dbUser, chat.Id, userChatMember);
 
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try

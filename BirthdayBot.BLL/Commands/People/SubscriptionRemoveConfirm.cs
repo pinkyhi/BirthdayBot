@@ -103,7 +103,13 @@ namespace BirthdayBot.BLL.Commands.People
                 var userChatMember = chatMembers.Find(x => x.UserId == dbUser.Id);
                 chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-                OpenChatMenu menu = new OpenChatMenu(resources, "0", dbUser, chat.Id, userChatMember);
+
+                Dictionary<string, string> queryParams = new Dictionary<string, string>();
+
+                queryParams.Add("chi", $"{chatId}");
+                queryParams.Add("chatsPage", $"{page}");
+
+                OpenChatMenu menu = new OpenChatMenu(queryParams, resources, $"{page}", dbUser, chat.Id, userChatMember);
 
                 try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
                 try
