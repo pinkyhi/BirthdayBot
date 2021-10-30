@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: en, English
   Exported by: Ivan Vladymyrov
-  Exported at: Sat, 02 Oct 2021 17:35:20 +0300 
+  Exported at: Fri, 08 Oct 2021 19:11:19 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -79,7 +79,7 @@
 &lt;b&gt; Events✍️ &lt;/b&gt; - Create your own events and receive notifications about them.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
-    <value>Please submit your year of birth.</value> 
+    <value>Please submit your year of birth. You can hide it in settings.</value> 
   </data> 
   <data name="BIRTH_MONTH_INPUT" xml:space="preserve"> 
     <value>Ok! Next, send your birth month :)</value> 
@@ -645,5 +645,17 @@ You are redirected to this menu.</value>
   </data> 
   <data name="MIGRATED_TO_CHAT" xml:space="preserve"> 
     <value>Seems that you changed this group type. Chat calendar restored and updated.</value> 
+  </data> 
+  <data name="LEAVE_BUTTON" xml:space="preserve"> 
+    <value>Leave🥺</value> 
+  </data> 
+  <data name="LEAVE_CHAT_CONFIRM_TEXT" xml:space="preserve"> 
+    <value>Are you sure that you want to leave &lt;b&gt;{0}&lt;/b&gt; chat?</value> 
+  </data> 
+  <data name="LEAVE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>❌Leave calendar❌</value> 
+  </data> 
+  <data name="CHAT_LEAVED_TEXT" xml:space="preserve"> 
+    <value>You left this chat. You still can rejoin it.</value> 
   </data> 
 </root>

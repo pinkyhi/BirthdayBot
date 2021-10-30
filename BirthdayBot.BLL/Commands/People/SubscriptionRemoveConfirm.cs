@@ -107,7 +107,7 @@ namespace BirthdayBot.BLL.Commands.People
                 Dictionary<string, string> queryParams = new Dictionary<string, string>();
 
                 queryParams.Add("chi", $"{chatId}");
-                queryParams.Add("chatsPage", $"{page}");
+                queryParams.Add("chsP", $"{page}");
 
                 OpenChatMenu menu = new OpenChatMenu(queryParams, resources, $"{page}", dbUser, chat.Id, userChatMember);
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
 using RapidBots.Types.Menus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -14,13 +15,14 @@ namespace BirthdayBot.BLL.Menus.People
 {
     public class OpenChatMenu : PaginationMenu
     {
+        private static int ROWS = 7;
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly string chatsPage;
         private readonly TUser dbUser;
         private readonly long chatId;
         private readonly ChatMember chatMember;
 
-        public OpenChatMenu(Dictionary<string, string> qParams, IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId, ChatMember chatMember) : base(7, 1, CommandKeys.OpenChat, qParams)
+        public OpenChatMenu(Dictionary<string, string> qParams, IStringLocalizer<SharedResources> resources, string chatsPage, TUser dbUser, long chatId, ChatMember chatMember) : base(ROWS, 1, CommandKeys.OpenChat, qParams)
         {
             this.resources = resources;
             this.chatsPage = chatsPage;
@@ -56,6 +58,13 @@ namespace BirthdayBot.BLL.Menus.People
                 }
             });
 
+            double pages = 0;
+
+            if (source.Count > 0)
+            {
+                pages = Math.Ceiling((double)source.Count / ROWS);
+            }
+
             var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, CallbackParams.Page, $"{chatsPage}"), Text = resources["BACK_BUTTON"] };
 
             var groupParams = new Dictionary<string, string>();
@@ -66,7 +75,7 @@ namespace BirthdayBot.BLL.Menus.People
             if(page == 0)
             {
                 InlineKeyboardButton changeChatCalenSub = null;
-                var cccsParams = new Dictionary<string, string>();
+                var cccsParams = new Dictionary<string, string>();  // change chat calendar sub
                 cccsParams.Add("chi", chatId.ToString());
                 cccsParams.Add("oneTime", "0");
                 if (chatMember.IsSubscribedOnCalendar == true)
@@ -91,6 +100,16 @@ namespace BirthdayBot.BLL.Menus.People
                 }
             }
             result.AddRange(pageButtons);
+            if(pages == 0 || page + 1 == Convert.ToInt32(pages))
+            {
+                var leaveParams = new Dictionary<string, string>();
+                leaveParams.Add("chi", qParams["chi"]);
+                leaveParams.Add("chp", $"{page}");
+                leaveParams.Add("chsP", qParams["chsP"]);
+
+                var leaveChatBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.LeaveChatCalendar, leaveParams), Text = resources["LEAVE_CHAT_BUTTON"] };
+                result.Add(new List<InlineKeyboardButton>() { leaveChatBut });
+            }
             result.Add(new List<InlineKeyboardButton>() { backBut });
             return new InlineKeyboardMarkup(result);
         }

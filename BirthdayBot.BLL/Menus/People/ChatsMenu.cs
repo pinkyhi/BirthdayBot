@@ -34,7 +34,7 @@ namespace BirthdayBot.BLL.Menus.People
             {
 
                 var qParams = new Dictionary<string, string>();
-                qParams.Add("chatsPage", $"{page}");
+                qParams.Add("chsP", $"{page}");
                 qParams.Add("chi", $"{x.Id}");
                 qParams.Add(CallbackParams.Page, "0");
                 if (x.ChatMembers.Count() > 1)

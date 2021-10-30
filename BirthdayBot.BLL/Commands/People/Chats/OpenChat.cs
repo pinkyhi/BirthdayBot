@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page, "chi", "chatsPage")]
+    [ExpectedParams(CallbackParams.Page, "chi", "chsP")]
     public class OpenChat : Command
     {
         private readonly BotClient botClient;
@@ -49,7 +49,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
             long chatId = Convert.ToInt64(update.GetParams()["chi"]);
-            string chatsPage = update.GetParams()["chatsPage"];
+            string chatsPage = update.GetParams()["chsP"];
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
@@ -67,7 +67,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             Dictionary<string, string> qParams = new Dictionary<string, string>();
 
             qParams.Add("chi", $"{chatId}");
-            qParams.Add("chatsPage", $"{chatsPage}");
+            qParams.Add("chsP", $"{chatsPage}");
 
             OpenChatMenu menu = new OpenChatMenu(qParams, resources, chatsPage, dbUser, chat.Id, userChatMember);
 

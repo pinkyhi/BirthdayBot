@@ -192,6 +192,12 @@
   <data name="LanguageSettingsChange" xml:space="preserve">
     <value>languageSettingsChange</value>
   </data>
+  <data name="LeaveChatCalendar" xml:space="preserve">
+    <value>lvChCl</value>
+  </data>
+  <data name="LeaveChatCalendarConfirmation" xml:space="preserve">
+    <value>lvChClCf</value>
+  </data>
   <data name="NoteDateConfirm" xml:space="preserve">
     <value>noteDateConfirm</value>
   </data>

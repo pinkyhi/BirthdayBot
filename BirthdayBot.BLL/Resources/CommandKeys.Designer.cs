@@ -286,6 +286,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lvChCl.
+        /// </summary>
+        public static string LeaveChatCalendar {
+            get {
+                return ResourceManager.GetString("LeaveChatCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lvChClCf.
+        /// </summary>
+        public static string LeaveChatCalendarConfirmation {
+            get {
+                return ResourceManager.GetString("LeaveChatCalendarConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to noteDateConfirm.
         /// </summary>
         public static string NoteDateConfirm {

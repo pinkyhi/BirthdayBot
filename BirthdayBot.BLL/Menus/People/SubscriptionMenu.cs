@@ -52,7 +52,7 @@ namespace BirthdayBot.BLL.Menus.People
             }
             else
             {
-                backDict.Add("chatsPage", "0");
+                backDict.Add("chsP", "0");
                 backDict.Add("chi", qParams["chi"]);
                 backDict.Add(CallbackParams.Page, qParams["chp"]);
                 back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, backDict), Text = resources["BACK_BUTTON"] };

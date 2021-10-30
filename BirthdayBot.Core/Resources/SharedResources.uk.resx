@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: uk, Ukrainian
   Exported by: Ivan Vladymyrov
-  Exported at: Sat, 02 Oct 2021 17:35:20 +0300 
+  Exported at: Fri, 08 Oct 2021 19:11:19 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -79,7 +79,7 @@
 &lt;b&gt;Події✍️&lt;/b&gt; - Створи свої події й отримуй повідомлення.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
-    <value>Будь ласка, відправ свій рік народження.</value> 
+    <value>Будь ласка, відправ свій рік народження. Ти можеш приховати його у налаштуваннях.</value> 
   </data> 
   <data name="BIRTH_MONTH_INPUT" xml:space="preserve"> 
     <value>Окей! Тепер мені потрібен місяць твого народження)</value> 
@@ -642,5 +642,17 @@
   </data> 
   <data name="MIGRATED_TO_CHAT" xml:space="preserve"> 
     <value>Здається хтось змінив тип групи. Календар чату відновлено.</value> 
+  </data> 
+  <data name="LEAVE_BUTTON" xml:space="preserve"> 
+    <value>Вийти🥺</value> 
+  </data> 
+  <data name="LEAVE_CHAT_CONFIRM_TEXT" xml:space="preserve"> 
+    <value>Ти впевнений, що хочеш вийти з календаря чату &lt;b&gt;{0}&lt;/b&gt;?</value> 
+  </data> 
+  <data name="LEAVE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>❌Залишити календар❌</value> 
+  </data> 
+  <data name="CHAT_LEAVED_TEXT" xml:space="preserve"> 
+    <value>Ти залишив цей календр, але ти можеш приєднатися знову.</value> 
   </data> 
 </root>

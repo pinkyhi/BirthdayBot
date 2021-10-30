@@ -6,7 +6,7 @@
   Release: Working copy
   Locale: ru, Russian
   Exported by: Ivan Vladymyrov
-  Exported at: Sat, 02 Oct 2021 17:35:20 +0300 
+  Exported at: Fri, 08 Oct 2021 19:11:19 +0300 
   --> 
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -79,7 +79,7 @@
 &lt;b&gt;События✍️&lt;/b&gt; - Создай свои события и получай уведомления о них.</value> 
   </data> 
   <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
-    <value>Пожалуйста, отправь свой год рождения.</value> 
+    <value>Пожалуйста, отправь свой год рождения. Ты можешь скрыть его в настройках.</value> 
   </data> 
   <data name="BIRTH_MONTH_INPUT" xml:space="preserve"> 
     <value>Окей! Теперь мне нужен месяц твоего рождения)</value> 
@@ -643,5 +643,17 @@
   </data> 
   <data name="MIGRATED_TO_CHAT" xml:space="preserve"> 
     <value>Похоже кто-то изменил тип группы. Данные календаря востановлены и обновлены.</value> 
+  </data> 
+  <data name="LEAVE_BUTTON" xml:space="preserve"> 
+    <value>Покинуть🥺</value> 
+  </data> 
+  <data name="LEAVE_CHAT_CONFIRM_TEXT" xml:space="preserve"> 
+    <value>Ты уверен что хочешь покинуть календарь чата &lt;b&gt;{0}&lt;/b&gt;?</value> 
+  </data> 
+  <data name="LEAVE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>❌Покинуть календарь❌</value> 
+  </data> 
+  <data name="CHAT_LEAVED_TEXT" xml:space="preserve"> 
+    <value>Ты покинул этот календарь ,но можно присоединиться обратно.</value> 
   </data> 
 </root>
