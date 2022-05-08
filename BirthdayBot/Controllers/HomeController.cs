@@ -2,6 +2,7 @@
 using BirthdayBot.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RapidBots;
 using RapidBots.Extensions;
 using RapidBots.Types.Core;
@@ -19,12 +20,26 @@ namespace BirthdayBot.Controllers
     {
         private readonly ActionManager actionsManager;
         private readonly IServiceProvider serviceProvider;
+        private readonly ILogger<HomeController> logger;
+        private readonly IRepository repository;
 
-        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider)
+        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger, IRepository repository)
         {
 
             this.actionsManager = actionsManager;
             this.serviceProvider = serviceProvider;
+            this.logger = logger;
+            this.repository = repository;
+        }
+
+        [HttpGet]
+        [Route("/")]
+        public async Task<IActionResult> Get()
+        {
+            logger.LogDebug("GET request");
+            var users = await repository.GetRangeAsync<TUser>(false, x => x.RegistrationDate != null);
+            var chats = await repository.GetRangeAsync<DAL.Entities.Chat>(false, x => true);
+            return Ok($"Users count: {users.Count()}\nChats count: {chats.Count()}");
         }
 
         [HttpPost]
@@ -62,7 +77,10 @@ namespace BirthdayBot.Controllers
                 TUser dbUser = null;
                 try
                 {
-                    dbUser = await repository.GetAsync<TUser>(true, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                    if((update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id) != null)
+                    {
+                        dbUser = await repository.GetAsync<TUser>(false, u => u.Id == (update.CallbackQuery?.From?.Id ?? update.Message?.From?.Id));
+                    }
                 }
                 catch { }
                 // Setting culture info for request
@@ -80,7 +98,7 @@ namespace BirthdayBot.Controllers
                 {
                     if (!string.IsNullOrEmpty(update.Message.Text))
                     {
-                        commandKey = actionsManager.GetCommandKey(update.Message.Text);
+                        commandKey = actionsManager.GetCommandKey(update.Message.Text, "yourdate_bot");
                     }
                 }
                 try
@@ -92,7 +110,7 @@ namespace BirthdayBot.Controllers
                     }
                     else
                     {
-                        await command.Execute(update, dbUser, requestScope);
+                        await command.Execute(update, actionScope: requestScope);
                     }
                 }
                 catch (KeyNotFoundException)
@@ -104,7 +122,7 @@ namespace BirthdayBot.Controllers
                             var input = actionsManager.Inputs[(int)dbUser.CurrentStatus];
                             if (input.ValidateUpdate(update))
                             {
-                                await input.Execute(update, dbUser, requestScope);
+                                await input.Execute(update, actionScope: requestScope);
                             }
                             else
                             {
@@ -119,13 +137,14 @@ namespace BirthdayBot.Controllers
                     catch (KeyNotFoundException)
                     {
                         var action = actionsManager.Actions.First(x => x.ValidateUpdate(update));
-                        await action.Execute(update, dbUser, requestScope);
+                        await action.Execute(update, actionScope: requestScope);
                     }
                 }
                 return Ok();
             }
             catch (Exception exception)
             {
+                logger.LogError(exception.Message + " " + exception.GetType());
                 return Ok(exception.Message + " " + exception.GetType());
             }
             finally

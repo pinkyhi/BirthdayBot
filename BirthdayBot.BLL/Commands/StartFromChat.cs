@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BirthdayBot.BLL.Inputs.Start;
 using BirthdayBot.BLL.Menus;
+using BirthdayBot.BLL.Menus.People;
 using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
@@ -8,10 +9,13 @@ using BirthdayBot.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using RapidBots.Extensions;
 using RapidBots.Types.Attributes;
 using RapidBots.Types.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -54,12 +58,14 @@ namespace BirthdayBot.BLL.Commands
             dbUser.MiddlewareData = null;
             await repository.UpdateAsync(dbUser);
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             if (dbUser.RegistrationDate == null)
             {
-                dbUser.MiddlewareData = chatId.ToString();
+                var data = new Dictionary<string, string>();
+                data.Add("fromChat", chatId.ToString());
+                dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
                 await repository.UpdateAsync(dbUser);
                 dbUser.CurrentStatus = actionsManager.FindInputStatusByType<BirthYearInput>();
                 await repository.UpdateAsync(dbUser);
@@ -67,22 +73,34 @@ namespace BirthdayBot.BLL.Commands
             }
             else
             {
-                var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == chatId, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User));
+                StartMenu menu = new StartMenu(resources);
+                var chat = await repository.GetAsync<DAL.Entities.Chat>(true, x => x.Id == chatId, x => x.Include(u => u.ChatMembers).ThenInclude(x => x.User).ThenInclude(x => x.Subscriptions));
                 chat.ChatMembers.Add(new DAL.Entities.ChatMember() { User = dbUser, AddingDate = DateTime.Now.Date });
                 try
                 {
                     await repository.UpdateAsync(chat);
+
                 }
                 catch (InvalidOperationException)
-                {}
-                StartMenu menu = new StartMenu(resources);
+                {
+                    await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username ?? dbUser.FirstName), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
+                    return;
+                }
                 await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["SUCCESS_START_FROM_CHAT", chat.Title], parseMode: ParseMode.Html);
-                var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId);
+                var usersToMention = chat.ChatMembers.Where(x => x.IsSubscribedOnCalendar == true && x.UserId != dbUser.Id && x.User.Subscriptions?.Any(x => x.TargetId == dbUser.Id) == false);
+                var umMenu = new ChatCalendarNotificationMenu(resources, dbUser.Id, chatId);
+                foreach (var utm in usersToMention)
+                {
+                    await botClient.SendTextMessageAsync(utm.UserId, umMenu.GetDefaultTitle(actionScope, dbUser.Username == null ? $"{dbUser.FirstName} {dbUser.LastName}" : $"@{dbUser.Username}", chat.Title), replyMarkup: umMenu.GetMarkup(actionScope));
+                }
+
+                var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId) - 1;
                 if(chatMemberCount == chat.ChatMembers.Count)
                 {
                     await botClient.SendTextMessageAsync(chatId, resources["ALL_USERS_ADDED_TEXT", chat.Title], parseMode: ParseMode.Html);
                 }
-                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
+
+                await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, menu.GetDefaultTitle(actionScope, dbUser.Username ?? dbUser.FirstName), replyMarkup: menu.GetMarkup(actionScope), parseMode: ParseMode.Html);
             }
         }
     }

@@ -16,11 +16,12 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using RapidBots.Extensions;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace BirthdayBot.BLL.Commands.People.Chats
 {
     [ChatType(ChatType.Private)]
-    [ExpectedParams(CallbackParams.Page, "chatId", "chatsPage")]
+    [ExpectedParams(CallbackParams.Page, "chi", "chsP")]
     public class OpenChat : Command
     {
         private readonly BotClient botClient;
@@ -37,7 +38,7 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
             var repository = actionScope.ServiceProvider.GetService<IRepository>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.Chat));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, include: u => u.Include(x => x.Subscriptions));
             if (dbUser?.Subscriptions == null)
             {
                 await repository.LoadCollectionAsync(dbUser, x => x.Subscriptions);
@@ -47,11 +48,11 @@ namespace BirthdayBot.BLL.Commands.People.Chats
             await repository.UpdateAsync(dbUser);
 
             int page = Convert.ToInt32(update.GetParams()[CallbackParams.Page]);
-            long chatId = Convert.ToInt64(update.GetParams()["chatId"]);
-            string chatsPage = update.GetParams()["chatsPage"];
+            long chatId = Convert.ToInt64(update.GetParams()["chi"]);
+            string chatsPage = update.GetParams()["chsP"];
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
-            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
             await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
             var chatMembers = chat.ChatMembers;
@@ -60,9 +61,15 @@ namespace BirthdayBot.BLL.Commands.People.Chats
                 await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["OPEN_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 throw new ArgumentException();
             }
+            var userChatMember = chatMembers.Find(x => x.UserId == dbUser.Id);
             chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-            OpenChatMenu menu = new OpenChatMenu(resources, chatsPage, dbUser);
+            Dictionary<string, string> qParams = new Dictionary<string, string>();
+
+            qParams.Add("chi", $"{chatId}");
+            qParams.Add("chsP", $"{chatsPage}");
+
+            OpenChatMenu menu = new OpenChatMenu(qParams, resources, chatsPage, dbUser, chat.Id, userChatMember);
 
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
             try

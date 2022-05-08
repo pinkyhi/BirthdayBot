@@ -20,6 +20,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
@@ -46,11 +47,10 @@ namespace BirthdayBot.BLL.Inputs.Start
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser;
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, x => x.Id == update.Message.From.Id, x => x.Include(x => x.Addresses));
             if (dbUser?.Addresses == null)
             {
-                var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Addresses));
-                dbUser.Addresses = tempDbUser.Addresses;
+                await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
             }
 
             if (dbUser.RegistrationDate != null && update.Message?.Text != null && update.Message.Text.Trim().Equals(resources["BACK_BUTTON"]))
@@ -59,8 +59,11 @@ namespace BirthdayBot.BLL.Inputs.Start
                 dbUser.MiddlewareData = null;
                 await repository.UpdateAsync(dbUser);
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
+                var removeMessage = await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
+                try { await botClient.DeleteMessageAsync(removeMessage.Chat.Id, removeMessage.MessageId); } catch { }
+
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                 return;
             }
@@ -99,14 +102,9 @@ namespace BirthdayBot.BLL.Inputs.Start
                     await repository.UpdateAsync(dbUser);
                 }
 
-                if (dbUser?.Addresses == null)
-                {
-                    dbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Addresses));
-                }
-
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
-
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                 return;
             }
 
@@ -165,6 +163,14 @@ namespace BirthdayBot.BLL.Inputs.Start
                     {
                         throw new ArgumentException();
                     }
+                    else if (geocodeResponse.Status.Equals("REQUEST_DENIED"))
+                    {
+                        dbUser.Limitations.StartLocationInputAttempts--;
+                        await repository.UpdateAsync(dbUser);
+
+                        await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_DENIED_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
+                        return;
+                    }
                     if(dbUser.MiddlewareData != null)
                     {
                         var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
@@ -187,14 +193,7 @@ namespace BirthdayBot.BLL.Inputs.Start
             }
             catch
             {
-                if(dbUser.RegistrationDate == null)
-                {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.StartLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
-                }
-                else
-                {
-                    await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
-                }
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["GEOPOSITION_INPUT_ERROR", dbUser.Limitations.ChangeLocationInputAttempts], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new ReplyKeyboardRemove() { Selective = false });
                 return;
             }
 

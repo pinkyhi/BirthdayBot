@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
+using BirthdayBot.Core.Const;
 
 namespace BirthdayBot.BLL.Commands.Notes
 {
@@ -43,7 +44,14 @@ namespace BirthdayBot.BLL.Commands.Notes
                 await repository.LoadCollectionAsync(dbUser, x => x.Notes);
             }
             var note = JsonConvert.DeserializeObject<Note>(dbUser.MiddlewareData);
-            dbUser.Notes.Add(note);
+            if(dbUser.Notes.Count < Limitations.NotesLimit)
+            {
+                dbUser.Notes.Add(note);
+            }
+            else
+            {
+                await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, text: resources["NOTES_LIMIT"], showAlert: true);
+            }
             dbUser.MiddlewareData = null;
             dbUser.CurrentStatus = null;
             await repository.UpdateAsync(dbUser);

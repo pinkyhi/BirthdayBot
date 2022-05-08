@@ -38,7 +38,7 @@ namespace BirthdayBot.BLL.Commands.General
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.Message.Chat.Id, include: u => u.Include(x => x.Subscriptions));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == (update.Message?.From?.Id ?? update.CallbackQuery?.From?.Id), include: u => u.Include(x => x.Subscriptions).ThenInclude(x => x.Target).Include(x => x.Subscribers).Include(x => x.Notes));
 
             if (dbUser?.Subscriptions == null)
             {
@@ -58,12 +58,14 @@ namespace BirthdayBot.BLL.Commands.General
             {
                 month = Convert.ToInt32(strMonth);
             }
-            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = $"@{x.Target.Username}" ?? $"{x.Target.FirstName} {x.Target.LastName}", Date = x.Target.BirthDate });
-            var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, Date = x.Date});
+            var subs = dbUser.Subscriptions.Where(x => x.Target.BirthDate.Month == month).Select(x => new { Name = x.Target.Username == null ? $"<a href=\"tg://user?id={x.TargetId}\">{x.Target.FirstName} {x.Target.LastName}</a>" : $"<a href=\"tg://user?id={x.TargetId}\">{x.Target.Username}</a>", DateStr = dbUser.GetAnotherUserDateString(x.Target), Date = x.Target.BirthDate });
+            var notes = dbUser.Notes.Where(x => x.Date.Month == month).Select(x => new { Name = x.Title, DateStr = x.Date.ToShortDateString(), Date = x.Date});
+            var countPerMonth = dbUser.Subscriptions.Select(x => x.Target.BirthDate.Month).Concat(dbUser.Notes.Select(x => x.Date.Month));
+
             string format = "{0} - {1};";
             int monthNow = DateTime.Now.Month;
-            var strs = subs.Concat(notes).OrderBy(x => monthNow - x.Date.Month < 0 ? monthNow - x.Date.Month + 12 : monthNow - x.Date.Month).Select(x => string.Format(format, x.Name, x.Date.ToShortDateString()));
-            CalendarMenu menu = new CalendarMenu(resources, month, string.Join('\n', strs));
+            var strs = subs.Concat(notes).OrderBy(x => monthNow - x.Date.Month < 0 ? monthNow - x.Date.Month + 12 : monthNow - x.Date.Month).Select(x => string.Format(format, x.Name, x.DateStr));
+            CalendarMenu menu = new CalendarMenu(resources, month, string.Join('\n', strs), countPerMonth.GroupBy(x => x));
             if (update.CallbackQuery != null)
             {
                 try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }

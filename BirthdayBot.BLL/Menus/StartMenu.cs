@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using RapidBots.Constants;
 using RapidBots.Types.Menus;
+using System;
+using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.BLL.Menus
@@ -25,16 +27,28 @@ namespace BirthdayBot.BLL.Menus
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
         {
+            Dictionary<string, string> qParams = new Dictionary<string, string>();
+            qParams.Add(CallbackParams.Page, "0");
+            InlineKeyboardButton chats = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddByChats, qParams), Text = resources["MAIN_CHATS_BUTTON"] };
             InlineKeyboardButton people = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.People, CallbackParams.Page, $"{0}"), Text = resources["PEOPLE_BUTTON"] };
             InlineKeyboardButton notes = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Notes, CallbackParams.Page, $"{0}"), Text = resources["NOTES_BUTTON"]};
+            InlineKeyboardButton calendar = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.Calendar, "month", $"{DateTime.Now.Month}"), Text = resources["CALENDAR_BUTTON"] };
             InlineKeyboardButton userSettings = new InlineKeyboardButton() { CallbackData = CommandKeys.UserSettings, Text = resources["USER_SETTINGS_BUTTON"] };
-            InlineKeyboardButton startGroup = new InlineKeyboardButton() { Text = resources["SHARE_TO_GROUP"], Url = "https://t.me/birthdayMaster_bot?startgroup=1" };
+            InlineKeyboardButton startGroup = new InlineKeyboardButton() { Text = resources["SHARE_TO_GROUP"], Url = "https://t.me/yourdate_bot?startgroup=1" };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
                 {
                     people,
+                    chats
+                },
+                new[]
+                {
                     notes
+                },
+                new[]
+                {
+                    calendar
                 },
                 new[]
                 {

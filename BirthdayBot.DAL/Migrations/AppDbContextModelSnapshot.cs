@@ -117,6 +117,11 @@ namespace BirthdayBot.DAL.Migrations
                     b.Property<DateTime>("AddingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("IsSubscribedOnCalendar")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("UserId", "ChatId");
 
                     b.HasIndex("ChatId");
@@ -258,13 +263,13 @@ namespace BirthdayBot.DAL.Migrations
                     b.HasOne("BirthdayBot.DAL.Entities.TUser", "Subscriber")
                         .WithMany("Subscriptions")
                         .HasForeignKey("SubscriberId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("BirthdayBot.DAL.Entities.TUser", "Target")
                         .WithMany("Subscribers")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -337,7 +342,7 @@ namespace BirthdayBot.DAL.Migrations
                             b1.Property<int>("BirthYearConfidentiality")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
-                                .HasDefaultValue(1);
+                                .HasDefaultValue(0);
 
                             b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()

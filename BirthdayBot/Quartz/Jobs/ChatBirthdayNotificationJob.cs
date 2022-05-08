@@ -5,9 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using RapidBots;
 using RapidBots.Types.Core;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayBot.Quartz.Jobs
 {
@@ -17,13 +20,15 @@ namespace BirthdayBot.Quartz.Jobs
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly IRepository repository;
         private readonly BotClient botClient;
+        private readonly RapidBotsOptions options;
 
-        public ChatBirthdayNotificationJob(ILogger<PersonalBirthdayNotificationJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient)
+        public ChatBirthdayNotificationJob(ILogger<PersonalBirthdayNotificationJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient, RapidBotsOptions options)
         {
             this.logger = logger;
             this.resources = resources;
             this.repository = repository;
             this.botClient = botClient;
+            this.options = options;
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -58,7 +63,14 @@ namespace BirthdayBot.Quartz.Jobs
 
                     foreach (var member in members)
                     {
-                        await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        try
+                        {
+                            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", member.ChatId) };
+                            CultureInfo.CurrentCulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
+                            CultureInfo.CurrentUICulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
+                            await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+                        }
+                        catch(Exception ex) {logger.LogError(ex.ToString());}
                     }
                 }
                 catch (Exception ex)

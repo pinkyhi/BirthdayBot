@@ -30,6 +30,12 @@ namespace BirthdayBot
             AssemblyBLL.LoadAssembly(); // .Net will load BLL project in assemblies only if there is a connection to it. BLL assembly is important for reflection to commands etc
             var rapidBotsOptions = new RapidBotsOptions();
             this.Configuration.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
+            rapidBotsOptions.SslCertificatePEM = Configuration["SslCertificatePEM"] ?? rapidBotsOptions.SslCertificatePEM;
+            rapidBotsOptions.SslCertificatePFX = Configuration["SslCertificatePFX"] ?? rapidBotsOptions.SslCertificatePFX;
+            rapidBotsOptions.WebHookUrl = Configuration["WebHookUrl"] ?? rapidBotsOptions.WebHookUrl;
+            rapidBotsOptions.Token = Configuration["Token"] ?? rapidBotsOptions.Token;
+            rapidBotsOptions.DefaultLanguageCode = Configuration["DefaultLanguageCode"] ?? rapidBotsOptions.DefaultLanguageCode;
+
             var googleGeoCodeOptions = new GoogleOptions();
             this.Configuration.GetSection(nameof(GoogleOptions)).Bind(googleGeoCodeOptions);
 
@@ -47,7 +53,7 @@ namespace BirthdayBot
                 connectionString = this.Configuration.GetConnectionString("DefaultConnectionProd");
             }
             services.AddDataAccess(connectionString);
-            services.AddQuartzHelper(connectionString);
+            services.AddQuartzHelper(connectionString); // Should be after DataAccess
             services.AddControllers().AddNewtonsoftJson();
             services.AddRapidBots(rapidBotsOptions);
             services.AddGoogleGeoCode(googleGeoCodeOptions);

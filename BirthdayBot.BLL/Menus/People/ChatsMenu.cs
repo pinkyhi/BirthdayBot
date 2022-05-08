@@ -16,7 +16,7 @@ namespace BirthdayBot.BLL.Menus.People
     {
         private readonly IStringLocalizer<SharedResources> resources;
 
-        public ChatsMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.Notes)
+        public ChatsMenu(IStringLocalizer<SharedResources> resources) : base(8, 1, CommandKeys.AddByChats)
         {
             this.resources = resources;
         }
@@ -34,8 +34,8 @@ namespace BirthdayBot.BLL.Menus.People
             {
 
                 var qParams = new Dictionary<string, string>();
-                qParams.Add("chatsPage", $"{page}");
-                qParams.Add("chatId", $"{x.Id}");
+                qParams.Add("chsP", $"{page}");
+                qParams.Add("chi", $"{x.Id}");
                 qParams.Add(CallbackParams.Page, "0");
                 if (x.ChatMembers.Count() > 1)
                 {
@@ -47,7 +47,8 @@ namespace BirthdayBot.BLL.Menus.People
                 }
             });
 
-            var backBut = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.AddPeople, "peoplePage", "0"), Text = resources["BACK_BUTTON"] };
+
+            var backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.Start, Text = resources["BACK_BUTTON"] };
 
             result.AddRange(pageButtons);
             result.Add(new List<InlineKeyboardButton>() { backBut });

@@ -26,7 +26,7 @@ namespace BirthdayBot.BLL.Menus.People
 
         public string GetDefaultTitle(IServiceScope actionScope = null, params string[] values)
         {
-            return resources["SUBSCRIPTION_TEXT", "@" + subcription.Target.Username, subcription.Subscriber.GetAnotherUserDateString(subcription.Target), subcription.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
+            return resources["SUBSCRIPTION_TEXT", subcription.Target.Username == null ? $"{subcription.Target.FirstName} {subcription.Target.LastName}" : $"@{subcription.Target.Username}", subcription.Subscriber.GetAnotherUserDateString(subcription.Target), subcription.IsStrong ? resources["STRONG_NOTIFICATION_TEXT"] : resources["COMMON_NOTIFICATION_TEXT"]];
         }
 
         public IReplyMarkup GetMarkup(IServiceScope actionScope = null)
@@ -52,9 +52,9 @@ namespace BirthdayBot.BLL.Menus.People
             }
             else
             {
-                backDict.Add("chatsPage", "0");
-                backDict.Add("chatId", qParams["chatId"]);
-                backDict.Add(CallbackParams.Page, qParams["chatPage"]);
+                backDict.Add("chsP", "0");
+                backDict.Add("chi", qParams["chi"]);
+                backDict.Add(CallbackParams.Page, qParams["chp"]);
                 back = new InlineKeyboardButton() { CallbackData = QueryHelpers.AddQueryString(CommandKeys.OpenChat, backDict), Text = resources["BACK_BUTTON"] };
             }
 

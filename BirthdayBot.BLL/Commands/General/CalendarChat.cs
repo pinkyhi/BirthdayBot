@@ -35,13 +35,14 @@ namespace BirthdayBot.BLL.Commands.General
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.Message.Chat.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
+            TUser dbUser = (user as TUser) ?? await repository.GetAsync<TUser>(true, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
             long chatId = update.Message.Chat.Id;
-            var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId);
+            var chatMemberCount = await botClient.GetChatMembersCountAsync(chatId) - 1;
             var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
-            var users = chat.ChatMembers.Select(x => new { Name = $"@{x.User.Username}" ?? $"{x.User.FirstName} {x.User.LastName}", Date = x.User.BirthDate }).GroupBy(x => x.Date.Month - 1);
+            var users = chat.ChatMembers.Select(x => new { Name = x.User.Username == null ? $"<a href=\"tg://user?id={x.UserId}\">{x.User.FirstName} {x.User.LastName}</a>" : $"<a href=\"tg://user?id={x.UserId}\">{x.User.Username}</a>", Date = x.User.BirthDate, DateStr = x.User.GetConfidentialDateString() }).GroupBy(x => x.Date.Month - 1);
+            
             string format = "{0} - {1};\n";
             int monthNow = DateTime.Now.Month;
 
@@ -72,12 +73,21 @@ namespace BirthdayBot.BLL.Commands.General
                 var strs = $"<b>{monthes[month]}</b>\n";
                 foreach(var userNow in usersNow)
                 {
-                    strs += $"{string.Format(format, userNow.Name, userNow.Date.ToShortDateString())}";
+                    strs += $"{string.Format(format, userNow.Name, userNow.DateStr)}";
                 }
                 resultStr += strs;
             }
-            InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id) };
-            await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resultStr, parseMode: ParseMode.Html, disableNotification: true, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+            Message message = null;
+            if(chat.ChatMembers.Count < chatMemberCount)
+            {
+                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id) };
+                message = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: ParseMode.Html, disableNotification: true, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+            }
+            else
+            {
+               message = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], parseMode: ParseMode.Html, disableNotification: true);
+            }
+            await botClient.EditMessageTextAsync(message.Chat.Id, message.MessageId, resultStr, parseMode: ParseMode.Html, disableWebPagePreview: true, replyMarkup: message.ReplyMarkup);
         }
     }
 }

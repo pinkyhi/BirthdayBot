@@ -1,5 +1,4 @@
-﻿using BirthdayBot.BLL.Inputs.Start;
-using BirthdayBot.BLL.Resources;
+﻿using BirthdayBot.BLL.Resources;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
@@ -12,6 +11,8 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using BirthdayBot.BLL.Menus.Settings;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BirthdayBot.BLL.Commands.UserSettings.Profile
 {
@@ -33,7 +34,7 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
             var actionsManager = actionScope.ServiceProvider.GetService<ActionManager>();
             var resources = actionScope.ServiceProvider.GetService<IStringLocalizer<SharedResources>>();
 
-            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id);
+            TUser dbUser = user as TUser ?? await repository.GetAsync<TUser>(false, u => u.Id == update.CallbackQuery.From.Id, x => x.Include(x => x.Addresses));
             if (dbUser.Addresses == null)
             {
                 await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
@@ -46,8 +47,9 @@ namespace BirthdayBot.BLL.Commands.UserSettings.Profile
             try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id, resources["ACTUALIZE_USER_TEXT"]); } catch { }
 
             // Output
-                 ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
-            await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address, dbUser.Timezone.TimeZoneName), replyMarkup: menu.GetMarkup(actionScope) as InlineKeyboardMarkup, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            ProfileSettingsMenu menu = new ProfileSettingsMenu(resources);
+            string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
+            await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, menu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress, dbUser.Timezone.TimeZoneName), replyMarkup: menu.GetMarkup(actionScope) as InlineKeyboardMarkup, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
         }
     }
 }

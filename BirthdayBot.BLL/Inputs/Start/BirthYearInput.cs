@@ -15,6 +15,7 @@ using RapidBots.Types.Attributes;
 using Telegram.Bot.Types.Enums;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace BirthdayBot.BLL.Inputs.Start
 {
@@ -46,12 +47,13 @@ namespace BirthdayBot.BLL.Inputs.Start
 
                 if (dbUser?.Addresses == null)
                 {
-                    var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Addresses));
-                    dbUser.Addresses = tempDbUser.Addresses;
+                    await repository.LoadCollectionAsync(dbUser, x => x.Addresses);
                 }
                 ProfileSettingsMenu changeMenu = new ProfileSettingsMenu(resources);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
-                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), dbUser.Addresses[0].Formatted_Address), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                string fAddress = dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("administrative_area_level_1"))?.Formatted_Address ?? dbUser.Addresses.FirstOrDefault(x => x.Types.Contains("country"))?.Formatted_Address ?? ":)";
+                var removeMessage = await botClient.SendTextMessageAsync(update.Message.Chat.Id, resources["REPLY_KEYBOARD_REMOVE_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
+                try { await botClient.DeleteMessageAsync(removeMessage.Chat.Id, removeMessage.MessageId); } catch { }
+                await botClient.SendTextMessageAsync(update.Message.Chat.Id, changeMenu.GetDefaultTitle(actionScope, dbUser.BirthDate.ToShortDateString(), fAddress), replyMarkup: changeMenu.GetMarkup(actionScope), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
 
                 return;
             }
@@ -66,14 +68,13 @@ namespace BirthdayBot.BLL.Inputs.Start
                 }
 
                 // Change status
-                if(dbUser.MiddlewareData != null)
+                try
                 {
-                    var data = new Dictionary<string, string>();
-                    data.Add("fromChat", dbUser.MiddlewareData);
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(dbUser.MiddlewareData);
                     data.Add("date", dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString());
                     dbUser.MiddlewareData = JsonConvert.SerializeObject(data);
                 }
-                else
+                catch
                 {
                     dbUser.MiddlewareData = dbUser.BirthDate.AddYears(year - dbUser.BirthDate.Year).ToString();
                 }

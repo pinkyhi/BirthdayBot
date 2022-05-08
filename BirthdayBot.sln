@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayBot", "BirthdayBot\BirthdayBot.csproj", "{C620999F-EC1F-49EA-BCEB-FBDA8F07120B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayBot.BLL", "BirthdayBot.BLL\BirthdayBot.BLL.csproj", "{CAAE295D-77CB-423E-B982-562527B0649A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayBot.BLL", "BirthdayBot.BLL\BirthdayBot.BLL.csproj", "{CAAE295D-77CB-423E-B982-562527B0649A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayBot.DAL", "BirthdayBot.DAL\BirthdayBot.DAL.csproj", "{B8C9CC1B-7A73-4B40-82F5-769496BCE867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayBot.DAL", "BirthdayBot.DAL\BirthdayBot.DAL.csproj", "{B8C9CC1B-7A73-4B40-82F5-769496BCE867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayBot.Core", "BirthdayBot.Core\BirthdayBot.Core.csproj", "{B6C09E6E-0776-4A67-85CD-A0D2B8EEDD7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayBot.Core", "BirthdayBot.Core\BirthdayBot.Core.csproj", "{B6C09E6E-0776-4A67-85CD-A0D2B8EEDD7A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidBots", "..\RapidBots\RapidBots\RapidBots.csproj", "{9F6B278A-7E03-4588-8F1E-B1D8B34AED8A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9331B503-5DBA-4ED5-8EB3-520DE7E838F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9F6B278A-7E03-4588-8F1E-B1D8B34AED8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F6B278A-7E03-4588-8F1E-B1D8B34AED8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F6B278A-7E03-4588-8F1E-B1D8B34AED8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9331B503-5DBA-4ED5-8EB3-520DE7E838F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9331B503-5DBA-4ED5-8EB3-520DE7E838F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9331B503-5DBA-4ED5-8EB3-520DE7E838F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9331B503-5DBA-4ED5-8EB3-520DE7E838F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

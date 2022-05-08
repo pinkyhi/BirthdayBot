@@ -3,7 +3,6 @@ using BirthdayBot.BLL.Menus.Notes;
 using BirthdayBot.Core.Resources;
 using BirthdayBot.DAL.Entities;
 using BirthdayBot.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
@@ -43,7 +42,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
                 string inputStr = update.Message.Text.Trim();
                 if (inputStr.Equals(resources["BACK_BUTTON"]))
                 {
-                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                    var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                     await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                     dbUser.CurrentStatus = null;
@@ -52,8 +51,7 @@ namespace BirthdayBot.BLL.Inputs.Notes
 
                     if (dbUser?.Notes == null)
                     {
-                        var tempDbUser = await repository.GetAsync<TUser>(false, u => u.Id == update.Message.From.Id, include: u => u.Include(x => x.Notes));
-                        dbUser.Notes = tempDbUser.Notes;
+                        await repository.LoadCollectionAsync(dbUser, x => x.Notes);
                     }
 
                     NotesMenu notesMenu = new NotesMenu(resources);

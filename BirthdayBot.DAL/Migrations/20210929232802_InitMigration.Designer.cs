@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BirthdayBot.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210821180435_ChatMember")]
-    partial class ChatMember
+    [Migration("20210929232802_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,8 +85,14 @@ namespace BirthdayBot.DAL.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("AddingDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("BigFileUniqueId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NotificationsCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("SmallFileUniqueId")
                         .HasColumnType("nvarchar(max)");
@@ -112,6 +118,11 @@ namespace BirthdayBot.DAL.Migrations
 
                     b.Property<DateTime>("AddingDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsSubscribedOnCalendar")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasKey("UserId", "ChatId");
 
@@ -254,13 +265,13 @@ namespace BirthdayBot.DAL.Migrations
                     b.HasOne("BirthdayBot.DAL.Entities.TUser", "Subscriber")
                         .WithMany("Subscriptions")
                         .HasForeignKey("SubscriberId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("BirthdayBot.DAL.Entities.TUser", "Target")
                         .WithMany("Subscribers")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -333,7 +344,7 @@ namespace BirthdayBot.DAL.Migrations
                             b1.Property<int>("BirthYearConfidentiality")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
-                                .HasDefaultValue(1);
+                                .HasDefaultValue(0);
 
                             b1.Property<int>("CommonNotification_0")
                                 .ValueGeneratedOnAdd()

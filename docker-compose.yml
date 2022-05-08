@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  birthdaybot:
+    image: ${DOCKER_REGISTRY-}birthdaybot
+    ports:
+    - "443:443"
+    - "88:88"
+    - "8443:8443"
+    build:
+      context: .
+      dockerfile: BirthdayBot/Dockerfile
+    restart: always
+    environment:
+    - WebHookUrl
+    - SslCertificatePEM
+    - SslCertificatePFX
+    depends_on:
+          - mssqlserver
+
+  mssqlserver:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    ports:
+        - "2433:1433"
+    environment: 
+        - SA_PASSWORD=Brt_z!py
+        - ACCEPT_EULA=Y
+        - MSSQL_PID=Developer
+    expose:
+        - 2433

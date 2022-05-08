@@ -40,7 +40,7 @@ namespace BirthdayBot.DAL.Entities
             }
             else
             {
-                return this.BirthDate.AddYears((this.BirthDate.Year * -1) + 1).ToShortDateString();
+                return ClearYear(this.BirthDate.ToShortDateString()); ;
             }
         }
 
@@ -56,7 +56,9 @@ namespace BirthdayBot.DAL.Entities
             }
             else if(user.Settings.BirthYearConfidentiality == Core.Enums.ConfidentialType.Mutual)
             {
-                if (this.Subscribers?.Any(x => x.SubscriberId == user.Id) == true && this.Subscriptions?.Any(x => x.TargetId == user.Id) == true)
+                bool amISubscribed = this.Subscriptions?.Any(x => x.TargetId == user.Id) ?? user.Subscribers?.Any(x => x.SubscriberId == this.Id) == true;
+                bool isHeSubscribed = user.Subscriptions?.Any(x => x.TargetId == this.Id) ?? this.Subscribers?.Any(x => x.SubscriberId == user.Id) == true;
+                if (amISubscribed && isHeSubscribed)
                 {
                     return user.BirthDate.ToShortDateString();
                 }

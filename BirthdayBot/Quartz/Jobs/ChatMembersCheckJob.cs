@@ -5,9 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using RapidBots;
 using RapidBots.Types.Core;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
@@ -21,13 +22,15 @@ namespace BirthdayBot.Quartz.Jobs
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly IRepository repository;
         private readonly BotClient botClient;
+        private readonly RapidBotsOptions options;
 
-        public ChatMembersCheckJob(ILogger<ChatMembersCheckJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient)
+        public ChatMembersCheckJob(ILogger<ChatMembersCheckJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient, RapidBotsOptions options)
         {
             this.logger = logger;
             this.resources = resources;
             this.repository = repository;
             this.botClient = botClient;
+            this.options = options;
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -44,7 +47,7 @@ namespace BirthdayBot.Quartz.Jobs
                         {
                             var utcAdding = x.AddingDate.ToUniversalTime();
 
-                            if ((uNow - utcAdding).TotalHours > x.NotificationsCount * 2)
+                            if ((uNow - utcAdding).TotalHours > x.NotificationsCount * 24)
                             {
                                 return true;
                             }
@@ -57,7 +60,7 @@ namespace BirthdayBot.Quartz.Jobs
                         {
                             return false;
                         }          
-                    }, include: x => x.Include(x => x.ChatMembers));
+                    }, include: x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
                     var chats = chatsEnum.ToList();
                     for (int i = 0; i < chats.Count; i++)
                     {
@@ -65,16 +68,15 @@ namespace BirthdayBot.Quartz.Jobs
 
                         try
                         {
-                            int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id);
+                            int chatMemberCount = await botClient.GetChatMembersCountAsync(chat.Id) - 1;
+                            
+                            if (Convert.ToInt32(chatMemberCount * 0.35) > chat.ChatMembers.Count)
+                            {
+                                string chatAvgLanCode = chat.ChatMembers.Select(x => x.User.LanguageCode).GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
+                                CultureInfo.CurrentCulture = new CultureInfo(chatAvgLanCode ?? options.DefaultLanguageCode);
+                                CultureInfo.CurrentUICulture = new CultureInfo(chatAvgLanCode ?? options.DefaultLanguageCode);
 
-                            if (chatMemberCount == chat.ChatMembers.Count)
-                            {
-                                chat.NotificationsCount = 4;
-                                await botClient.SendTextMessageAsync(chat.Id, resources["ALL_USERS_ADDED_TEXT", chat.Title], parseMode: ParseMode.Html);
-                            }
-                            else
-                            {
-                                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/birthdayMaster_bot?start={0}", chat.Id) };
+                                InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", chat.Id) };
 
                                 chat.NotificationsCount++;
                                 switch (chat.NotificationsCount)
@@ -90,17 +92,14 @@ namespace BirthdayBot.Quartz.Jobs
                                         break;
                                 }
                             }
+                            else
+                            {
+                                chat.NotificationsCount = 3;
+                            }
                         }
                         catch(Exception ex)
                         {
-                            if (ex.StackTrace.Contains("Telegram.Bot.TelegramBotClient"))
-                            {
-                                // You can delete removed chat here                               
-                            }
-                            else
-                            {
-                                throw ex;
-                            }
+                            logger.LogError(ex.ToString());
                         }
                         
                     }

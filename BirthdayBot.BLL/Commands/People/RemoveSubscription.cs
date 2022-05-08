@@ -21,7 +21,7 @@ namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class RemoveSubscription : Command
     {
         private readonly BotClient botClient;
@@ -55,8 +55,8 @@ namespace BirthdayBot.BLL.Commands.People
             }
             else
             {
-                qParams.Add("chatId", updateParams["chatId"]);
-                qParams.Add("chatPage", updateParams["chatPage"]);
+                qParams.Add("chi", updateParams["chi"]);
+                qParams.Add("chp", updateParams["chp"]);
             }
 
             var target = dbUser.Subscriptions.First(x => x.TargetId == targetId);

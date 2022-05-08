@@ -32,11 +32,11 @@ namespace BirthdayBot.BLL.Menus.Settings
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 new[]
                 {
-                    notifSett
+                    profileSett                    
                 },
                 new[]
                 {
-                    langSett
+                    notifSett
                 },
                 new[]
                 {
@@ -44,7 +44,7 @@ namespace BirthdayBot.BLL.Menus.Settings
                 }, 
                 new[]
                 {
-                    profileSett
+                   langSett
                 },
                 new[]
                 {

@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using RapidBots;
 using RapidBots.Types.Core;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace BirthdayBot.Quartz.Jobs
@@ -17,13 +19,15 @@ namespace BirthdayBot.Quartz.Jobs
         private readonly IStringLocalizer<SharedResources> resources;
         private readonly IRepository repository;
         private readonly BotClient botClient;
+        private readonly RapidBotsOptions options;
 
-        public PersonalBirthdayNotificationJob(ILogger<PersonalBirthdayNotificationJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient)
+        public PersonalBirthdayNotificationJob(ILogger<PersonalBirthdayNotificationJob> logger, IStringLocalizer<SharedResources> resources, IRepository repository, BotClient botClient, RapidBotsOptions options)
         {
             this.logger = logger;
             this.resources = resources;
             this.repository = repository;
             this.botClient = botClient;
+            this.options = options;
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -92,11 +96,29 @@ namespace BirthdayBot.Quartz.Jobs
 
                     foreach(var note in notes)
                     {
-                        await botClient.SendTextMessageAsync(note.UserId, resources["PERSONAL_NOTE_NOTIFICATION_TEXT", note.Title, note.Date.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        CultureInfo.CurrentCulture = new CultureInfo(note.User?.LanguageCode ?? options.DefaultLanguageCode);
+                        CultureInfo.CurrentUICulture = new CultureInfo(note.User?.LanguageCode ?? options.DefaultLanguageCode);
+                        try
+                        {
+                            await botClient.SendTextMessageAsync(note.UserId, resources["PERSONAL_NOTE_NOTIFICATION_TEXT", note.Title, note.Date.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex.ToString());
+                        }
                     }
                     foreach (var sub in subs)
                     {
-                        await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Subscriber.GetAnotherUserDateString(sub.Target), sub.Target.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        CultureInfo.CurrentCulture = new CultureInfo(sub.Subscriber?.LanguageCode ?? options.DefaultLanguageCode);
+                        CultureInfo.CurrentUICulture = new CultureInfo(sub.Subscriber?.LanguageCode ?? options.DefaultLanguageCode);
+                        try
+                        {
+                            await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Subscriber.GetAnotherUserDateString(sub.Target)], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex.ToString());
+                        }
                     }
                 }
                 catch (Exception ex)

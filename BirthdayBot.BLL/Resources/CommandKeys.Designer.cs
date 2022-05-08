@@ -79,6 +79,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to adByCont.
+        /// </summary>
+        public static string AddByContact {
+            get {
+                return ResourceManager.GetString("AddByContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to addNote.
         /// </summary>
         public static string AddNote {
@@ -93,6 +102,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string AddPeople {
             get {
                 return ResourceManager.GetString("AddPeople", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to adPFC.
+        /// </summary>
+        public static string AddPeopleFromChat {
+            get {
+                return ResourceManager.GetString("AddPeopleFromChat", resourceCulture);
             }
         }
         
@@ -147,6 +165,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string ChangeBirthDate {
             get {
                 return ResourceManager.GetString("ChangeBirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to chChtSub.
+        /// </summary>
+        public static string ChangeChatSubscription {
+            get {
+                return ResourceManager.GetString("ChangeChatSubscription", resourceCulture);
             }
         }
         
@@ -259,6 +286,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lvChCl.
+        /// </summary>
+        public static string LeaveChatCalendar {
+            get {
+                return ResourceManager.GetString("LeaveChatCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lvChClCf.
+        /// </summary>
+        public static string LeaveChatCalendarConfirmation {
+            get {
+                return ResourceManager.GetString("LeaveChatCalendarConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to noteDateConfirm.
         /// </summary>
         public static string NoteDateConfirm {
@@ -322,6 +367,15 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to notTgUser.
+        /// </summary>
+        public static string NotTelegramUser {
+            get {
+                return ResourceManager.GetString("NotTelegramUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to openChat.
         /// </summary>
         public static string OpenChat {
@@ -367,6 +421,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to profSetInf.
+        /// </summary>
+        public static string ProfileSettingsInfo {
+            get {
+                return ResourceManager.GetString("ProfileSettingsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rmMes.
+        /// </summary>
+        public static string RemoveMessage {
+            get {
+                return ResourceManager.GetString("RemoveMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to removeNote.
         /// </summary>
         public static string RemoveNote {
@@ -403,6 +475,24 @@ namespace BirthdayBot.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to subAll.
+        /// </summary>
+        public static string SubscribeAll {
+            get {
+                return ResourceManager.GetString("SubscribeAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to subByRefRep.
+        /// </summary>
+        public static string SubscribeByReferralReply {
+            get {
+                return ResourceManager.GetString("SubscribeByReferralReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to subsOnMem.
         /// </summary>
         public static string SubscribeOnMember {
@@ -426,6 +516,15 @@ namespace BirthdayBot.BLL.Resources {
         public static string SubscriptionRemoveConfirm {
             get {
                 return ResourceManager.GetString("SubscriptionRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unsubAll.
+        /// </summary>
+        public static string UnsubscribeAll {
+            get {
+                return ResourceManager.GetString("UnsubscribeAll", resourceCulture);
             }
         }
         

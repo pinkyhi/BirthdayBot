@@ -22,7 +22,7 @@ namespace BirthdayBot.BLL.Commands.People
 {
     [ChatType(ChatType.Private)]
     [ExpectedParams("targetId", CallbackParams.Page)]
-    [ExpectedParams("chatId", "chatPage", "targetId")]
+    [ExpectedParams("chi", "chp", "targetId")]
     public class SubscriptionRemoveConfirm : Command
     {
         private readonly BotClient botClient;
@@ -57,8 +57,8 @@ namespace BirthdayBot.BLL.Commands.People
             }
             else
             {
-                qParams.Add("chatId", updateParams["chatId"]);
-                qParams.Add("chatPage", updateParams["chatPage"]);
+                qParams.Add("chi", updateParams["chi"]);
+                qParams.Add("chp", updateParams["chp"]);
             }
 
             var subscription = dbUser.Subscriptions.First(x => x.TargetId == targetId);
@@ -87,11 +87,11 @@ namespace BirthdayBot.BLL.Commands.People
             }
             else
             {
-                long chatId = Convert.ToInt64(updateParams["chatId"]);
-                int page = Convert.ToInt32(updateParams["chatPage"]);
+                long chatId = Convert.ToInt64(updateParams["chi"]);
+                int page = Convert.ToInt32(updateParams["chp"]);
                 var chat = await repository.GetAsync<DAL.Entities.Chat>(false, c => c.Id == chatId, x => x.Include(x => x.ChatMembers).ThenInclude(x => x.User));
 
-                var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                var openerMessage = await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["MENU_OPENER_TEXT"], replyMarkup: new ReplyKeyboardRemove(), parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, disableNotification: true);
                 await botClient.DeleteMessageAsync(openerMessage.Chat.Id, openerMessage.MessageId);
 
                 var chatMembers = chat.ChatMembers;
@@ -100,9 +100,16 @@ namespace BirthdayBot.BLL.Commands.People
                     await botClient.SendTextMessageAsync(update.Message?.Chat?.Id ?? update.CallbackQuery.Message.Chat.Id, resources["OPEN_CHAT_ERROR"], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
                     throw new ArgumentException();
                 }
+                var userChatMember = chatMembers.Find(x => x.UserId == dbUser.Id);
                 chatMembers.Remove(chatMembers.Find(x => x.UserId == dbUser.Id));
 
-                OpenChatMenu menu = new OpenChatMenu(resources, "0", dbUser);
+
+                Dictionary<string, string> queryParams = new Dictionary<string, string>();
+
+                queryParams.Add("chi", $"{chatId}");
+                queryParams.Add("chsP", $"{page}");
+
+                OpenChatMenu menu = new OpenChatMenu(queryParams, resources, $"{page}", dbUser, chat.Id, userChatMember);
 
                 try { await botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id); } catch { }
                 try

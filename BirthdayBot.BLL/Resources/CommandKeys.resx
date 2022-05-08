@@ -123,11 +123,17 @@
   <data name="AddByChats" xml:space="preserve">
     <value>addByChats</value>
   </data>
+  <data name="AddByContact" xml:space="preserve">
+    <value>adByCont</value>
+  </data>
   <data name="AddNote" xml:space="preserve">
     <value>addNote</value>
   </data>
   <data name="AddPeople" xml:space="preserve">
     <value>addPeople</value>
+  </data>
+  <data name="AddPeopleFromChat" xml:space="preserve">
+    <value>adPFC</value>
   </data>
   <data name="AddPersonal" xml:space="preserve">
     <value>addPersonal</value>
@@ -146,6 +152,9 @@
   </data>
   <data name="ChangeBirthDate" xml:space="preserve">
     <value>changeBirthDate</value>
+  </data>
+  <data name="ChangeChatSubscription" xml:space="preserve">
+    <value>chChtSub</value>
   </data>
   <data name="ChangeLocation" xml:space="preserve">
     <value>changeLocation</value>
@@ -183,6 +192,12 @@
   <data name="LanguageSettingsChange" xml:space="preserve">
     <value>languageSettingsChange</value>
   </data>
+  <data name="LeaveChatCalendar" xml:space="preserve">
+    <value>lvChCl</value>
+  </data>
+  <data name="LeaveChatCalendarConfirmation" xml:space="preserve">
+    <value>lvChClCf</value>
+  </data>
   <data name="NoteDateConfirm" xml:space="preserve">
     <value>noteDateConfirm</value>
   </data>
@@ -204,6 +219,9 @@
   <data name="NotificationsSettingsChange" xml:space="preserve">
     <value>notificationSettingsChange</value>
   </data>
+  <data name="NotTelegramUser" xml:space="preserve">
+    <value>notTgUser</value>
+  </data>
   <data name="OpenChat" xml:space="preserve">
     <value>openChat</value>
   </data>
@@ -219,6 +237,12 @@
   <data name="ProfileSettings" xml:space="preserve">
     <value>profileSettings</value>
   </data>
+  <data name="ProfileSettingsInfo" xml:space="preserve">
+    <value>profSetInf</value>
+  </data>
+  <data name="RemoveMessage" xml:space="preserve">
+    <value>rmMes</value>
+  </data>
   <data name="RemoveNote" xml:space="preserve">
     <value>removeNote</value>
   </data>
@@ -231,6 +255,12 @@
   <data name="StrongNotificationsSettings" xml:space="preserve">
     <value>strongNotificationsSettings</value>
   </data>
+  <data name="SubscribeAll" xml:space="preserve">
+    <value>subAll</value>
+  </data>
+  <data name="SubscribeByReferralReply" xml:space="preserve">
+    <value>subByRefRep</value>
+  </data>
   <data name="SubscribeOnMember" xml:space="preserve">
     <value>subsOnMem</value>
   </data>
@@ -239,6 +269,9 @@
   </data>
   <data name="SubscriptionRemoveConfirm" xml:space="preserve">
     <value>subsRemCon</value>
+  </data>
+  <data name="UnsubscribeAll" xml:space="preserve">
+    <value>unsubAll</value>
   </data>
   <data name="UserSettings" xml:space="preserve">
     <value>userSettings</value>

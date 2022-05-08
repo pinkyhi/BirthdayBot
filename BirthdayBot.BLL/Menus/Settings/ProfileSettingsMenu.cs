@@ -26,6 +26,7 @@ namespace BirthdayBot.BLL.Menus.Settings
             InlineKeyboardButton changeBirthDate = new InlineKeyboardButton() { CallbackData = CommandKeys.ChangeBirthDate, Text = resources["CHANGE_BIRTH_DATE_BUTTON"] };
             InlineKeyboardButton changeLocation = new InlineKeyboardButton() { CallbackData = CommandKeys.ChangeLocation, Text = resources["CHANGE_LOCATION_BUTTON"] };
             InlineKeyboardButton actualizeUser = new InlineKeyboardButton() { CallbackData = CommandKeys.ActualizeUser, Text = resources["ACTUALIZE_USER_BUTTON"] };
+            InlineKeyboardButton info = new InlineKeyboardButton() { CallbackData = CommandKeys.ProfileSettingsInfo, Text = resources["INFO_BUTTON"] };
             InlineKeyboardButton backBut = new InlineKeyboardButton() { CallbackData = CommandKeys.UserSettings, Text = resources["BACK_BUTTON"] };
 
             InlineKeyboardMarkup result = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
@@ -40,6 +41,10 @@ namespace BirthdayBot.BLL.Menus.Settings
                 new[]
                 {
                     actualizeUser
+                },
+                new[]
+                {
+                    info
                 },
                 new[]
                 {
