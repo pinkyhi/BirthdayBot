@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualizeUser" xml:space="preserve">
+    <value>actUser</value>
+  </data>
+  <data name="AddByChats" xml:space="preserve">
+    <value>addByChats</value>
+  </data>
+  <data name="AddByContact" xml:space="preserve">
+    <value>adByCont</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>addNote</value>
+  </data>
+  <data name="AddPeople" xml:space="preserve">
+    <value>addPeople</value>
+  </data>
+  <data name="AddPeopleFromChat" xml:space="preserve">
+    <value>adPFC</value>
+  </data>
+  <data name="AddPersonal" xml:space="preserve">
+    <value>addPersonal</value>
+  </data>
+  <data name="AgeConfidentialityChange" xml:space="preserve">
+    <value>ageConfidentialityChange</value>
+  </data>
+  <data name="BirthDateConfirm" xml:space="preserve">
+    <value>birthDateConfirm</value>
+  </data>
+  <data name="BirthDateReject" xml:space="preserve">
+    <value>birthDateReject</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>/calendar</value>
+  </data>
+  <data name="ChangeBirthDate" xml:space="preserve">
+    <value>changeBirthDate</value>
+  </data>
+  <data name="ChangeChatSubscription" xml:space="preserve">
+    <value>chChtSub</value>
+  </data>
+  <data name="ChangeLocation" xml:space="preserve">
+    <value>changeLocation</value>
+  </data>
+  <data name="ChangeNoteType" xml:space="preserve">
+    <value>changeNoteType</value>
+  </data>
+  <data name="ChangeSubscriptionType" xml:space="preserve">
+    <value>changeSubsType</value>
+  </data>
+  <data name="ChatSubscriptionPreview" xml:space="preserve">
+    <value>subPrev</value>
+  </data>
+  <data name="CommonNotificationsSettings" xml:space="preserve">
+    <value>commonNotificationsSettings</value>
+  </data>
+  <data name="ConfidentialitySettings" xml:space="preserve">
+    <value>confidentialitySettings</value>
+  </data>
+  <data name="ConfidentialitySettingsInfo" xml:space="preserve">
+    <value>confidentialitySettingsInfo</value>
+  </data>
+  <data name="GeopositionConfirm" xml:space="preserve">
+    <value>geopositionConfirm</value>
+  </data>
+  <data name="GeopositionReject" xml:space="preserve">
+    <value>geopositionReject</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>/help</value>
+  </data>
+  <data name="LanguageSettings" xml:space="preserve">
+    <value>languageSettings</value>
+  </data>
+  <data name="LanguageSettingsChange" xml:space="preserve">
+    <value>languageSettingsChange</value>
+  </data>
+  <data name="LeaveChatCalendar" xml:space="preserve">
+    <value>lvChCl</value>
+  </data>
+  <data name="LeaveChatCalendarConfirmation" xml:space="preserve">
+    <value>lvChClCf</value>
+  </data>
+  <data name="NoteDateConfirm" xml:space="preserve">
+    <value>noteDateConfirm</value>
+  </data>
+  <data name="NoteDateReject" xml:space="preserve">
+    <value>noteDateReject</value>
+  </data>
+  <data name="NoteRemoveConfirm" xml:space="preserve">
+    <value>noteRemoveConfirm</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>notes</value>
+  </data>
+  <data name="NotificationSettingsInfo" xml:space="preserve">
+    <value>notificationsSettingsInfo</value>
+  </data>
+  <data name="NotificationsSettings" xml:space="preserve">
+    <value>notificationsSettings</value>
+  </data>
+  <data name="NotificationsSettingsChange" xml:space="preserve">
+    <value>notificationSettingsChange</value>
+  </data>
+  <data name="NotTelegramUser" xml:space="preserve">
+    <value>notTgUser</value>
+  </data>
+  <data name="OpenChat" xml:space="preserve">
+    <value>openChat</value>
+  </data>
+  <data name="OpenNote" xml:space="preserve">
+    <value>openNote</value>
+  </data>
+  <data name="OpenSubscription" xml:space="preserve">
+    <value>openSubs</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>people</value>
+  </data>
+  <data name="ProfileSettings" xml:space="preserve">
+    <value>profileSettings</value>
+  </data>
+  <data name="ProfileSettingsInfo" xml:space="preserve">
+    <value>profSetInf</value>
+  </data>
+  <data name="RemoveMessage" xml:space="preserve">
+    <value>rmMes</value>
+  </data>
+  <data name="RemoveNote" xml:space="preserve">
+    <value>removeNote</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>removeSubs</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>/start</value>
+  </data>
+  <data name="StrongNotificationsSettings" xml:space="preserve">
+    <value>strongNotificationsSettings</value>
+  </data>
+  <data name="SubscribeAll" xml:space="preserve">
+    <value>subAll</value>
+  </data>
+  <data name="SubscribeByReferralReply" xml:space="preserve">
+    <value>subByRefRep</value>
+  </data>
+  <data name="SubscribeOnMember" xml:space="preserve">
+    <value>subsOnMem</value>
+  </data>
+  <data name="SubscriptionPreviewConfirm" xml:space="preserve">
+    <value>subPrevCon</value>
+  </data>
+  <data name="SubscriptionRemoveConfirm" xml:space="preserve">
+    <value>subsRemCon</value>
+  </data>
+  <data name="UnsubscribeAll" xml:space="preserve">
+    <value>unsubAll</value>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>userSettings</value>
+  </data>
+</root>

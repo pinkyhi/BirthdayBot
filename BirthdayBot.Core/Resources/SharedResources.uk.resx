@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<root> 
+  <!--
+  Loco xml export: ResX - .NET resources
+  Project: BirthdayBot
+  Release: Working copy
+  Locale: uk, Ukrainian
+  Exported by: Ivan Vladymyrov
+  Exported at: Fri, 08 Oct 2021 19:11:19 +0300 
+  --> 
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="locoLocaleCode" xml:space="preserve">
+    <value>uk</value>
+  </metadata>
+  <metadata name="locoLocaleName" xml:space="preserve">
+    <value>Ukrainian</value>
+  </metadata> 
+  <data name="WELCOME_TEXT" xml:space="preserve"> 
+    <value>Привіт, {0}, гарно знову бачити тебе тут!
+&lt;b&gt;Люди🥳&lt;/b&gt; - Перегляд усіх підписок/додавання за ніком, контактом, запрошенню.
+&lt;b&gt;Чати💬&lt;/b&gt; - Додавання нових підписок за спільними чатами.
+&lt;b&gt;Події✍️&lt;/b&gt; - Створи свої події й отримуй повідомлення.</value> 
+  </data> 
+  <data name="BIRTH_YEAR_INPUT" xml:space="preserve"> 
+    <value>Будь ласка, відправ свій рік народження. Ти можеш приховати його у налаштуваннях.</value> 
+  </data> 
+  <data name="BIRTH_MONTH_INPUT" xml:space="preserve"> 
+    <value>Окей! Тепер мені потрібен місяць твого народження)</value> 
+  </data> 
+  <data name="BIRTH_DAY_INPUT" xml:space="preserve"> 
+    <value>Успішно! Далі мені потрібен день народження</value> 
+  </data> 
+  <data name="START_LOCATION_INPUT" xml:space="preserve"> 
+    <value>Останній крок. Відправ свою геопозіцію або геопозіцію свого міста. Це потрібно для того щоб знати твій часовий пояс. У тебе залишилося {0} спроб</value> 
+  </data> 
+  <data name="PEOPLE_BUTTON" xml:space="preserve"> 
+    <value>Люди🥳</value> 
+  </data> 
+  <data name="USER_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Налаштування</value> 
+  </data> 
+  <data name="BIRTH_YEAR_INPUT_ERROR" xml:space="preserve"> 
+    <value>Схоже що є помилка в форматі року. Спробуй ввести рік народження ще раз, наприклад &lt;b&gt;2001&lt;/b&gt;</value> 
+  </data> 
+  <data name="BIRTH_MONTH_INPUT_ERROR" xml:space="preserve"> 
+    <value>Не виходить розпізнати місяць, використовуй клавіатуру нижче.</value> 
+  </data> 
+  <data name="BIRTH_DAY_INPUT_ERROR" xml:space="preserve"> 
+    <value>Це не схоже на день народження, спробуй написати число місяця, наприклад &lt;b&gt;22&lt;/b&gt;</value> 
+  </data> 
+  <data name="JANUARY" xml:space="preserve"> 
+    <value>Січень</value> 
+  </data> 
+  <data name="MARCH" xml:space="preserve"> 
+    <value>Березень</value> 
+  </data> 
+  <data name="APRIL" xml:space="preserve"> 
+    <value>Квітень</value> 
+  </data> 
+  <data name="MAY" xml:space="preserve"> 
+    <value>Травень</value> 
+  </data> 
+  <data name="JUNE" xml:space="preserve"> 
+    <value>Червень</value> 
+  </data> 
+  <data name="JULY" xml:space="preserve"> 
+    <value>Липень</value> 
+  </data> 
+  <data name="AUGUST" xml:space="preserve"> 
+    <value>Серпень</value> 
+  </data> 
+  <data name="SEPTEMBER" xml:space="preserve"> 
+    <value>Вересень</value> 
+  </data> 
+  <data name="OCTOBER" xml:space="preserve"> 
+    <value>Жовтень</value> 
+  </data> 
+  <data name="NOVEMBER" xml:space="preserve"> 
+    <value>Листопад</value> 
+  </data> 
+  <data name="DECEMBER" xml:space="preserve"> 
+    <value>Грудень</value> 
+  </data> 
+  <data name="FEBRUARY" xml:space="preserve"> 
+    <value>Лютий</value> 
+  </data> 
+  <data name="SHARE_LOCATION_BUTTON" xml:space="preserve"> 
+    <value>Поділитися локацією📍</value> 
+  </data> 
+  <data name="GEOPOSITION_INPUT_ERROR" xml:space="preserve"> 
+    <value>Не вдалося розпізнати геометку. Спробуй ще раз, залишилося спроб – {0}</value> 
+  </data> 
+  <data name="GEOPOSITION_CONFIRMATION" xml:space="preserve"> 
+    <value>Це правильна геопозіція?</value> 
+  </data> 
+  <data name="CONFIRM_BUTTON" xml:space="preserve"> 
+    <value>Підтвердити</value> 
+  </data> 
+  <data name="REJECT_BUTTON" xml:space="preserve"> 
+    <value>Скасувати</value> 
+  </data> 
+  <data name="BIRTH_DATE_CONFIRMATION" xml:space="preserve"> 
+    <value>Ок, твій день нарождення {0}. Так?</value> 
+  </data> 
+  <data name="INPUT_BLOCK" xml:space="preserve"> 
+    <value>Ти не має змоги вводити це значення до {0}</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Повідомлення</value> 
+  </data> 
+  <data name="LANGUAGE_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Мова</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Конфіденційність</value> 
+  </data> 
+  <data name="PROFILE_SETTINGS_BUTTON" xml:space="preserve"> 
+    <value>Налаштування профілю</value> 
+  </data> 
+  <data name="INFO_BUTTON" xml:space="preserve"> 
+    <value>ℹ️</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATIONS_BUTTON" xml:space="preserve"> 
+    <value>Покращена підписка</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATIONS_BUTTON" xml:space="preserve"> 
+    <value>Проста підписка</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_INFO" xml:space="preserve"> 
+    <value>Ти можеш змінити параметр, за скільки днів до події тобі будуть приходити повідомлення. Ти можеш змінити його для обох типів підписки.</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Тут ти можеш змінити налаштування сповіщень</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_TEXT" xml:space="preserve"> 
+    <value>Кнопки нижче представляють затримку повідомлення. Натисни на одну з них, щоб змінити його.
+&lt;i&gt;Приклад: 0 - В цей день; 3 - За 3 дня&lt;/i&gt;</value> 
+  </data> 
+  <data name="RUSSIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>Русский 🇷🇺</value> 
+  </data> 
+  <data name="UKRAINIAN_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>Українська 🇺🇦</value> 
+  </data> 
+  <data name="ENGLISH_LANGUAGE_BUTTON" xml:space="preserve"> 
+    <value>English 🇺🇸</value> 
+  </data> 
+  <data name="LANGUAGE_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>У цьому меню ти маєш змогу змінити мову інтерфейсу</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_INFO" xml:space="preserve"> 
+    <value>Вік
+* Приватний - приховати рік народження
+* Взаємний - відкрити якщо підписані взаємно
+* Публічний - видно всім</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Тут ти можеш змінити конфіденційність
+Вікова конфіденційність &lt;code&gt;{0}&lt;/code&gt;</value> 
+  </data> 
+  <data name="PUBLIC_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Публічне</value> 
+  </data> 
+  <data name="PRIVATE_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Приватний</value> 
+  </data> 
+  <data name="MUTUAL_CONFIDENTIALITY_TYPE" xml:space="preserve"> 
+    <value>Взаємний</value> 
+  </data> 
+  <data name="AGE_CONFIDENTIALITY_BUTTON" xml:space="preserve"> 
+    <value>Вікова конфіденційність</value> 
+  </data> 
+  <data name="PROFILE_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Тут ти можеш змінити свій профіль.
+ Твоя дата народження &lt;code&gt; {0} &lt;/code&gt;
+ Твоя місцезнаходження &lt;code&gt; {1} &lt;/code&gt;
+ Твій часовий пояс &lt;b&gt; {2} &lt;/b&gt;</value> 
+  </data> 
+  <data name="CHANGE_BIRTH_DATE_BUTTON" xml:space="preserve"> 
+    <value>Змінити дату народження</value> 
+  </data> 
+  <data name="CHANGE_LOCATION_BUTTON" xml:space="preserve"> 
+    <value>Змінити локацію</value> 
+  </data> 
+  <data name="USER_SETTINGS_TEXT" xml:space="preserve"> 
+    <value>Основні налаштування</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_BUTTON" xml:space="preserve"> 
+    <value>За {0} днів</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_INPUT" xml:space="preserve"> 
+    <value>Надішли бажану затримку в днях. Введіть число від 0 до 28</value> 
+  </data> 
+  <data name="NOTIFICATIONS_SETTINGS_CHANGE_INPUT_ERROR" xml:space="preserve"> 
+    <value>Не можу зрозуміти :( Спробуй ціле число, наприклад&lt;code&gt; 7 &lt;/code&gt;, від 0 до 28.</value> 
+  </data> 
+  <data name="BACK_BUTTON" xml:space="preserve"> 
+    <value>Назад</value> 
+  </data> 
+  <data name="CONFIDENTIALITY_TYPE_INPUT" xml:space="preserve"> 
+    <value>Введи тип конфіденційності або виберіть його з клавіатури нижче.</value> 
+  </data> 
+  <data name="INPUT_ERROR" xml:space="preserve"> 
+    <value>Я не зрозумів формат введення🤖, спробуй ще раз.</value> 
+  </data> 
+  <data name="YOU_CHOOSED_TEXT" xml:space="preserve"> 
+    <value>Було обрано &lt;b&gt;{0}&lt;/b&gt;</value> 
+  </data> 
+  <data name="NOTES_BUTTON" xml:space="preserve"> 
+    <value>Події✍️</value> 
+  </data> 
+  <data name="HELP_PRIVATE_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Що я вмію? 🎉&lt;/b&gt;
+
+ 1. Ти можеш додати свого друга (який є в боті) в список нагадувань, і ти будеш отримувати повідомлення про його дні народження. &lt;i&gt;Для цього зайди сторінку &lt;b&gt;Люди&lt;/b&gt;&lt;/ i&gt;.
+
+ 2. Якщо людини не має в боті, ти можеш додати в свій календар нагадувань подію з відповідною назвою і датою.
+
+ 3. Є два типи нагадувань:
+* Звичайна підписка - 1 повідомлення
+* Покращена підписка - 3 повідомлення
+Ти можеш налаштувати час відправки повідомлень на сторінці &lt;i&gt;Налаштування → &lt;b&gt;Повідомлення&lt;/b&gt;&lt;/ i&gt;
+
+ 4. Крім налаштувань типів підписки, ти також можеш змінити конфіденційність, мову або настройки профілю, такі як місце розташування або дата народження.
+
+&lt;b&gt;Безпека 🛡&lt;/b&gt;
+@yourdate_bot не може читати ваш чат, крім команд і повідомлень Telegram, наприклад «Новий учасник чату» і т.д. Ми не передаємо вашу особисту інформацію стороннім компаніям. Боту потрібно ваше місце розташування, щоб розуміти ваш місцевий час. Ви можете приховати свій вік в настройках, в цьому випадку іншим користувачам бота будуть доступні тільки місяць і день.</value> 
+  </data> 
+  <data name="CALENDAR_MENU_TEXT" xml:space="preserve"> 
+    <value>Дні народження в {0}:</value> 
+  </data> 
+  <data name="MENU_OPENER_TEXT" xml:space="preserve"> 
+    <value>Почекайте...</value> 
+  </data> 
+  <data name="SHARE_TO_GROUP" xml:space="preserve"> 
+    <value>Додати до чату</value> 
+  </data> 
+  <data name="REPLY_KEYBOARD_REMOVE_TEXT" xml:space="preserve"> 
+    <value>Тимчасові дані очищено.</value> 
+  </data> 
+  <data name="CHANGE_LOCATION_INPUT" xml:space="preserve"> 
+    <value>Відправ своє місце розташування за допомогою кнопки нижче або відправ назву свого міста. У тебе є {0} спроб.</value> 
+  </data> 
+  <data name="NOTES_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Події&lt;/b&gt;
+Тут ти можеш переглянути додані події або створити нові.</value> 
+  </data> 
+  <data name="ADD_BUTTON" xml:space="preserve"> 
+    <value>➕</value> 
+  </data> 
+  <data name="NOTE_TITLE_INPUT" xml:space="preserve"> 
+    <value>Відправ ім'я події.</value> 
+  </data> 
+  <data name="NOTE_YEAR_INPUT" xml:space="preserve"> 
+    <value>Добре, тепер я чекаю рік події</value> 
+  </data> 
+  <data name="NOTE_MONTH_INPUT" xml:space="preserve"> 
+    <value>Далі я чекаю місяць.</value> 
+  </data> 
+  <data name="NOTE_DAY_INPUT" xml:space="preserve"> 
+    <value>Та останнє – день.</value> 
+  </data> 
+  <data name="NOTE_DATE_CONFIRMATION" xml:space="preserve"> 
+    <value>Це правильна дата? &lt;b&gt;{0}&lt;/b&gt;</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>Проста підписка (1 повідомлення).</value> 
+  </data> 
+  <data name="NOTE_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Подія&lt;/b&gt;
+Заголовок: {0}
+Дата: {1}
+{2}</value> 
+  </data> 
+  <data name="REMOVE_BUTTON" xml:space="preserve"> 
+    <value>Видалити🗑</value> 
+  </data> 
+  <data name="COMMON_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value>▫️</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>Покращена підписка (3 повідомлення).</value> 
+  </data> 
+  <data name="STRONG_NOTIFICATION_BUTTON" xml:space="preserve"> 
+    <value>⭐️</value> 
+  </data> 
+  <data name="NOTE_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value>Ти впевнений, що хочеш видалити цю подію?</value> 
+  </data> 
+  <data name="PEOPLE_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Люди&lt;/b&gt;
+Тут ти можеш подивитися підписки на людей або додати нову.</value> 
+  </data> 
+  <data name="SUBSCRIPTION_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Підписка&lt;/b&gt;
+Ім'я користувача: {0}
+Дата: {1}
+{2}</value> 
+  </data> 
+  <data name="SUBSCRIPTION_REMOVE_CONFIRMATION" xml:space="preserve"> 
+    <value>Впевнений, що хочеш видалити цю підписку?</value> 
+  </data> 
+  <data name="ADD_PEOPLE_TEXT" xml:space="preserve"> 
+    <value>Оберіть спосіб додавання</value> 
+  </data> 
+  <data name="CHATS_BUTTON" xml:space="preserve"> 
+    <value>У чаті</value> 
+  </data> 
+  <data name="CHATS_TEXT" xml:space="preserve"> 
+    <value>Вибравши чат, ти зможеш додати в свій список нагадувань людей з календаря цього чату.</value> 
+  </data> 
+  <data name="PERSONAL_BUTTON" xml:space="preserve"> 
+    <value>За ніком</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT" xml:space="preserve"> 
+    <value>Введіть нікнейм користувача.
+&lt;i&gt;Наприклад&lt;/i&gt;: &lt;code&gt;@yourdate_bot&lt;/code&gt;</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_NOT_FOUND" xml:space="preserve"> 
+    <value>{0}❓
+Я не знаю цього користувача😔 Ты маєш змогу запросити його або створити подію вручну.</value> 
+  </data> 
+  <data name="ADD_MANUALLY_BUTTON" xml:space="preserve"> 
+    <value>Додати подію</value> 
+  </data> 
+  <data name="PERSONAL_INVITE_TEXT" xml:space="preserve"> 
+    <value>Привіт, твій друг запрошує тебе в цього бота. Він нагадує про дні народження друзів і це досить удобно🎁. Чекаю тебе там :)
+Використовуй це посилання та я отримаю повідомлення, що ти приєднався
+{0}</value> 
+  </data> 
+  <data name="SEND_PERSONAL_INVITE_BUTTON" xml:space="preserve"> 
+    <value>Надіслати запрошення</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_SUCCESS" xml:space="preserve"> 
+    <value>Я знайшов! 🎉 Зараз він є у твоєму списку нагадувань:)</value> 
+  </data> 
+  <data name="TICK_ICON" xml:space="preserve"> 
+    <value>✔️</value> 
+  </data> 
+  <data name="SUBSCRIPTION_PREVIEW_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Попередній перегляд підписки&lt;/b&gt;
+Заголовок: {0}
+Дата: {1}</value> 
+  </data> 
+  <data name="SUBSCRIBE_BUTTON" xml:space="preserve"> 
+    <value>Підписатися👌</value> 
+  </data> 
+  <data name="SUBSCRIBE_ON_MEMBER_SUCCESS" xml:space="preserve"> 
+    <value>Підписка успішно створена🎉</value> 
+  </data> 
+  <data name="JOIN_CHAT_CALENDAR_BUTTON" xml:space="preserve"> 
+    <value>Приєднатися до календаря чату📆</value> 
+  </data> 
+  <data name="ADDED_TO_CHAT_TEXT" xml:space="preserve"> 
+    <value>Привіт, я @yourdate_bot, і я тут, щоб нагадувати тобі про дні народження друзів🎁.
+Ти можеш додати свій день народження в календар чата📆 або сказати мені в лс.
+Я допоможу тобі скласти список повідомлень (друзів ти зможеш знайти за ніком, або через чат) і незадовго до важливої дати я штовхну тебе, що б ти нічого не забув.
+До речі, якщо ти додаш себе в календар чату, я обов'язково нагадаю й про твій день народження у цей чат🎉.
+Якщо цього тобі не достатньо, ти можеш створювати свої події (і не тільки дні народження).</value> 
+  </data> 
+  <data name="SUCCESS_START_FROM_CHAT" xml:space="preserve"> 
+    <value>Ти успішно доданий в календар чату &lt;b&gt;{0}&lt;/b&gt; 🎉. Якщо хочеш вийти з календаря чату, можеш перезайти в чат)</value> 
+  </data> 
+  <data name="WARNING_ICON" xml:space="preserve"> 
+    <value>⚠️</value> 
+  </data> 
+  <data name="CHAT_WARNING_TEXT" xml:space="preserve"> 
+    <value>⚠️Я нікого не бачу в календарі цього чату. Виклич команду &lt;code&gt;/calendar&lt;/code&gt; у чаті, щоб інші могли приєднатися!⚠️</value> 
+  </data> 
+  <data name="CHAT_CALENDAR_MENU_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;Календар чату&lt;/b&gt;
+Користувачі в календарі &lt;i&gt;{0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="ADDED_USER_TO_CHAT_TEXT" xml:space="preserve"> 
+    <value>Як я бачу, у нас з'явився новий учасник :)
+Привіт, {0}!
+Що б приєднатися до загального календаря натисни на кнопку. Ось цю ⬇️.</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_MULTIPLE" xml:space="preserve"> 
+    <value>Користувач не знайден. Можливо, ти маєш на увазі &lt;b&gt;{0}&lt;/b&gt;</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_ERROR" xml:space="preserve"> 
+    <value>Помилковий формат, спробуйте ще раз.</value> 
+  </data> 
+  <data name="ADDED_TO_CHAT_ERROR" xml:space="preserve"> 
+    <value>Не знаю чому, але я трошки зломався. Видали мене та спробуй ще раз пізніше :(</value> 
+  </data> 
+  <data name="HELP_CHAT_TEXT" xml:space="preserve"> 
+    <value>Використовуй цю команду у мене в лс :)</value> 
+  </data> 
+  <data name="ALL_USERS_ADDED_TEXT" xml:space="preserve"> 
+    <value>Чудово!🥳 Усі учасники підключені до календаря чату!
+Разраб задоволений й хвалит мене❤️.</value> 
+  </data> 
+  <data name="PERSONAL_NOTE_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>&lt;i&gt;❗️Повідомлення❗️&lt;/i&gt;
+Подія &lt;b&gt;{0}&lt;/b&gt;
+Відбудеться {1}</value> 
+  </data> 
+  <data name="PERSONAL_SUB_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>&lt;b&gt;❗️Повідомлення❗️&lt;/b&gt;
+&lt;code&gt;{0}&lt;/code&gt; святкує день народження - {1} :)
+Не забувай 🎉</value> 
+  </data> 
+  <data name="CHAT_BIRTH_NOTIFICATION_TEXT" xml:space="preserve"> 
+    <value>@{0}, з днем народження! 🎁🎂🎁
+Ти крутий чіпс :)
+&lt;i&gt;Дата: {1}; Часовий пояс: {2}&lt;/i&gt;</value> 
+  </data> 
+  <data name="29_FEBRUARY_WARNING_TEXT" xml:space="preserve"> 
+    <value>⚠️В невисокосний рік ця дата буде представлена як 1 березня.⚠️</value> 
+  </data> 
+  <data name="FIRST_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>У календарі так мало участніков😔, швидше за додавайтеся.
+&lt;i&gt;Кількість учасників: {0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="SECOND_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>Людей у календарі все ще менше третини. Я крапельку хвилююсь😟. &lt;i&gt;Кількість учасників: {0}/{1}&lt;/i&gt;</value> 
+  </data> 
+  <data name="THIRD_CHAT_MEMBERS_COUNT_NOTIFICATION" xml:space="preserve"> 
+    <value>І все так-же менше третини учасників приєдналося до календаря. Гаразд, більше не буду нагадувати. Сподіваюся Ви таки справді пам'ятайте про дні народження один одного ❤️
+&lt;i&gt;Кількість учасників: {0}/{1}&lt;/ i&gt;</value> 
+  </data> 
+  <data name="ACTUALIZE_USER_BUTTON" xml:space="preserve"> 
+    <value>Оновити користувача</value> 
+  </data> 
+  <data name="ACTUALIZE_USER_TEXT" xml:space="preserve"> 
+    <value>Твоє ім'я оновлено</value> 
+  </data> 
+  <data name="SUBSCRIPTIONS_LIMIT" xml:space="preserve"> 
+    <value>Досягнуто ліміт за кількістю підписок</value> 
+  </data> 
+  <data name="USER_PLACEHOLDER" xml:space="preserve"> 
+    <value>чіпс</value> 
+  </data> 
+  <data name="ADDED_USER_TO_CHAT_ERROR" xml:space="preserve"> 
+    <value>Привіт, бачу до нас приєднався хтось новий :)
+Що б приєднатися до загального календаря натисни на кнопку. Ось цю ⬇️.</value> 
+  </data> 
+  <data name="NOTES_LIMIT" xml:space="preserve"> 
+    <value>Досягнуто ліміт кількості подій</value> 
+  </data> 
+  <data name="TRANSFERED_NOTE_CREATION" xml:space="preserve"> 
+    <value>Створення події {0}:</value> 
+  </data> 
+  <data name="CHATS_WARNING_TEXT" xml:space="preserve"> 
+    <value>Я не бачу жодного календаря чату з тобою. Виклич команду &lt;code&gt;/calendar&lt;/code&gt; в потрібному чаті і приєднайся).</value> 
+  </data> 
+  <data name="SUBSCRIBE_ON_MEMBER_DUPLICATE" xml:space="preserve"> 
+    <value>У тебе вже є підписка на цю людину</value> 
+  </data> 
+  <data name="OPEN_CHAT_ERROR" xml:space="preserve"> 
+    <value>Не можу відкрити чат :( Спробуй пізніше</value> 
+  </data> 
+  <data name="CALENDAR_BUTTON" xml:space="preserve"> 
+    <value>Список повідомлень</value> 
+  </data> 
+  <data name="PROFILE_SETTINGS_INFO" xml:space="preserve"> 
+    <value>* Дату народження - змінює дату також для людей які вже підписані на вас.
+* Локації - 3 спроби для зміни локації.
+* Актуалізація - оновити ім'я/нік в боті.</value> 
+  </data> 
+  <data name="CHAT_START_TEXT" xml:space="preserve"> 
+    <value>Використовуй цю команду у персональному чаті зі мною :)</value> 
+  </data> 
+  <data name="JANUARY_SHORT" xml:space="preserve"> 
+    <value>Січ.</value> 
+  </data> 
+  <data name="FEBRUARY_SHORT" xml:space="preserve"> 
+    <value>Лют.</value> 
+  </data> 
+  <data name="MARCH_SHORT" xml:space="preserve"> 
+    <value>Бер.</value> 
+  </data> 
+  <data name="APRIL_SHORT" xml:space="preserve"> 
+    <value>Квіт.</value> 
+  </data> 
+  <data name="MAY_SHORT" xml:space="preserve"> 
+    <value>Трав.</value> 
+  </data> 
+  <data name="JUNE_SHORT" xml:space="preserve"> 
+    <value>Чер.</value> 
+  </data> 
+  <data name="JULY_SHORT" xml:space="preserve"> 
+    <value>Лип.</value> 
+  </data> 
+  <data name="AUGUST_SHORT" xml:space="preserve"> 
+    <value>Сер.</value> 
+  </data> 
+  <data name="SEPTEMBER_SHORT" xml:space="preserve"> 
+    <value>Вер.</value> 
+  </data> 
+  <data name="OCTOBER_SHORT" xml:space="preserve"> 
+    <value>Жов.</value> 
+  </data> 
+  <data name="NOVEMBER_SHORT" xml:space="preserve"> 
+    <value>Лист.</value> 
+  </data> 
+  <data name="DECEMBER_SHORT" xml:space="preserve"> 
+    <value>Груд.</value> 
+  </data> 
+  <data name="NOT_TELEGRAM_USER_TEXT" xml:space="preserve"> 
+    <value>Для того щоб додати подію дня народження людини якої немає у Telegram, використовуй &lt;b&gt;Події&lt;/b&gt;.
+Зараз тебе переадресовано на створення події.</value> 
+  </data> 
+  <data name="NOT_TELEGRAM_USER_BUTTON" xml:space="preserve"> 
+    <value>Без Telegram</value> 
+  </data> 
+  <data name="REFERRAL_NOTIFICATION" xml:space="preserve"> 
+    <value>{0} приєднався за твоїм реферальним посиланням</value> 
+  </data> 
+  <data name="NO_CONTACT_ERROR" xml:space="preserve"> 
+    <value>Я не бачу контакт. Спробуй додати контакт, ти можеш зробити це тільки через мобільний додаток Telegram.</value> 
+  </data> 
+  <data name="EMPTY_CONTACT_ERROR" xml:space="preserve"> 
+    <value>Схоже ця людина не користується Telegram.</value> 
+  </data> 
+  <data name="CONTACT_NOT_FOUND" xml:space="preserve"> 
+    <value>Я не знаю цього користувача :(</value> 
+  </data> 
+  <data name="ADD_BY_CONTACT_BUTTON" xml:space="preserve"> 
+    <value>По контакту</value> 
+  </data> 
+  <data name="ADD_BY_CONTACT_INPUT" xml:space="preserve"> 
+    <value>Відправ контакт</value> 
+  </data> 
+  <data name="ADD_PERSONAL_INPUT_DUPLICATE" xml:space="preserve"> 
+    <value>Ти вже маєш підписку на цього користувача.</value> 
+  </data> 
+  <data name="REFERRAL_TARGET_UNKNOWN" xml:space="preserve"> 
+    <value>Здається ця людина не користується ботом.</value> 
+  </data> 
+  <data name="SUBSCRIBE_REFERRAL_ERROR" xml:space="preserve"> 
+    <value>Мені не вдається створити підписку автоматично. Спробуй зробити це сам.</value> 
+  </data> 
+  <data name="GEOPOSITION_DENIED_ERROR" xml:space="preserve"> 
+    <value>Здається я маю проблеми назараз :( Спробуй пізніше.</value> 
+  </data> 
+  <data name="FRIEND_ADDED_TO_CHAT_CALENDAR" xml:space="preserve"> 
+    <value>{0} додав себе у календар чату {1}.
+Створити підписку на цю людину?</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>Не повідомлювати🔕</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Підписка на усіх🧨</value> 
+  </data> 
+  <data name="SUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Створені підписки на усіх з цього чату!</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_BUTTON" xml:space="preserve"> 
+    <value>Відписатися від усіх👋</value> 
+  </data> 
+  <data name="UNSUBSCRIBE_ALL_TEXT" xml:space="preserve"> 
+    <value>Ти відписався від усіх людей з чату</value> 
+  </data> 
+  <data name="REFERRAL_BACK_NOTIFICATION" xml:space="preserve"> 
+    <value>Тебе запросив {0}. Бажаєш підписатися на нього?</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGED_TO_ON" xml:space="preserve"> 
+    <value>Зараз ти підписан на календар чату.</value> 
+  </data> 
+  <data name="CHAT_CALENDAR_SUBSCRIPTION_REMOVED" xml:space="preserve"> 
+    <value>Зараз ти НЕ підписан на календар чату.</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_ON_BUTTON" xml:space="preserve"> 
+    <value>Відстежувати календар чату🔔</value> 
+  </data> 
+  <data name="CHAT_SUBSCRIPTION_CHANGE_TO_OFF_BUTTON" xml:space="preserve"> 
+    <value>Не відстежувати календар чату🔕</value> 
+  </data> 
+  <data name="INVITE_FRIEND_BUTTON" xml:space="preserve"> 
+    <value>Запросити друга</value> 
+  </data> 
+  <data name="OPEN_CHAT_TEXT" xml:space="preserve"> 
+    <value>У цьому меню ти маєш змогу підписатися на одного з учасників чату.</value> 
+  </data> 
+  <data name="MAIN_CHATS_BUTTON" xml:space="preserve"> 
+    <value>Чати💬</value> 
+  </data> 
+  <data name="ADD_PEOPLE_FROM_CHAT_TEXT" xml:space="preserve"> 
+    <value>Щоб додавати людей через чат, використовуй меню &lt;b&gt;Чати💬&lt;/b&gt;.
+Тебе було направлено до цього меню.</value> 
+  </data> 
+  <data name="MIGRATED_TO_CHAT" xml:space="preserve"> 
+    <value>Здається хтось змінив тип групи. Календар чату відновлено.</value> 
+  </data> 
+  <data name="LEAVE_BUTTON" xml:space="preserve"> 
+    <value>Вийти🥺</value> 
+  </data> 
+  <data name="LEAVE_CHAT_CONFIRM_TEXT" xml:space="preserve"> 
+    <value>Ти впевнений, що хочеш вийти з календаря чату &lt;b&gt;{0}&lt;/b&gt;?</value> 
+  </data> 
+  <data name="LEAVE_CHAT_BUTTON" xml:space="preserve"> 
+    <value>❌Залишити календар❌</value> 
+  </data> 
+  <data name="CHAT_LEAVED_TEXT" xml:space="preserve"> 
+    <value>Ти залишив цей календр, але ти можеш приєднатися знову.</value> 
+  </data> 
+</root>
