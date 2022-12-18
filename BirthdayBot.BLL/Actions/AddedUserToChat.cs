@@ -33,7 +33,10 @@ namespace BirthdayBot.BLL.Actions
             try
             {
                 var tUser = await repository.GetAsync<TUser>(false, x => x.Id == newUser.Id);
-                telegramUserLanguageCode = tUser.LanguageCode;
+                if(tUser != null)
+                {
+                    telegramUserLanguageCode = tUser.LanguageCode;
+                }
             }
             catch
             { }
