@@ -28,6 +28,8 @@ namespace BirthdayBot
                         co.SslProtocols = SslProtocols.Tls12;
                     });
                     var pfxPath = GetPfxPath();
+                    var aspPfxPath = Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path");
+
                     if (System.IO.File.Exists(pfxPath))
                     {
                         options.Listen(IPAddress.Any, 443, listenOptions =>
@@ -43,11 +45,11 @@ namespace BirthdayBot
                     {
                         options.Listen(IPAddress.Any, 443, listenOptions =>
                         {
-                            listenOptions.UseHttps();
+                            listenOptions.UseHttps(aspPfxPath, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
                         });
                         options.Listen(IPAddress.Loopback, 5001, listenOptions =>
                         {
-                            listenOptions.UseHttps();
+                            listenOptions.UseHttps(aspPfxPath, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
                         });
                     }
 
