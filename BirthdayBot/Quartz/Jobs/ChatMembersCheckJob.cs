@@ -35,6 +35,7 @@ namespace BirthdayBot.Quartz.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
+            logger.LogInformation($"ChatMembersCheck job started at: {DateTime.Now}");
             if (DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
             {
                 try

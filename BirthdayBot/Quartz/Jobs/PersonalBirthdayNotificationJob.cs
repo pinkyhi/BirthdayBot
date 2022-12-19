@@ -32,7 +32,8 @@ namespace BirthdayBot.Quartz.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            if(DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
+            logger.LogInformation($"PersonalBirthdayNotification job started at: {DateTime.Now}");
+            if (DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
             {
                 try
                 {
