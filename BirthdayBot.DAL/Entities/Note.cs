@@ -17,5 +17,7 @@ namespace BirthdayBot.DAL.Entities
         public long UserId { get; set; }
 
         public TUser User { get; set; }
+
+        public DateTime? LastNotificationTime { get; set; }
     }
 }

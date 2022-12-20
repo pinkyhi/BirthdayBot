@@ -94,12 +94,18 @@ namespace BirthdayBot.Extensions
 
                 q.AddJob<PersonalBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(persNotJobKey);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
                 q.AddJob<ChatBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(chatNotJobKey);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
                 q.AddJob<ChatMembersCheckJob>(opts => {
                     opts.WithIdentity(chatCheckCount);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
 
                 // 0 * * ? * * --- Every minute 
