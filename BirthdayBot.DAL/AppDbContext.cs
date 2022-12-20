@@ -42,7 +42,6 @@ namespace BirthdayBot.DAL
                 FillQuartzTables(connectionString);
                 StaticFlags.IsQrtzChecked = true;
             }
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -142,6 +142,7 @@ namespace BirthdayBot.Quartz.Jobs
                             logger.LogError(ex.ToString());
                         }
                     }
+                    repository.UpdateRange(subs);
                 }
                 catch (Exception ex)
                 {
