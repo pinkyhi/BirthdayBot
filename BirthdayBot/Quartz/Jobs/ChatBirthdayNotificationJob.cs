@@ -8,6 +8,7 @@ using Quartz;
 using RapidBots;
 using RapidBots.Types.Core;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -33,6 +34,7 @@ namespace BirthdayBot.Quartz.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
+            logger.LogInformation($"ChatBirthdayNotification job started at: {DateTime.Now}");
             if (DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
             {
                 try
@@ -40,12 +42,16 @@ namespace BirthdayBot.Quartz.Jobs
                     DateTime uNow = DateTime.Now.ToUniversalTime();
                     var utcHour = uNow.Hour;
 
-                    var members = await repository.GetRangeAsync<ChatMember>(false, x =>
+                    var membersEnum = await repository.GetRangeAsync<ChatMember>(false, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600);
-                        DateTime now = uNow.AddHours(hoursOffset).Date;
-                        var hourInCountry = (utcHour + Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600)) % 24;
-                        if (hourInCountry == 9)
+                        DateTime now = uNow.AddHours(hoursOffset);
+                        if (x.LastNotificationTime.HasValue && x.LastNotificationTime.Value.Date.Equals(now.Date))
+                        {
+                            return false;
+                        }
+                        var hourInCountry = (utcHour + Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600) + 24) % 24;
+                        if (hourInCountry >= 9)
                         {
                             var clearDate = x.User.BirthDate.AddYears(now.Year - x.User.BirthDate.Year);
                             if (x.User.BirthDate.Month == 2 && x.User.BirthDate.Day == 29)
@@ -60,18 +66,23 @@ namespace BirthdayBot.Quartz.Jobs
                         }
                         return false;
                     }, x => x.Include(x => x.Chat).Include(x => x.User));
-
+                    var members = new List<ChatMember>(membersEnum);
                     foreach (var member in members)
                     {
+                        var hoursOffset = Convert.ToInt32((member.User.Timezone.DstOffset + member.User.Timezone.RawOffset) / 3600);
+                        DateTime now = uNow.AddHours(hoursOffset);
                         try
                         {
                             InlineKeyboardButton joinChatCalendar = new InlineKeyboardButton() { Text = resources["JOIN_CHAT_CALENDAR_BUTTON"], Url = string.Format("https://t.me/yourdate_bot?start={0}", member.ChatId) };
                             CultureInfo.CurrentCulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
                             CultureInfo.CurrentUICulture = new CultureInfo(member.User?.LanguageCode ?? options.DefaultLanguageCode);
                             await botClient.SendTextMessageAsync(member.ChatId, resources["CHAT_BIRTH_NOTIFICATION_TEXT", member.User.Username ?? $"{member.User.FirstName} {member.User.LastName}", member.User.GetConfidentialDateString(), member.User.Timezone.TimeZoneName], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(joinChatCalendar));
+                            member.LastNotificationTime = now;
+                           
                         }
                         catch(Exception ex) {logger.LogError(ex.ToString());}
                     }
+                    repository.UpdateRange(members);
                 }
                 catch (Exception ex)
                 {

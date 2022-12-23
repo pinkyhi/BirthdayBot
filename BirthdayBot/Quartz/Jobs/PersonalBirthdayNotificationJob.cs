@@ -8,6 +8,7 @@ using Quartz;
 using RapidBots;
 using RapidBots.Types.Core;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -32,18 +33,25 @@ namespace BirthdayBot.Quartz.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            if(DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
+            logger.LogInformation($"PersonalBirthdayNotification job started at: {DateTime.Now}");
+            if (DateTime.UtcNow.Date == context.FireTimeUtc.UtcDateTime.Date)
             {
                 try
                 {
                     DateTime uNow = DateTime.Now.ToUniversalTime();
                     var utcHour = uNow.Hour;
-                    var notes = await repository.GetRangeAsync<Note>(false, x =>
+ 
+                    var notesEnum = await repository.GetRangeAsync<Note>(false, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600);
-                        DateTime now = uNow.AddHours(hoursOffset).Date;
-                        var hourInCountry = (utcHour + hoursOffset) % 24;
-                        if (hourInCountry == 0)
+                        DateTime now = uNow.AddHours(hoursOffset);
+
+                        if (x.LastNotificationTime.HasValue && x.LastNotificationTime.Value.Date.Equals(now.Date))
+                        {
+                            return false;
+                        }
+                        var hourInCountry = (utcHour + hoursOffset + 24) % 24;
+                        if (hourInCountry >= 0)
                         {
                             var clearDate = x.Date.AddYears(now.Year - x.Date.Year);
                             if (x.Date.Month == 2 && x.Date.Day == 29)
@@ -65,13 +73,18 @@ namespace BirthdayBot.Quartz.Jobs
                         }
                         return false;
                     }, x => x.Include(x => x.User));
-
-                    var subs = await repository.GetRangeAsync<Subscription>(false, x =>
+                    var notes = new List<Note>(notesEnum);
+                    var subsEnum = await repository.GetRangeAsync<Subscription>(false, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.Target.Timezone.DstOffset + x.Target.Timezone.RawOffset) / 3600);
-                        DateTime now = uNow.AddHours(hoursOffset).Date;
-                        var hourInCountry = (utcHour + Convert.ToInt32((x.Target.Timezone.DstOffset + x.Target.Timezone.RawOffset) / 3600)) % 24;
-                        if (hourInCountry == 0)
+                        DateTime now = uNow.AddHours(hoursOffset);
+
+                        if (x.LastNotificationTime.HasValue && x.LastNotificationTime.Value.Date.Equals(now.Date))
+                        {
+                            return false;
+                        }
+                        var hourInCountry = (utcHour + Convert.ToInt32((x.Target.Timezone.DstOffset + x.Target.Timezone.RawOffset) / 3600) + 24) % 24;
+                        if (hourInCountry >= 0)
                         {
                             var clearDate = x.Target.BirthDate.AddYears(now.Year - x.Target.BirthDate.Year);
                             if (x.Target.BirthDate.Month == 2 && x.Target.BirthDate.Day == 29)
@@ -93,33 +106,43 @@ namespace BirthdayBot.Quartz.Jobs
                         }
                         return false;
                     }, x => x.Include(x => x.Target).Include(x => x.Subscriber));
+                    var subs = new List<Subscription>(subsEnum);
 
-                    foreach(var note in notes)
+                    // Sending notifications
+                    foreach (var note in notes)
                     {
+                        var hoursOffset = Convert.ToInt32((note.User.Timezone.DstOffset + note.User.Timezone.RawOffset) / 3600);
+                        DateTime now = uNow.AddHours(hoursOffset);
                         CultureInfo.CurrentCulture = new CultureInfo(note.User?.LanguageCode ?? options.DefaultLanguageCode);
                         CultureInfo.CurrentUICulture = new CultureInfo(note.User?.LanguageCode ?? options.DefaultLanguageCode);
                         try
                         {
                             await botClient.SendTextMessageAsync(note.UserId, resources["PERSONAL_NOTE_NOTIFICATION_TEXT", note.Title, note.Date.ToShortDateString()], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                            note.LastNotificationTime = now;
                         }
                         catch (Exception ex)
                         {
                             logger.LogError(ex.ToString());
                         }
                     }
+                    repository.UpdateRange(notes);
                     foreach (var sub in subs)
                     {
+                        var hoursOffset = Convert.ToInt32((sub.Target.Timezone.DstOffset + sub.Target.Timezone.RawOffset) / 3600);
+                        DateTime now = uNow.AddHours(hoursOffset);
                         CultureInfo.CurrentCulture = new CultureInfo(sub.Subscriber?.LanguageCode ?? options.DefaultLanguageCode);
                         CultureInfo.CurrentUICulture = new CultureInfo(sub.Subscriber?.LanguageCode ?? options.DefaultLanguageCode);
                         try
                         {
                             await botClient.SendTextMessageAsync(sub.SubscriberId, resources["PERSONAL_SUB_NOTIFICATION_TEXT", sub.Target.Username ?? $"{sub.Target.FirstName} {sub.Target.LastName}", sub.Subscriber.GetAnotherUserDateString(sub.Target)], parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+                            sub.LastNotificationTime = now;
                         }
                         catch (Exception ex)
                         {
                             logger.LogError(ex.ToString());
                         }
                     }
+                    repository.UpdateRange(subs);
                 }
                 catch (Exception ex)
                 {

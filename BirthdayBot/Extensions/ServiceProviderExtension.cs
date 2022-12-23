@@ -65,17 +65,28 @@ namespace BirthdayBot.Extensions
         public static void AddQuartzHelper(this IServiceCollection services, string connectionString)
         {
             services.AddTransient<PersonalBirthdayNotificationJob>();
+            services.AddTransient<ChatBirthdayNotificationJob>();
+            services.AddTransient<ChatMembersCheckJob>();
+
+            services.Configure<QuartzOptions>(options =>
+            {
+                options.Scheduling.IgnoreDuplicates = true; // default: false
+                options.Scheduling.OverWriteExistingData = true; // default: true
+            });
 
             services.AddQuartz(q =>
             {
+                q.UseDefaultThreadPool();
                 q.UseMicrosoftDependencyInjectionJobFactory();
+                q.UseSimpleTypeLoader();
+                q.SchedulerId = "Scheduler-Core";
+
                 q.UsePersistentStore(s =>
                 {
                     s.UseSqlServer(connectionString);
                     s.UseProperties = true;
                     s.UseJsonSerializer();
                 });
-                q.SchedulerId = "Scheduler-Core";
 
                 var persNotJobKey = new JobKey("PersonalBirthdayNotificationJob");
                 var chatNotJobKey = new JobKey("ChatBirthdayNotificationJob");
@@ -83,29 +94,55 @@ namespace BirthdayBot.Extensions
 
                 q.AddJob<PersonalBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(persNotJobKey);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
                 q.AddJob<ChatBirthdayNotificationJob>(opts => {
                     opts.WithIdentity(chatNotJobKey);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
                 q.AddJob<ChatMembersCheckJob>(opts => {
                     opts.WithIdentity(chatCheckCount);
+                    opts.PersistJobDataAfterExecution(true);
+                    opts.StoreDurably(true);
                 });
 
+                // 0 * * ? * * --- Every minute 
                 q.AddTrigger(opts => opts
                     .ForJob(persNotJobKey)
                     .WithIdentity("PersonalBirthdayNotification-trigger")
-                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
+                    .WithCronSchedule("0 0 * ? * * *"));    // 0 * * * *
                 q.AddTrigger(opts => opts
                     .ForJob(chatNotJobKey)
                     .WithIdentity("ChatBirthdayNotificationJob-trigger")
-                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
+                    .WithCronSchedule("0 0 * ? * * *"));    // 0 * * * *
                 q.AddTrigger(opts => opts
                     .ForJob(chatCheckCount)
                     .WithIdentity("ChatMembersCheckJob-trigger")
-                    .WithCronSchedule("0 0 0/1 1/1 * ? *"));
+                    .WithCronSchedule("0 0 * ? * * *"));    // 0 * * * *
+
+                q.UsePersistentStore(s =>
+                {
+                    s.PerformSchemaValidation = true;
+                    s.UseProperties = true;
+                    s.RetryInterval = TimeSpan.FromSeconds(15);
+                    s.UseSqlServer(sqlServer =>
+                    {
+                        sqlServer.ConnectionString = connectionString;
+                        sqlServer.TablePrefix = "QRTZ_";
+                    });
+                    s.UseJsonSerializer();
+                    s.UseClustering(c =>
+                    {
+                        c.CheckinMisfireThreshold = TimeSpan.FromSeconds(20);
+                        c.CheckinInterval = TimeSpan.FromSeconds(10);
+                    });
+                });
             });
-            services.AddQuartzServer(options =>
+            services.AddQuartzHostedService(options =>
             {
+                options.StartDelay = TimeSpan.FromSeconds(1);
                 options.WaitForJobsToComplete = true;
             });
         }

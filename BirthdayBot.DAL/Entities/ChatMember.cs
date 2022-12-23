@@ -16,6 +16,8 @@ namespace BirthdayBot.DAL.Entities
 
         public bool? IsSubscribedOnCalendar { get; set; }
 
+        public DateTime? LastNotificationTime { get; set; }
+
         public DateTime AddingDate { get; set; }
     }
 }

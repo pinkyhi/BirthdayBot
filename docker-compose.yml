@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   birthdaybot:
-    image: ${DOCKER_REGISTRY-}birthdaybot
+    image: ${DOCKER_REGISTRY-}pinkyhi/birthdaybot
     ports:
     - "443:443"
     - "88:88"

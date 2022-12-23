@@ -1,4 +1,6 @@
-﻿namespace BirthdayBot.DAL.Entities
+﻿using System;
+
+namespace BirthdayBot.DAL.Entities
 {
     public class Subscription
     {
@@ -9,6 +11,8 @@
         public TUser Subscriber { get; set; }
 
         public TUser Target { get; set; }
+
+        public DateTime? LastNotificationTime { get; set; }
 
         public bool IsStrong { get; set; }
     }

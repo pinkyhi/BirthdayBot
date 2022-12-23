@@ -1,9 +1,15 @@
 ﻿using BirthdayBot.Core.Enums;
+using BirthdayBot.Core.Static;
 using BirthdayBot.Core.Types;
 using BirthdayBot.DAL.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Data;
 using System.Linq;
 
 namespace BirthdayBot.DAL
@@ -11,15 +17,31 @@ namespace BirthdayBot.DAL
     public class AppDbContext : DbContext
     {
         private readonly ClientSettings clientSettings;
+        private readonly ILogger<AppDbContext> logger;
 
         public DbSet<TUser> Users { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, ClientSettings clientSettings)
+        public AppDbContext(DbContextOptions<AppDbContext> options, ClientSettings clientSettings, ILogger<AppDbContext> logger, IConfiguration configuration, IHostingEnvironment environment)
             : base(options)
         {
             this.clientSettings = clientSettings;
+            this.logger = logger;
             this.Database.Migrate();
-            FillQuartzTables();
+
+            if (!StaticFlags.IsQrtzChecked)
+            {
+                string connectionString;
+                if (environment.IsDevelopment())
+                {
+                    connectionString = configuration.GetConnectionString("DefaultConnection");
+                }
+                else
+                {
+                    connectionString = configuration.GetConnectionString("DefaultConnectionProd");
+                }
+                FillQuartzTables(connectionString);
+                StaticFlags.IsQrtzChecked = true;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -128,7 +150,7 @@ namespace BirthdayBot.DAL
                 .SetValueComparer(valueComparer);
         }
 
-        private void FillQuartzTables()
+        private void FillQuartzTables(string connectionString)
         {
             var commands = @$"USE [{this.Database.GetDbConnection().Database}];
                 GO
@@ -517,11 +539,35 @@ namespace BirthdayBot.DAL
                 CREATE INDEX [IDX_QRTZ_FT_G_T]                ON [dbo].[QRTZ_FIRED_TRIGGERS](SCHED_NAME, TRIGGER_GROUP, TRIGGER_NAME);
                 GO
                 ".Split("GO");
-            foreach(var command in commands)
+
+            bool tableExists = false;
+            try
             {
-                if (!string.IsNullOrWhiteSpace(command))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    this.Database.ExecuteSqlRaw(command);
+                    var checkCommand = "SELECT CASE WHEN OBJECT_ID('dbo.QRTZ_TRIGGERS', 'U') IS NOT NULL THEN 1 ELSE 0 END";
+
+                    SqlCommand command = new SqlCommand(checkCommand, connection);
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+
+                    tableExists = Convert.ToBoolean(command.ExecuteScalar());
+                }
+            }
+            catch(Exception ex)
+            {
+                logger.LogError($"Error during QRTZ db check: {ex.Message}\n{ex.StackTrace}");
+                return;
+            }
+
+            if (!tableExists)
+            {
+                foreach (var command in commands)
+                {
+                    if (!string.IsNullOrWhiteSpace(command))
+                    {
+                        this.Database.ExecuteSqlRaw(command);
+                    }
                 }
             }
         }
