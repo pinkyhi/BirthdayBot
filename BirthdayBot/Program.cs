@@ -40,7 +40,7 @@ namespace BirthdayBot
                         {
                             listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
                         });
-                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
                         {
                             listenOptions.UseHttps(pfxPath, "Bn98rnQBS");
                         });
@@ -51,7 +51,7 @@ namespace BirthdayBot
                         {
                             listenOptions.UseHttps(aspPfxPath, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
                         });
-                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
                         {
                             listenOptions.UseHttps(aspPfxPath, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
                         });
@@ -62,7 +62,7 @@ namespace BirthdayBot
                         {
                             listenOptions.UseHttps(FindMatchingCertificateBySubject("localhost"));
                         });
-                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
                         {
                             listenOptions.UseHttps(FindMatchingCertificateBySubject("localhost"));
                         });
