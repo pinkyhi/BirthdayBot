@@ -73,7 +73,7 @@ namespace BirthdayBot
 
         private static X509Certificate2 FindMatchingCertificateBySubject(string subjectCommonName)
         {
-            using (var store = new X509Store(StoreName.My, StoreLocation.LocalMachine))
+            using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
                 var certCollection = store.Certificates;
