@@ -3,6 +3,7 @@ using BirthdayBot.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RapidBots;
 using RapidBots.Extensions;
 using RapidBots.Types.Core;
@@ -22,14 +23,16 @@ namespace BirthdayBot.Controllers
         private readonly IServiceProvider serviceProvider;
         private readonly ILogger<HomeController> logger;
         private readonly IRepository repository;
+        private readonly BotClient botClient;
 
-        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger, IRepository repository)
+        public HomeController(ActionManager actionsManager, IServiceProvider serviceProvider, ILogger<HomeController> logger, IRepository repository, BotClient botClient)
         {
 
             this.actionsManager = actionsManager;
             this.serviceProvider = serviceProvider;
             this.logger = logger;
             this.repository = repository;
+            this.botClient = botClient;
         }
 
         [HttpGet]
@@ -39,7 +42,8 @@ namespace BirthdayBot.Controllers
             logger.LogDebug("GET request");
             var users = await repository.GetRangeAsync<TUser>(false, x => x.RegistrationDate != null);
             var chats = await repository.GetRangeAsync<DAL.Entities.Chat>(false, x => true);
-            return Ok($"Users count: {users.Count()}\nChats count: {chats.Count()}");
+            var hookInfo = await botClient.GetWebhookInfoAsync();
+            return Ok($"Users count: {users.Count()}\nChats count: {chats.Count()}\nHook info:{JsonConvert.SerializeObject(hookInfo, Formatting.Indented)}");
         }
 
         [HttpPost]
