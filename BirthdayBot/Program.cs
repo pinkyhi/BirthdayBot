@@ -33,6 +33,7 @@ namespace BirthdayBot
                     });
                     var pfxPath = GetPfxPath();
                     var aspPfxPath = Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path");
+                    var certSubject = Environment.GetEnvironmentVariable("Certificate_CN");
 
                     if (pfxPath != null && System.IO.File.Exists(pfxPath))
                     {
@@ -60,11 +61,11 @@ namespace BirthdayBot
                     {
                         options.Listen(IPAddress.Any, 443, listenOptions =>
                         {
-                            listenOptions.UseHttps(FindMatchingCertificateBySubject("localhost"));
+                            listenOptions.UseHttps(FindMatchingCertificateBySubject(certSubject));
                         });
                         options.Listen(IPAddress.Any, 5001, listenOptions =>
                         {
-                            listenOptions.UseHttps(FindMatchingCertificateBySubject("localhost"));
+                            listenOptions.UseHttps(FindMatchingCertificateBySubject(certSubject));
                         });
                     }
 
@@ -73,9 +74,9 @@ namespace BirthdayBot
 
         private static X509Certificate2 FindMatchingCertificateBySubject(string subjectCommonName)
         {
-            using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser, OpenFlags.ReadWrite))
             {
-                store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
+                store.Open(OpenFlags.ReadWrite);
                 var certCollection = store.Certificates;
                 var matchingCerts = new X509Certificate2Collection();
 

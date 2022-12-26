@@ -8,7 +8,8 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Bn98rnQBS
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - WebHookUrl=https://3505-2001-56a-7b63-fe00-9027-5498-93bc-535e.ngrok.io
-      - SslCertificatePEM=/botcerts/PUBLIC.pe
+      - Certificate_CN=45.83.194.53
+      - SslCertificatePEM=/botcerts/PUBLIC.pem
       - SslCertificatePFX=/botcerts/PUBLIC.pf
     ports:
       - "5001:5001"
