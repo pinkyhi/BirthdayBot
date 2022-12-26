@@ -32,10 +32,22 @@ namespace BirthdayBot
                         co.SslProtocols = SslProtocols.Tls12;
                     });
                     var pfxPath = GetPfxPath();
+                    var pemPath = GetPemPath();
                     var aspPfxPath = Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path");
                     var certSubject = Environment.GetEnvironmentVariable("Certificate_CN");
 
-                    if (pfxPath != null && System.IO.File.Exists(pfxPath))
+                    if (pemPath != null && System.IO.File.Exists(pemPath))
+                    {
+                        options.Listen(IPAddress.Any, 443, listenOptions =>
+                        {
+                            listenOptions.UseHttps(pemPath);
+                        });
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+                        {
+                            listenOptions.UseHttps(pemPath);
+                        });
+                    }
+                    else if (pfxPath != null && System.IO.File.Exists(pfxPath))
                     {
                         options.Listen(IPAddress.Any, 443, listenOptions =>
                         {
@@ -107,6 +119,15 @@ namespace BirthdayBot
             var rapidBotsOptions = new RapidBotsOptions();
             config.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
             return Environment.GetEnvironmentVariable("SslCertificatePFX") ?? rapidBotsOptions.SslCertificatePFX;
+        }
+        private static string GetPemPath()
+        {
+            var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+            var rapidBotsOptions = new RapidBotsOptions();
+            config.GetSection(nameof(RapidBotsOptions)).Bind(rapidBotsOptions);
+            return Environment.GetEnvironmentVariable("SslCertificatePEM") ?? rapidBotsOptions.SslCertificatePEM;
         }
     }
 }
