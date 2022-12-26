@@ -42,7 +42,7 @@ namespace BirthdayBot.Quartz.Jobs
                     DateTime uNow = DateTime.Now.ToUniversalTime();
                     var utcHour = uNow.Hour;
 
-                    var membersEnum = await repository.GetRangeAsync<ChatMember>(false, x =>
+                    var membersEnum = await repository.GetRangeAsync<ChatMember>(true, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600);
                         DateTime now = uNow.AddHours(hoursOffset);

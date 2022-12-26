@@ -41,7 +41,7 @@ namespace BirthdayBot.Quartz.Jobs
                     DateTime uNow = DateTime.Now.ToUniversalTime();
                     var utcHour = uNow.Hour;
  
-                    var notesEnum = await repository.GetRangeAsync<Note>(false, x =>
+                    var notesEnum = await repository.GetRangeAsync<Note>(true, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.User.Timezone.DstOffset + x.User.Timezone.RawOffset) / 3600);
                         DateTime now = uNow.AddHours(hoursOffset);
@@ -74,7 +74,7 @@ namespace BirthdayBot.Quartz.Jobs
                         return false;
                     }, x => x.Include(x => x.User));
                     var notes = new List<Note>(notesEnum);
-                    var subsEnum = await repository.GetRangeAsync<Subscription>(false, x =>
+                    var subsEnum = await repository.GetRangeAsync<Subscription>(true, x =>
                     {
                         var hoursOffset = Convert.ToInt32((x.Target.Timezone.DstOffset + x.Target.Timezone.RawOffset) / 3600);
                         DateTime now = uNow.AddHours(hoursOffset);

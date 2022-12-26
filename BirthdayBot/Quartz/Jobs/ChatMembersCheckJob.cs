@@ -42,7 +42,7 @@ namespace BirthdayBot.Quartz.Jobs
                 {
                     DateTime uNow = DateTime.Now.ToUniversalTime();
 
-                    var chatsEnum = await repository.GetRangeAsync<Chat>(false, x =>
+                    var chatsEnum = await repository.GetRangeAsync<Chat>(true, x =>
                     {
                         if(x.NotificationsCount < 3)
                         {
